@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
+	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
+	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>KVCL 2024</title>
+</head>
+<body class="d-flex flex-column vh-100">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
+	<a class="navbar-brand m-1" href="/user-home">KVCL 2024</a>
+	<div class="collapse navbar-collapse">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/user-home">Home</a></li>
+		</ul>
+	</div>
+	<ul class="navbar-nav">
+		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+	</ul>	
+</nav>
+<div class="vh-100 container overflow-auto">
+	<div class="d-flex align-items-center justify-content-center">
+	<h3>Team Details</h3><a href="/user/edit-team"><i class="fa fa-edit fa-xl"></i></a>
+	<hr>
+	</div>
+	<div th:if=${team!=null}>
+		<div>
+			<section class="vh-10" style="background-color: #f4f5f7;">	
+			  <div class="container py-2 h-10">
+			    <div class="row d-flex justify-content-center align-items-center h-30">
+			      <div class="col mb-1 mb-lg-0">
+			        <div class="card mb-3" style="border-radius: .5rem;">
+			          <div class="row row-no-gutters g-0">
+			            <div class="col-md-4 gradient-custom text-center text-white"
+			              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+    			           <img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />   
+			              <h5 style="color: black" th:text="${team.name}"></h5>
+     		              	<p style="color: black" th:text="${'captain : '+{team.captain}}"></p>			             			           
+			            </div>
+			            <div class="col-md-8">
+			              <div class="card-body text-center p-4">
+		                	<h6>Team Details</h6> 	
+			                <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Team Name</h6>
+			                    <p class="text-muted"th:text="${team.name}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Captain</h6>
+			                    <p class="text-muted" th:text="${team.captain}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-4 mb-3">
+			                    <h6>Reqd accomodation?</h6>
+			                    <p class="text-muted" th:text="${team.requireAccomodation}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>Reqd food?</h6>
+			                    <p class="text-muted" th:text="${team.requireFood}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>Need accodation for</h6>
+			                    <p class="text-muted" th:text="${team.noOfAccomodation}"></p>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+		  </section>		
+		</div>
+		<br>
+		
+		<div class="d-flex align-items-center justify-content-center">
+		<h3>Vasavi Sangha Details</h3><a href="/user/edit-vasavi-sangha-details"><i class="fa fa-edit fa-xl"></i></a>
+		</div>
+		<div th:if="${vsDetails!=null}">	
+		<div>
+			<section class="vh-10" style="background-color: #f4f5f7;">	
+			  <div class="container py-2 h-10">
+			    <div class="row d-flex justify-content-center align-items-center h-30">
+			      <div class="col mb-1 mb-lg-0">
+			        <div class="card mb-3" style="border-radius: .5rem;">
+			          <div class="row row-no-gutters g-0">         
+			              <div class="card-body text-center p-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-4 mb-3">
+			                    <h6>State</h6>
+			                    <p class="text-muted"th:text="${team.vsDetails.state}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>City</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.city}"></p>
+			                  </div>
+			                     <div class="col-4 mb-3">
+			                    <h6>Area</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vasaviSanghaArea}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Vice President</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vsPresident}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Vice President Contact No</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vsPresidentNumber}"></p>
+			                  </div>
+			                </div>
+			                 <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Secretary</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vsSecretary}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Secretary Contact No</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vsSecretaryNumber}"></p>
+			                  </div>
+			                </div>
+			                </div>
+			              </div>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+		      </section>
+			  </div>	
+			  <br>
+		  
+			<div th:if="${vsDetails==null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/add-sangha-details">Add Vasavi Sangha Details</a>	
+			</div>	
+		</div>
+		
+		<div class="d-flex align-items-center justify-content-center">
+		<h3>Payment Details</h3><a href="/user/add-payment-details"><i class="fa fa-edit fa-xl"></i></a>
+		</div>
+		<div th:if="${team.paymentInfoDB!=null}">	
+		<div>
+			<section class="vh-10" style="background-color: #f4f5f7;">	
+			  <div class="container py-2 h-10">
+			    <div class="row d-flex justify-content-center align-items-center h-30">
+			      <div class="col mb-1 mb-lg-0">
+			        <div class="card mb-3" style="border-radius: .5rem;">
+			          <div class="row row-no-gutters g-0">         
+			              <div class="card-body text-center p-4">
+			                    <h6>Payment Screenshot</h6>
+			                   <img th:src="${team.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+			                  </div>			                
+			                </div>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+		      </section>
+			  </div>	
+			  <br>		  
+			<div th:if="${team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/add-payment-details">Add Payment Details</a>	
+			</div>	
+		</div>
+		
+		
+		
+		<br>
+		<div th:if="${team!=null and team.players!=null and false}" class="d-flex align-items-center justify-content-center">	
+		<h3>Player details</h3>
+		<div class="container">
+			<div th:each="item,stats : ${team.players}">
+			 <section class="vh-10" style="background-color: #f4f5f7;">	
+			  <div class="container py-2 h-10">
+			    <div class="row d-flex justify-content-center align-items-center h-30">
+			      <div class="col mb-1 mb-lg-0">
+			        <div class="card mb-3" style="border-radius: .5rem;">
+			          <div class="row row-no-gutters g-0">
+			            <div class="col-md-4 gradient-custom text-center text-white"
+			              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+			              <img th:src="${item.photoImg}"  alt="Avatar" class="img-fluid my-5" style="width: 150px;" />   
+			              
+			              <h5 style="color: black;" th:text="${item.playerName}">></h5>
+			              <p style="color: black;" th:text="${team.name}"></p>
+			              <p style="color: black;"> Edit Player Info <a th:href="${'/user/edit-player/'+{item.playerId}}"><i class="fa fa-edit"></i></a></p>
+			            </div>
+			            <div class="col-md-8">
+			              <div class="card-body p-4">
+			               <div class="row row-no-gutters pt-1">
+				              	<div class="col-6 mb-3">
+			                		<h6 class="text-start" th:text="${'Player Info ' + {stats.count}}"></h6>
+			                	</div>
+			                	<div class="col-6 mb-3">
+			                		 <p style="color: black;">Delete player <a th:href="${'/user/delete-player/'+{item.playerId}}"><i class="fa fa-trash"></i></a></p>
+			                	</div>
+		                	</div>
+			                <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Email</h6>
+			                    <p class="text-muted" th:text="${item.playerEmail}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Phone</h6>
+			                    <p class="text-muted" th:text="${item.playerPhone}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">
+			                   <div class="row row-no-gutters pt-1">
+			                 <div class="col-6 mb-3">
+			                    <h6>Gothram</h6>
+			                    <p class="text-muted" th:text="${item.playerGothram}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                  <div class="col-6 mb-3">
+			                    <h6>T Shirt Size</h6>
+			                    <p class="text-muted" th:text="${item.playerShirtSize}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">
+			                </div>       
+			                <div class="d-flex justify-content-start">
+			                 
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			    </div>
+			  </div>
+		  </section>
+		</div>	
+	</div>
+	<br>
+		<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team.players.size()<15}"}>
+			<a class ="btn btn-warning" href="/user/add-player">Add New Player</a>	
+		</div>
+		<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team.players.size()==15}">
+			<labelc class="form-label">Your have completed adding 15 players</label>
+			<label  class="form-label">Do you wish to Submit the form? Once Form is submitted it is locked with Organizers.</label><br>
+			<a class ="btn btn-warning" href="/user/add-player">Submit Form</a>	
+		</div>
+	</div>
+	
+</div>
+<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team==null}" >
+		<a class="btn btn-primary" href="/user/register-team">Add new Team</a>
+	</div>
+</div>
+<footer class="bg-body-tertiary text-center text-lg-start">
+	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-body" href="/home">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
+  </div>
+</footer>
+</body>

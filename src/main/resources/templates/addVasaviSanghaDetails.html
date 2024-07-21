@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org">
+<style>
+.gradient-custom {
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
+}
+
+.error{
+	background: white;
+	color: black;
+}
+
+</style>
+<head>
+	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
+	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
+	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>KVCL 2024</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
+	<a class="navbar-brand m-1" href="/user-home">KVCL 2024</a>
+	<div class="collapse navbar-collapse">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/user-home">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="/user/register-team">Team Registration</a></li>
+		<!--<li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>-->
+		</ul>
+	</div>
+	<ul class="navbar-nav">
+		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+	</ul>	
+</nav>
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-90">
+    <div class="row d-flex justify-content-center align-items-center h-80">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+           <!-- <div class="mb-md-5 mt-md-4 pb-5">  --> 
+			<form th:action="@{/user/add-sangha-details}" th:method="post" th:object="${vsDetails}" enctype="multipart/form-data">
+				  
+				  <input type="hidden" th:field="*{id}" />
+				  <input type="hidden" th:field="*{team}" />
+  				  			  	
+	              <h2 class="fw-bold mb-2 text-uppercase">KVCL 2K24</h2>
+	              <h5 class="fw-bold mb-2 text-uppercase">Add / Modify Vasavi Sangha Details</h5>
+	              <p class="text-white-50 mb-5">Please enter your Vasavi Sangha details!</p>
+	        
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+		              <select th:field="*{state}"  class="form-control form-control-lg" required="required">
+		              		<option th:each="p : ${states}" th:value="${p}" th:text="${p}" ></option>
+		              </select>
+		              <label class="form-label fs-4">Select your state</label>
+	              </div>
+		
+                  <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('city')}" th:errorclass="text-danger" th:errors="*{city}" />
+	                <input type="text" class="form-control form-control-lg" th:field="*{city}" required="required"/>
+	                <label class="form-label fs-4">Enter your city name</label>
+	              </div>
+	   
+	   			  <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vasaviSanghaName')}" th:errorclass="text-danger" th:errors="*{vasaviSanghaName}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vasaviSanghaName}" required="required"/>
+	                <label class="form-label fs-4">Enter Your Vasavi Sangha Name</label>
+	              </div>
+	   
+				   <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vasaviSanghaArea')}" th:errorclass="text-danger" th:errors="*{vasaviSanghaArea}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vasaviSanghaArea}" required="required"/>
+	                <label class="form-label fs-4">Enter Vasavi Sangha Address</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vsPresident')}" th:errorclass="text-danger" th:errors="*{vsPresident}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vsPresident}"  required="required"/>
+	                <label class="form-label fs-4">Vasavi Sangha President Name</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vsPresidentNumber')}" th:errorclass="text-danger" th:errors="*{vsPresidentNumber}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vsPresidentNumber}" pattern="[0-9]{10}" required="required"/>
+	                <label class="form-label fs-4">Vasavi Sangha President Number</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vsSecretary')}" th:errorclass="text-danger" th:errors="*{vsSecretary}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vsSecretary}"  required="required"/>
+	                <label class="form-label fs-4">Vasavi Sangha Secretary Name</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vsSecretaryNumber')}" th:errorclass="text-danger" th:errors="*{vsSecretaryNumber}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vsSecretaryNumber}" pattern="[0-9]{10}" required="required"/>
+	                <label class="form-label fs-4">Vasavi Sangha Secretary Address</label>
+	              </div>
+ 
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vsTreasurer')}" th:errorclass="text-danger" th:errors="*{vsTreasurer}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vsTreasurer}"  required="required"/>
+	                <label class="form-label fs-4">Vasavi Sangha Treasurer Name</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <p th:if="${#fields.hasErrors('vsTreasurerNumber')}" th:errorclass="text-danger" th:errors="*{vsTreasurerNumber}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{vsTreasurerNumber}" pattern="[0-9]{10}" required="required"/>
+	                <label class="form-label fs-4">Vasavi Sangha Treasurer Address</label>
+	              </div>
+
+	              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Save Vasavi Sangha Details</button>
+				</form>	  	
+            </div>	
+          </div>
+        </div>
+      </div>
+    </div>
+
+</section>
+<footer class="bg-body-tertiary text-center text-lg-start">
+	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    � 2024 Copyright:
+    <a class="text-body" href="/user-home">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
+  </div>
+</footer>
+</body>

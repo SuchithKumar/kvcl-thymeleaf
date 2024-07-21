@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org">
+<style>
+.gradient-custom {
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
+}
+
+.error{
+	background: white;
+	color: black;
+}
+
+</style>
+<head>
+	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
+	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
+	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>KVCL 2024</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
+	<a class="navbar-brand m-1" href="/user-home">KVCL 2024</a>
+	<div class="collapse navbar-collapse">
+	<ul class="navbar-nav">
+		<li class="navbar-brand m-1"><a class="nav-link" href="/home">Home</a></li>
+	</ul>
+	</div>
+	<ul class="navbar-nav">
+		<li class="navbar-brand m-1"><a class="nav-link" href="/login">Login</a></li>
+	</ul>
+</nav>
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+			<div class="d-flex align-items-center justify-content-center">
+				<p th:text="${errr}" class="text-danger fs-4"></p>
+			</div>	
+			<form th:action="@{/register-user}" method="post" th:object="${user}">
+				 
+	              <h2 class="fw-bold mb-2 text-uppercase">KVCL 2K24</h2>
+	              <h5 class="fw-bold mb-2 text-uppercase">User Registration Form</h5>
+	              <p class="text-white-50 mb-5">Please enter your details to register your team for Tournament!</p>
+	
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              	<p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="*{name}" />
+	                <input type="text" class="form-control form-control-lg" th:field="*{name}" required="required"/>
+	                <label class="form-label fs-4">Enter Name</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+   	              	<p th:if="${#fields.hasErrors('password')}" th:errorclass="text-danger" th:errors="*{password}" />   	              	
+	                <input type="password" class="form-control form-control-lg"th:field="*{password}" required="required" />
+	                <label class="form-label fs-4" >Enter password</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('reEnterPassword')}" th:errorclass="text-danger" th:errors="*{reEnterPassword}" />
+	               <div  th:if="${not #strings.isEmpty(err)}">
+	              	 <p th:text="${err}" class="text-danger"></p>
+	              </div>
+	                <input type="password" class="form-control form-control-lg" th:field="*{reEnterPassword}" required="required"/>
+	                <label class="form-label fs-4" >Re-Enter password</label>
+	              </div>
+	         
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('username')}" th:errorclass="text-danger" th:errors="*{username}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{username}" pattern="[0-9]{10}" required="required"/>
+	                <label class="form-label fs-4" >Phone number</label>
+	              </div>
+         		  
+         		  <input class="form-control" type="hidden" th:field="*{roles}"></input>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              
+	            
+	                <input type="email" class="form-control form-control-lg" th:field="*{email}" required="required"/>
+	                <label class="form-label fs-4" >Email ID</label>
+                    <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}" />
+	                
+	              </div>
+	
+					<!-- 					
+						<div th:if="${#fields.hasAnyErrors()}">
+						    <ul>
+						        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+						    </ul>
+						</div>
+ 					-->
+	              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+			  </form>
+            </div>
+            <div class="d-flex align-items-center justify-content-center p-5">
+              <p class="mb-0">Already Registered? <a th:href="@{/login}" class="text-white-50 fw-bold">Login</a></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<footer class="bg-body-tertiary text-center text-lg-start">
+	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-body" href="https://localhost:8000/welcome">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
+  </div>
+</footer>
+</body>
