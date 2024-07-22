@@ -17,10 +17,18 @@ public class HelloController {
 		return "adminHome";
 	}
 	
+	@GetMapping(path = {"/"})
+	public String helloWelcome() {
+		return "welcome";
+	}
+	
 	@GetMapping(path = {"/welcome"})
 	public String welcome() {
 		return "welcome";
 	}
 	
-	
+	@GetMapping(path = {"/welcome-private"})
+	public String welcomePrivate() {
+		return "welcomePrivate";
+	}
 }

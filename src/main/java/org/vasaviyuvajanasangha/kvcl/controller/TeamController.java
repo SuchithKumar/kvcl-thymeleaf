@@ -30,7 +30,7 @@ public class TeamController {
 	@GetMapping(path = {"/user-home"})
 	public String userHome(ModelMap model) {
 		var teamPre = teamServiceImpl.findTeamByRegisterUser(getCurrentUser());
-		logger.info("update-request : {}",teamPre);
+//		logger.info("update-request : {}",teamPre);
 		if(teamPre.isEmpty()) {
 			model.put("team", null);
 			model.put("vsDetails", null);
@@ -59,7 +59,7 @@ public class TeamController {
 	@GetMapping("/user/register-team")
 	public String viewTeamRegistrationPage(ModelMap model) {
 		var teamPre = teamServiceImpl.findTeamByRegisterUser(getCurrentUser());
-		logger.debug("update-request : {}",teamPre);
+//		logger.debug("update-request : {}",teamPre);
 		if(teamPre.isEmpty()) {
 			model.put("team", new Team());
 			return "addTeam";

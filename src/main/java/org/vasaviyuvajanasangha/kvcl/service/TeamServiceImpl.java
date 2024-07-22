@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.vasaviyuvajanasangha.kvcl.model.Player;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
 import org.vasaviyuvajanasangha.kvcl.repository.TeamRepository;
+import org.vasaviyuvajanasangha.kvcl.utils.ImageFilter;
 
 import jakarta.transaction.Transactional;
 
@@ -22,8 +24,13 @@ public class TeamServiceImpl {
 	public Team saveTeamDetails(Team team) {
 		
 		try {
-			if(team.getLogo()!=null)
-				team.setTeamLogo(team.getLogo().getBytes());
+			if(team.getLogo()!=null) {
+					MultipartFile file = team.getLogo();
+//					String filename = team.getLogo().getOriginalFilename();
+//					String ext = filename.substring(filename.lastIndexOf(".") + 1);
+//					byte[] bytes = ImageFilter.resize(file, 450, ext);
+			    	team.setTeamLogo(file.getBytes());
+			}
 			
 			if(team.getPaymentInfoFile()!=null)
 				team.setPaymentInfoDB(team.getPaymentInfoFile().getBytes());
@@ -57,5 +64,8 @@ public class TeamServiceImpl {
 		updatedTeam.setPlayers(updatedPlayers);
 		return Optional.of(updatedTeam);
 	}
+	
+	
+	
 	
 }

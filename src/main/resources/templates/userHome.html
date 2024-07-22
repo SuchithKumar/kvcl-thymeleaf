@@ -13,9 +13,10 @@
 	<a class="navbar-brand m-1" href="/user-home">KVCL 2024</a>
 	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/user-home">Home</a></li>
-		</ul>
-	</div>
+			<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>			
+			<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>
+		<!--<li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>-->
+		</ul>	</div>
 	<ul class="navbar-nav">
 		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 	</ul>	
@@ -77,12 +78,16 @@
 			  </div>
 		  </section>		
 		</div>
+		</div>
+		<div th:if="${team==null}" class="d-flex align-items-center justify-content-center mb-4">
+			<a class ="btn btn-warning" href="/user/register-team">Add Team Details</a>	
+		</div>	
 		<br>
-		
+		<hr>
 		<div class="d-flex align-items-center justify-content-center">
 		<h3>Vasavi Sangha Details</h3><a href="/user/edit-vasavi-sangha-details"><i class="fa fa-edit fa-xl"></i></a>
 		</div>
-		<div th:if="${vsDetails!=null}">	
+		<div th:if="${team!=null and team.vsDetails!=null}">	
 		<div>
 			<section class="vh-10" style="background-color: #f4f5f7;">	
 			  <div class="container py-2 h-10">
@@ -126,26 +131,36 @@
 			                    <h6>Secretary Contact No</h6>
 			                    <p class="text-muted" th:text="${team.vsDetails.vsSecretaryNumber}"></p>
 			                  </div>
+			                    <hr class="mt-0 mb-4">
+			                	<div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Treasurer</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vsTreasurer}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Treasurer Contact No</h6>
+			                    <p class="text-muted" th:text="${team.vsDetails.vsTreasurerNumber}"></p>
+			                  </div>
 			                </div>
 			                </div>
 			              </div>
 			          </div>
+			        </div>
 			        </div>
 			      </div>
 			    </div>
 		      </section>
 			  </div>	
 			  <br>
-		  
-			<div th:if="${vsDetails==null}" class="d-flex align-items-center justify-content-center mb-4">
-				<a class ="btn btn-warning" href="/user/add-sangha-details">Add Vasavi Sangha Details</a>	
-			</div>	
 		</div>
-		
+		<div th:if="${team!=null and team.vsDetails==null}" class="d-flex align-items-center justify-content-center mb-4">
+			<a class ="btn btn-warning" href="/user/add-sangha-details">Add Vasavi Sangha Details</a>	
+		</div>	
+		<hr>
 		<div class="d-flex align-items-center justify-content-center">
 		<h3>Payment Details</h3><a href="/user/add-payment-details"><i class="fa fa-edit fa-xl"></i></a>
 		</div>
-		<div th:if="${team.paymentInfoDB!=null}">	
+		<div th:if="${team!=null and team.paymentInfoDB!=null}">	
 		<div>
 			<section class="vh-10" style="background-color: #f4f5f7;">	
 			  <div class="container py-2 h-10">
@@ -165,12 +180,14 @@
 		      </section>
 			  </div>	
 			  <br>		  
-			<div th:if="${team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
-				<a class ="btn btn-warning" href="/user/add-payment-details">Add Payment Details</a>	
-			</div>	
 		</div>
+		<div th:if="${team!=null and team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
+			<a class ="btn btn-warning" href="/user/add-payment-details">Add Payment Details</a>	
+		</div>	
 		
-		
+		<div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
+			<h4>Thanks for completing the phase 1 of the registration process. we will review the details and get back for phase 2 of the registration process 🙏</h4>	
+		</div>	
 		
 		<br>
 		<div th:if="${team!=null and team.players!=null and false}" class="d-flex align-items-center justify-content-center">	
@@ -232,6 +249,7 @@
 			              </div>
 			            </div>
 			          </div>
+			          </div>
 			        </div>
 			    </div>
 			  </div>
@@ -247,11 +265,6 @@
 			<label  class="form-label">Do you wish to Submit the form? Once Form is submitted it is locked with Organizers.</label><br>
 			<a class ="btn btn-warning" href="/user/add-player">Submit Form</a>	
 		</div>
-	</div>
-	
-</div>
-<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team==null}" >
-		<a class="btn btn-primary" href="/user/register-team">Add new Team</a>
 	</div>
 </div>
 <footer class="bg-body-tertiary text-center text-lg-start">

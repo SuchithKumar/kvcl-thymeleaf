@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html 
-	xmlns:th="http://www.thymeleaf.org"></html>
+	xmlns:th="http://www.thymeleaf.org">
+<head>
 <style>
 .gradient-custom {
 background: rgb(34,193,195);
@@ -13,7 +14,7 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 }
 
 </style>
-<head>
+
 	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
 	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
 	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
@@ -25,8 +26,8 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 	<a class="navbar-brand m-1" href="/user-home">KVCL 2024</a>
 	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/user-home">Home</a></li>
-			<li class="nav-item"><a class="nav-link" href="/user/register-team">Team Registration</a></li>
+			<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>			
+			<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>
 		<!--<li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>-->
 		</ul>
 	</div>
@@ -55,40 +56,54 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 	
 	              <div data-mdb-input-init class="form-outline form-white mb-4">
 	              	<p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger" th:errors="*{name}" />
+					 <label class="form-label fs-4">Enter Team Name</label>
+	             
 	                <input type="text" class="form-control form-control-lg" th:field="*{name}" required="required"/>
-	                <label class="form-label fs-4">Enter Team Name</label>
 	              </div>
-	              
-	              
 	              
 	              <div data-mdb-input-init class="form-outline form-white mb-4">
 	              	<p th:if="${#fields.hasErrors('logo')}" th:errorclass="text-danger" th:errors="*{logo}" />
+	               	                <label class="form-label fs-4">Attach Team Logo</label>
+	               
 	                <input type="file" class="form-control form-control-lg" th:field="*{logo}" accept="image/*" required="required"/>
-	                <label class="form-label fs-4">Attach Team Logo</label>
 	              </div>
 	              
 	              <div data-mdb-input-init class="form-outline form-white mb-4">
    	              	<p th:if="${#fields.hasErrors('captain')}" th:errorclass="text-danger" th:errors="*{captain}" />   	              	
+	               	                <label class="form-label fs-4" >Enter Captain Name</label>
+	               
 	                <input type="text" class="form-control form-control-lg"th:field="*{captain}" required="required" />
-	                <label class="form-label fs-4" >Enter Captain Name</label>
 	              </div>
         		  
          		  <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
-				   Yes<input type="radio" value="Yes" th:field="*{requireAccomodation}" required="required"/> 
-				   No<input type="radio" value="No" th:field="*{requireAccomodation}" required="required"/><br>
-   	                <label class="form-label fs-4">Do you need accommodation?</label>
+				    	                <label class="form-label fs-4">Do you need accommodation?</label>
+					<br>	 	
+				   Yes<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="Yes" th:field="*{requireAccomodation}" required="required"/> 
+				   No<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="No" th:field="*{requireAccomodation}" required="required"/>
 			      </div>
 			      
-		          <div data-mdb-input-init class="form-outline form-white mb-4">
+		         <!--  <div data-mdb-input-init class="form-outline form-white mb-4">
    	              	<p th:if="${#fields.hasErrors('noOfAccomodation')}" th:errorclass="text-danger" th:errors="*{noOfAccomodation}" />   	              	
-	                <input type="text" class="form-control form-control-lg"th:field="*{noOfAccomodation}" required="required" />
+	                <input type="text" class="form-control form-control-lg"th:field="*{noOfAccomodation}" />
 	                <label class="form-label fs-4">If yes, for how many people?</label>
-	              </div>
+	              </div> -->
+	               	
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <label class="form-label fs-4">If yes, how many people?</label>
+		              <select style="width:100px;" id="valueSelect" name="noOfAccomodation" th:value="${noOfAccomodation}">
+			            <option th:each="val : ${#numbers.sequence(0, 15)}"
+			                    th:value="${val}"
+			                    th:text="${val}">
+			            </option>
+			          </select>
+		          </div>
 			      
 			      <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
-				   Yes<input type="radio" value="Yes" th:field="*{requireFood}" required="required"/> 
-				   No<input type="radio" value="No" th:field="*{requireFood}" required="required"/><br>
-   	               <label class="form-label fs-4">Would you like to opt in for food from organizers on the match day?</label>
+				     	               <label class="form-label fs-4">Would you like to opt in for food from organizers on the match day?</label>
+				  <br>
+				   Yes<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="Yes" th:field="*{requireFood}" required="required"/> 
+				   No<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="No" th:field="*{requireFood}" required="required"/>
 			      </div>
 					<!-- 					
 						<div th:if="${#fields.hasAnyErrors()}">
@@ -113,3 +128,4 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
   </div>
 </footer>
 </body>
+</html>
