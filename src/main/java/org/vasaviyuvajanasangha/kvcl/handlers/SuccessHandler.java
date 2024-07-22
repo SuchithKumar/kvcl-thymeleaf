@@ -17,12 +17,12 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws ServletException, IOException {
+		Authentication authentication) throws ServletException, IOException {
 		
 		boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
 		logger.info("auth -> {}",authentication);
 		if(isAdmin) {
-			setDefaultTargetUrl("/admin-home");
+			setDefaultTargetUrl("/admin/admin-home");
 		}else {
 			setDefaultTargetUrl("/user-home");
 		}

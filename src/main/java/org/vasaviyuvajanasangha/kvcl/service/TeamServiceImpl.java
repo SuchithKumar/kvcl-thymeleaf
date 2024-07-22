@@ -1,7 +1,9 @@
 package org.vasaviyuvajanasangha.kvcl.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.vasaviyuvajanasangha.kvcl.model.Player;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
 import org.vasaviyuvajanasangha.kvcl.repository.TeamRepository;
-import org.vasaviyuvajanasangha.kvcl.utils.ImageFilter;
 
 import jakarta.transaction.Transactional;
 
@@ -65,6 +66,31 @@ public class TeamServiceImpl {
 		return Optional.of(updatedTeam);
 	}
 	
+	
+	public List<Team> findAllTeams(){
+		
+		List<Team> newTeams = new ArrayList<>();
+		for(Team team : repository.findAll()){
+			
+			var updatedTeam = team;
+			updatedTeam.setLogoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(updatedTeam.getTeamLogo()));
+			
+			if(updatedTeam.getPaymentInfoDB()!=null)
+				updatedTeam.setPaymentInfoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(updatedTeam.getPaymentInfoDB()));
+
+			
+			var updatedPlayers = updatedTeam.getPlayers();
+			if(!updatedTeam.getPlayers().isEmpty()) {
+				for(Player player : updatedPlayers)
+					player.setPhotoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(player.getPlayerPhoto()));
+			}
+			updatedTeam.setPlayers(updatedPlayers);
+			
+			newTeams.add(updatedTeam);			
+		}
+		
+		return newTeams;
+	}
 	
 	
 	

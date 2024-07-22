@@ -1,5 +1,6 @@
 package org.vasaviyuvajanasangha.kvcl.model;
 
+import org.springframework.context.annotation.Scope;
 import org.vasaviyuvajanasangha.kvcl.validator.ExtendedEmailValidator;
 
 import jakarta.persistence.Entity;
@@ -21,6 +22,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Scope("session")
 public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,7 +45,5 @@ public class AppUser {
 	private String roles;
 
 	@Transient
-	@NotNull
-	@Size(min = 8,message = "user password should be minimum 8 characters")
 	private String reEnterPassword;
 }

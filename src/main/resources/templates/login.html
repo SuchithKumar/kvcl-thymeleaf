@@ -38,6 +38,7 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 			<form th:action="@{/login}" th:method="post">
 				 <div th:if="${param.error}" class="bg-rose-100 justify-center p-4 ring-1 ring-rose-200 rounded-md">
                     <h4 class="text-danger">Invalid Credentials!</h4>
+                    <p class="mb-0">Don't have an account? <a th:href="@{/register-user}" class="text-white-50 fw-bold">Sign Up</a></p> 
                 </div>
 	              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
 	              <br>

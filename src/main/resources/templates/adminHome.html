@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
+	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
+	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>KVCL 2024</title>
+</head>
+<body class="d-flex flex-column vh-100 text-center">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
+	<a class="navbar-brand m-1" href="/welcome">KVCL 2024</a>
+	<div class="collapse navbar-collapse">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>
+			<li class="nav-item" sec:authorize="hasRole('ADMIN')" ><a class="nav-link" href="/admin/admin-home">Admin Dashboard</a></li>
+		</ul>
+	</div>
+	<ul class="navbar-nav">
+		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+	</ul>	
+</nav>
+<div class="vh-100 container overflow-auto text-center">
+	<h3>Admin Page</h3>	
+	<br>
+	<h5>Registered Users</h5>	
+	<div class="container ">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Phone Number</th>
+						<th>Role</th>
+						<th>Give Admin Access</th>
+						<th>Revoke Admin Access</th>
+						<th>Delete User</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${registered_users}" >
+					 	<td th:text=${item.name}></td>
+					 	<td th:text=${item.email}></td>
+					 	<td th:text=${item.username}></td>
+					 	<td th:text=${item.roles}></td>
+					 	<td><a class="btn btn-primary" th:href="@{'/admin/grant-admin-access/' + ${item.userId}}">Grant admin access</a></td>
+					 	<td><a class="btn btn-warning" th:href="@{'/admin/revoke-admin-access/' + ${item.userId}}">Revoke admin access</a></td>
+					 	<td><a class="btn btn-danger" th:href="@{'/admin/delete-user/' + ${item.userId}}">Delete User</a></td>
+					 </tr>
+				</tbody>
+			</table>	
+	</div>
+	<br>
+	<br>
+	<h5>Registered Teams</h5>
+	<div class="container ">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Team Logo</th>
+						<th>Team Name</th>
+						<th>Captain</th>
+						<th>Registered By</th>
+						<th>Accomodation Reqd</th>
+						<th>No of Accomodation</th>
+						<th>Opted for Food</th>
+						<th>Payment Screenshot</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${registered_teams}" >
+					 	<td><img th:src="${item.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" /></td>
+					 	<td th:text=${item.name}></td>
+					 	<td th:text=${item.captain}></td>
+					 	<td th:text=${item.registeredUser}></td>
+					 	<td th:text=${item.requireAccomodation}></td>
+					 	<td th:text=${item.noOfAccomodation}></td>
+					 	<td th:text=${item.requireFood}></td>
+					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 50px;" /></td>
+					 </tr>
+				</tbody>
+			</table>	
+	</div>
+	<br>
+	<br>
+	<h5>Vasavi Sangha Details</h5>
+	<div class="container ">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>						
+						<th>Team Name</th>
+						<th>Vasavi Sangha Name</th>
+						<th>Vasavi Sangha Area</th>
+						<th>City</th>
+						<th>State</th>
+						<th>President</th>
+						<th>President no</th>
+						<th>Secretary</th>
+						<th>Secretary no</th>
+						<th>Treasurer</th>
+						<th>Treasurer no</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${vasavi_sangha_details}">
+					 	<td th:text="${item.name}"></td>
+					 	<td th:text="${item.vsDetails.vasaviSanghaName}"></td>
+					 	<td th:text=${item.vsDetails.vasaviSanghaArea}></td>
+					 	<td th:text=${item.vsDetails.city}></td>
+					 	<td th:text=${item.vsDetails.state}></td>
+					 	<td th:text=${item.vsDetails.vsPresident}></td>
+					 	<td th:text=${item.vsDetails.vsPresidentNumber}></td>
+					 	<td th:text=${item.vsDetails.vsSecretary}></td>
+					 	<td th:text=${item.vsDetails.vsSecretaryNumber}></td>
+					 	<td th:text=${item.vsDetails.vsTreasurer}></td>
+					 	<td th:text=${item.vsDetails.vsTreasurerNumber}></td>
+					 </tr>
+				</tbody>
+			</table>	
+	</div>
+	
+	<br>
+	<br>	
+</div>
+<footer class="bg-body-tertiary text-center text-lg-start">
+	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+   			 © 2024 Copyright:
+    <a class="text-body" href="/welcome">Karnataka Arya Vysya Vasavi Yuvajana Sangha, KG Nagar, Bangalore</a>
+  </div>
+</footer>
+</body>
