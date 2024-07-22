@@ -15,7 +15,7 @@ import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 @Controller
-@SessionAttributes({"name","username","team","players"})
+@SessionAttributes({"name","username","team","players","announcement"})
 public class PlayerController {
 
 	@Autowired
@@ -36,6 +36,7 @@ public class PlayerController {
 		var team = teamServiceImpl.findTeamByRegisterUser(TeamController.getCurrentUser());
 		player.setTeam(team.get());
 		playerServiceImpl.savePlayer(player);
+		
 		return "redirect:/user-home";
 	}
 	
@@ -57,12 +58,14 @@ public class PlayerController {
 		}
 		dbPlayer.setTeam(team.get());
 		playerServiceImpl.savePlayer(dbPlayer);
+		
 		return "redirect:/user-home";
 	}
 	
 	@GetMapping("/user/delete-player/{playerId}")
 	public String deletePlayer(ModelMap model,@PathVariable Long playerId) {
 		playerServiceImpl.deletePlayerById(playerId);
+		
 		return "redirect:/user-home";
 	}
 	

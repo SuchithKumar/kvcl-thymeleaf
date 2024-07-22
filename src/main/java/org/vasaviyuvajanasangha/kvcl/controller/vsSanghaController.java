@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
 import org.vasaviyuvajanasangha.kvcl.model.VasaviSanghaDetails;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
@@ -13,6 +14,7 @@ import org.vasaviyuvajanasangha.kvcl.service.VasaviSanghaDetailsServicesImpl;
 import org.vasaviyuvajanasangha.kvcl.utils.Helper;
 
 @Controller
+@SessionAttributes("announcement")
 public class vsSanghaController {
 	
 	@Autowired
@@ -34,7 +36,7 @@ public class vsSanghaController {
 	public String postVasaviSanghaDetailsPage(ModelMap model,VasaviSanghaDetails vsDetails,BindingResult result) {
 		Team dbTeam = teamServiceImpl.findTeamByRegisterUser(TeamController.getCurrentUser()).get();
 		vsDetails.setTeam(dbTeam);
-		vasaviSanghaDetailsServiceImpl.saveVsDetails(vsDetails);		
+		vasaviSanghaDetailsServiceImpl.saveVsDetails(vsDetails);	
 		return "redirect:/user-home";
 	}
 	
@@ -55,7 +57,7 @@ public class vsSanghaController {
 		Team dbTeam = teamServiceImpl.findTeamByRegisterUser(TeamController.getCurrentUser()).get();
 		dbTeam.setVsDetails(vsDetails);
 		vsDetails.setTeam(dbTeam);
-		vasaviSanghaDetailsServiceImpl.saveVsDetails(vsDetails);		
+		vasaviSanghaDetailsServiceImpl.saveVsDetails(vsDetails);	
 		return "redirect:/user-home";
 	}
 	

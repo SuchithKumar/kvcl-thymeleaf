@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,6 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -67,11 +67,11 @@ public class Team {
 	private byte[] paymentInfoDB;
 	
 	
-	@OneToOne(mappedBy = "team",fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "team",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private VasaviSanghaDetails vsDetails;
 	
 	
-	@OneToMany(mappedBy = "team",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "team",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Player> players;
 	
 	

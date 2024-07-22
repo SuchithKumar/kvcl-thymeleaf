@@ -1,10 +1,18 @@
 package org.vasaviyuvajanasangha.kvcl.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 
 @Controller
+@SessionAttributes("announcement")
 public class LoginWelcomeController {
+	
+	@Autowired
+	private AnnouncementServiceImpl anServiceImpl;
 	
 	
 	@GetMapping(path = {"/login"})
@@ -13,17 +21,20 @@ public class LoginWelcomeController {
 	}
 		
 	@GetMapping(path = {"/"})
-	public String helloWelcome() {
+	public String helloWelcome(ModelMap map) {
+		map.put("announcement", anServiceImpl.getLastAnnouncement());
 		return "welcome";
 	}
 	
 	@GetMapping(path = {"/welcome"})
-	public String welcome() {
+	public String welcome(ModelMap map) {
+		map.put("announcement", anServiceImpl.getLastAnnouncement());
 		return "welcome";
 	}
 	
 	@GetMapping(path = {"/welcome-private"})
-	public String welcomePrivate() {
+	public String welcomePrivate(ModelMap map) {
+		map.put("announcement", anServiceImpl.getLastAnnouncement());
 		return "welcomePrivate";
 	}
 }

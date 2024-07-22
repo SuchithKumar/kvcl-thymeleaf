@@ -6,11 +6,18 @@
 	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
 	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
 	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+<style>
+	.gradient-custom {
+	background: rgb(34,193,195);
+	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
+	padding-top: 30px;
+}		
+</style>
 <meta charset="UTF-8">
 <title>KVCL 2024</title>
 </head>
 <body class="d-flex flex-column vh-100 text-center">
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark p-1 ">
 	<a class="navbar-brand m-1" href="/welcome">KVCL 2024</a>
 	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav">
@@ -23,8 +30,14 @@
 		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 	</ul>	
 </nav>
+<marquee class="h4 text-center gradient-custom" width="100%" direction="left" height="100px" scrollamount="15" th:text="${announcement.announcement}">
+	<strong></strong>
+</marquee>
 <div class="vh-100 container overflow-auto text-center">
 	<h3>Admin Page</h3>	
+	<br>
+		<a class="btn btn-primary" href="/admin/new-announcement">Make new Announcement</a>
+	<br>
 	<br>
 	<h5>Registered Users</h5>	
 	<div class="container ">
@@ -37,7 +50,6 @@
 						<th>Phone Number</th>
 						<th>Role</th>
 						<th>Give Admin Access</th>
-						<th>Revoke Admin Access</th>
 						<th>Delete User</th>
 					</tr>
 				</thead>
@@ -48,8 +60,29 @@
 					 	<td th:text=${item.username}></td>
 					 	<td th:text=${item.roles}></td>
 					 	<td><a class="btn btn-primary" th:href="@{'/admin/grant-admin-access/' + ${item.userId}}">Grant admin access</a></td>
-					 	<td><a class="btn btn-warning" th:href="@{'/admin/revoke-admin-access/' + ${item.userId}}">Revoke admin access</a></td>
 					 	<td><a class="btn btn-danger" th:href="@{'/admin/delete-user/' + ${item.userId}}">Delete User</a></td>
+					 </tr>
+				</tbody>
+			</table>	
+	</div>
+	<br>
+	<br>
+	<h5>Admins</h5>	
+		<div class="container ">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Phone Number</th>						
+						<th>Revoke Admin Access</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${registered_admins}" >
+					 	<td th:text=${item.name}></td>
+					 	<td th:text=${item.username}></td>
+					 	<td><a class="btn btn-warning" th:href="@{'/admin/revoke-admin-access/' + ${item.userId}}">Revoke admin access</a></td>
 					 </tr>
 				</tbody>
 			</table>	
@@ -70,6 +103,7 @@
 						<th>No of Accomodation</th>
 						<th>Opted for Food</th>
 						<th>Payment Screenshot</th>
+						<th>Delete Team</th>
 					</tr>
 				</thead>
 				</tbody>
@@ -82,6 +116,7 @@
 					 	<td th:text=${item.noOfAccomodation}></td>
 					 	<td th:text=${item.requireFood}></td>
 					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 50px;" /></td>
+					 	<td><a class="btn btn-danger" th:href="@{'/admin/delete-team/' + ${item.id}}">Delete Team</a></td>					 	
 					 </tr>
 				</tbody>
 			</table>	

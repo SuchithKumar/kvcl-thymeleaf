@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.FileEntity;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
+import org.vasaviyuvajanasangha.kvcl.repository.AnnouncementsRepo;
+import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 @Controller
-@SessionAttributes({"name","username","team","players"})
+@SessionAttributes({"name","username","team","players","announcement"})
 public class TeamController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -26,9 +28,13 @@ public class TeamController {
 	@Autowired
 	private TeamServiceImpl teamServiceImpl;
 	
+	@Autowired
+	private AnnouncementServiceImpl anServiceImpl;
 	
 	@GetMapping(path = {"/user-home"})
 	public String userHome(ModelMap model) {
+		model.put("announcement", anServiceImpl.getLastAnnouncement());
+
 		var teamPre = teamServiceImpl.findTeamByRegisterUser(getCurrentUser());
 //		logger.info("update-request : {}",teamPre);
 		if(teamPre.isEmpty()) {
@@ -51,7 +57,6 @@ public class TeamController {
 		}else {
 			model.put("paymentDetails", null);
 		}
-		
 		return "userHome";
 	}
 	
@@ -81,7 +86,6 @@ public class TeamController {
 		team.setRegisteredUser(getCurrentUser());
 		teamServiceImpl.saveTeamDetails(team);
 		model.put("team",team);
-		
 		return "redirect:/user-home";
 	}
 	
@@ -135,7 +139,6 @@ public class TeamController {
 			return "redirect:/user-home";
 			
 		}
-		
 		return "redirect:/user-home";
 						
 	}
