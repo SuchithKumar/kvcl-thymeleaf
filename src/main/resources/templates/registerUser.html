@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html 
 	xmlns:th="http://www.thymeleaf.org">
 <style>
@@ -14,9 +14,8 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 
 </style>
 <head>
-	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
-	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
-	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
 <meta charset="UTF-8">
 <title>KVCL 2024</title>
 </head>
@@ -107,7 +106,11 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 <footer class="bg-body-tertiary text-center text-lg-start">
 	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
     © 2024 Copyright:
-    <a class="text-body" href="https://localhost:8000/welcome">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
+    <a class="text-body" href="/welcome">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
   </div>
 </footer>
+<div>
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+</div>
 </body>
+</html>

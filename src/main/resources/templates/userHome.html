@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-	<link rel="stylesheet" href="/webjars/font-awesome/6.4.2/css/all.css">
-	<link rel="stylesheet" href="/webjars/jquery/3.6.0/jquery.min.js">
-	<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
 <style>
 	.gradient-custom {
 	background: rgb(34,193,195);
@@ -18,7 +17,7 @@
 </head>
 <body class="d-flex flex-column vh-100">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark p-1 ">
-	<a class="navbar-brand m-1" href="/user-home">KVCL 2024</a>
+	<a class="navbar-brand m-1" href="/welcome-private">KVCL 2024</a>
 	<div class="collapse navbar-collapse">
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>			
@@ -290,7 +289,7 @@
 			<a class ="btn btn-warning" href="/user/add-player">Add New Player</a>	
 		</div>
 		<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team.players.size()==15}">
-			<labelc class="form-label">Your have completed adding 15 players</label>
+			<label class="form-label">Your have completed adding 15 players</label>
 			<label  class="form-label">Do you wish to Submit the form? Once Form is submitted it is locked with Organizers.</label><br>
 			<a class ="btn btn-warning" href="/user/add-player">Submit Form</a>	
 		</div>
@@ -299,7 +298,11 @@
 <footer class="bg-body-tertiary text-center text-lg-start">
 	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
     © 2024 Copyright:
-    <a class="text-body" href="/home">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
+    <a class="text-body" href="/welcome-private">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
   </div>
 </footer>
+<div>
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+</div>
 </body>
+</html>
