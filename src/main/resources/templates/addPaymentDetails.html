@@ -2,39 +2,13 @@
 <html 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<style>
-.gradient-custom {
-background: rgb(34,193,195);
-background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
-}
 
-.error{
-	background: white;
-	color: black;
-}
+<div th:replace="fragments/layoutFragmentsPrivate  :: headFrag" ></div>
 
-</style>
-<head>
-	<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
-<meta charset="UTF-8">
-<title>KVCL 2024</title>
-</head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
-	<a class="navbar-brand m-1" href="/welcome-private">KVCL 2024</a>
-	<div class="collapse navbar-collapse">
-		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>			
-			<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>
-			<li class="nav-item" sec:authorize="hasRole('ADMIN')" ><a class="nav-link" href="/admin/admin-home">Admin Dashboard</a></li>
-		<!--<li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>-->
-		</ul>
-	</div>
-	<ul class="navbar-nav">
-		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-	</ul>	
-</nav>
+
+<nav th:replace="fragments/layoutFragmentsPrivate :: navFrag"></nav>
+
 <section class="vh-100 gradient-custom">
   <div class="container py-5 h-90">
     <div class="row d-flex justify-content-center align-items-center h-80">
@@ -47,9 +21,7 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 	             
 	              <h2 class="fw-bold mb-2 text-uppercase">KVCL 2K24</h2>
 	              <h5 class="fw-bold mb-2 text-uppercase">Payment Details Form</h5>
-	              <p class="text-white-50 mb-5">Please pay 6000₹ by Scanning the below QR Code</p>
-	              <p class="text-white-50 mb-5">Upload the screenshot below once payment is done.</p>
-	              
+	              <p class="text-white-50 mb-5">Please pay 6000₹ by Scanning the below QR Code</p>	              
 	              <div>
 					<img class="img-fluid" src="../static/images/scanner.jpeg" width="200px" th:src="@{../images/scanner.jpg}"/>
 		            <p class="text-white-50 mb-5"></p>
@@ -69,14 +41,8 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
     </div>
 
 </section>
-<footer class="bg-body-tertiary text-center text-lg-start">
-	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    � 2024 Copyright:
-    <a class="text-body" href="/welcome-private">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
-  </div>
-</footer>
-<div>
-	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-</div>
+
+<div th:replace="fragments/layoutFragmentsPrivate :: footFrag"></div>
+
 </body>
 </html>

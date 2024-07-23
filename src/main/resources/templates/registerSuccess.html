@@ -1,24 +1,17 @@
 <!doctype html>
+
 <html 
-	xmlns:th="http://www.thymeleaf.org">
-<head>
-	<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
-<meta charset="UTF-8">
-<title>KVCL 2024</title>
-</head>
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:include="fragments/layoutFragments :: headFrag"></head>
+
 <body class="d-flex flex-column vh-100">
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 p-1 ">
-	<a class="navbar-brand m-1" href="/welcome">KVCL 2024</a>
-	<div class="collapse navbar-collapse">
-		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/welcome">Home</a></li>
-		</ul>
-	</div>
-	<ul class="navbar-nav">
-		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>		
-	</ul>	
-</nav>
+
+<div th:replace="fragments/layoutFragments  :: navFrag" ></div>
+
+<div th:replace="fragments/layoutFragments :: marqueeFrag"></div>
+
 <div class="vh-100 container overflow-auto text-center">
 	<h3>KVCL 2024</h3>
 	<h4>National Level Cricket Tournament for Arya Vysyas</h4>
@@ -35,8 +28,8 @@
     <a class="text-body" href="/welcome">Karnataka Arya Vysya Vasavi Yuvajana Sangha, KG Nagar, Bangalore</a>
   </div>
 </footer>
-<div>
-	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-</div>
+
+<div th:replace="fragments/layoutFragments :: footFrag"></div>
+
 </body>
 </html>

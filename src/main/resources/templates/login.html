@@ -1,32 +1,16 @@
 <!doctype html>
-<html 
-	xmlns:th="http://www.thymeleaf.org">
-<style>
-.gradient-custom {
-background: rgb(34,193,195);
-background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
-}
-</style>
-<head>
-	<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
-<meta charset="UTF-8">
-<title>KVCL 2024</title>
-</head>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:include="fragments/layoutFragments :: headFrag"></head>
+
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark p-1 ">
-	<a class="navbar-brand m-1" href="/welcome">KVCL 2024</a>
-	<div class="collapse navbar-collapse">
-	<ul class="navbar-nav">
-		<li class="navbar-brand m-1"><a class="nav-link" href="/welcome">Home</a></li>
-	</ul>
-	</div>
-	<ul class="navbar-nav">
-		<li class="navbar-brand m-1"><a class="nav-link" href="/login">Login</a></li>
-	</ul>
-</nav>
+
+<div th:replace="fragments/layoutFragments  :: navFrag" ></div>
+
 <section class="vh-100 gradient-custom">
-  <div class="container py-5 h-100">
+  <div class="container py-5 vh-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
@@ -57,12 +41,7 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 	            <!--   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
 	
 	              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-				<!--   	
-	              <div class="d-flex justify-content-center text-center mt-4 pt-1">
-	                <a href="" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-	                <a href="" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-	                <a href="" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-	              </div> -->
+
 			</form>
             </div>
             <div>
@@ -75,14 +54,8 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
     </div>
   </div>
 </section>
-<footer class="bg-body-tertiary text-center text-lg-start">
-	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-   		 © 2024 Copyright:
-    <a class="text-body" href="/welcome">Karnataka Arya Vysya Vasavi Yuvajana Sangha</a>
-  </div>
-</footer>
-<div>
-	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-</div>
+
+<div th:replace="fragments/layoutFragments :: footFrag"></div>
+
 </body>
 </html>

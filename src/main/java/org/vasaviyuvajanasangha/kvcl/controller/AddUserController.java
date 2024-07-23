@@ -11,19 +11,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.AppUser;
+import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 import jakarta.validation.Valid;
 
 @Controller
-@SessionAttributes(names = {"name","username"})
+@SessionAttributes(names = {"name","username","announcement"})
 public class AddUserController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private AppUserServiceImpl appUserService;
+	
+	@Autowired
+	private AnnouncementServiceImpl announcementServiceImpl;
 	
 	@GetMapping(path = "/register-user")
 	public String registerUser(ModelMap model) {
@@ -57,6 +61,7 @@ public class AddUserController {
 		appUserService.saveAppUser(user);
 		model.put("name", user.getUsername());
 		model.put("username", user.getName());
+		model.put("announcement", announcementServiceImpl.getLastAnnouncement());
 		return "registerSuccess";
 	}
 	
