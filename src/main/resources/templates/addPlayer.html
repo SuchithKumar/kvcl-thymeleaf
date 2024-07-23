@@ -16,11 +16,11 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 
 </style>
 
-<div th:replace="fragments/layoutFragmentsPrivate  :: navFrag" ></div>
+<div th:replace="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
 
 <body>
 
-<nav th:replace="fragments/layoutFragmentsPrivate :: navFrag"></nav>
+<nav th:replace="~{fragments/layoutFragmentsPrivate :: navFrag}"></nav>
 
 <section class="vh-100 gradient-custom">
   <div class="container py-5 h-90">
@@ -95,7 +95,7 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
     </div>
 </section>
 
-<div th:replace="fragments/layoutFragmentsPrivate :: footFrag"></div>
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
 
 </body>	
 </html>

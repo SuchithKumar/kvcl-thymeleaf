@@ -3,13 +3,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:include="fragments/layoutFragments :: headFrag"></head>
+<head th:insert="~{fragments/layoutFragments :: headFrag}"></head>
 
 <body class="d-flex flex-column vh-100">
 
-<div th:replace="fragments/layoutFragments  :: navFrag" ></div>
+<div th:replace="~{fragments/layoutFragments  :: navFrag}" ></div>
 
-<div th:replace="fragments/layoutFragments :: marqueeFrag"></div>
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
 <div class="container overflow-auto text-center vh-100">
 	<h3>KVCL 2024</h3>
@@ -23,7 +23,7 @@
 	<a href="/register-user" class="btn btn-lg btn-primary">Register Now</a>	
 </div>
 
-<div th:replace="fragments/layoutFragments :: footFrag"></div>
+<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
 
 </body>
 </html>

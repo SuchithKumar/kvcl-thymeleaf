@@ -18,10 +18,10 @@ import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/godadmin")
 @SessionAttributes("announcement")
-public class AdminController {
-	
+public class GodAdminController {
+
 	@Autowired
 	private AdminServiceImpl adminService;
 	
@@ -31,14 +31,49 @@ public class AdminController {
 	@Autowired
 	private AnnouncementServiceImpl announcementsService;
 	
-	@GetMapping("/admin-home")
+	@GetMapping("/god-admin-home")
 	public String getAllUsers(ModelMap model) {
 		model.put("announcement", announcementsService.getLastAnnouncement());
+		model.put("registered_users",adminService.findAllRegisteredUsers().stream().filter(a-> a.getRoles().contains("USER")).toList());
+		model.put("registered_admins",adminService.findAllRegisteredUsers().stream().filter(a-> a.getRoles().equals("ADMIN")).toList());
+		model.put("super_admins",adminService.findAllRegisteredUsers().stream().filter(a-> a.getRoles().equals("GODADMIN")).toList());
+
 		var teams = teamServiceImpl.findAllTeams();
 		model.put("registered_teams",teamServiceImpl.findAllTeams());
 		model.put("vasavi_sangha_details", teams.stream().filter(a->a.getVsDetails()!=null).toList());
-		return "adminHome";
-	}	
+		return "godAdminHome";
+	}
+		
+	@GetMapping("/grant-admin-access/{id}")
+	public String grantAdminAccess(ModelMap model, @PathVariable String id ) {
+		adminService.grantAdminAccess(id);		
+		return "redirect:/godadmin/god-admin-home";
+	}
+	
+	@GetMapping("/revoke-admin-access/{id}")
+	public String revokeAdminAccess(ModelMap model, @PathVariable String id ) {
+		adminService.revokeAdminAccess(id);		
+		return "redirect:/godadmin/god-admin-home";
+	}
+	
+	@GetMapping("/delete-user/{id}")
+	public String deleteUser(ModelMap model, @PathVariable String id ) {
+		adminService.deleteUser(id);		
+		return "redirect:/godadmin/god-admin-home";
+	}
+	
+	@GetMapping("/delete-team/{id}")
+	public String deleteTeam(ModelMap model, @PathVariable Long id ) {
+		adminService.deleteTeam(id);		
+		return "redirect:/godadmin/god-admin-home";
+	}
+	
+	@GetMapping("/new-announcement")
+	public String getNewAnnouncement(ModelMap model){
+		model.put("announcement",new Announcement());
+		return "newAnnouncement";
+	}
+	
 	
 	@PostMapping("/new-announcement")
 	public String newAnnouncement(ModelMap model, @ModelAttribute("announcement") Announcement announcement,BindingResult results){
@@ -52,5 +87,6 @@ public class AdminController {
 		model.put("announcement", announcement);	
 		return getAllUsers(model);
 	}
-		
+	
+	
 }

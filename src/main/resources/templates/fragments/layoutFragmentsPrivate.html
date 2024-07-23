@@ -21,8 +21,9 @@
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>			
-				<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>
-				<li class="nav-item" sec:authorize="hasRole('ADMIN')" ><a class="nav-link" href="/admin/admin-home">Admin Dashboard</a></li>
+				<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>	
+				<li class="nav-item" sec:authorize="hasAnyRole('ADMIN','GODADMIN')" ><a class="nav-link" href="/admin/admin-home">Admin Dashboard</a></li>
+				<li class="nav-item" sec:authorize="hasRole('GODADMIN')" ><a class="nav-link" href="/godadmin/god-admin-home">Super Admin Dashboard</a></li>
 			<!--<li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>-->
 			</ul>
 		</div>

@@ -3,13 +3,13 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:include="fragments/layoutFragmentsPrivate :: headFrag"></head>
+<head th:insert="~{fragments/layoutFragmentsPrivate :: headFrag}"></head>
 
 <body class="d-flex flex-column vh-100">
 
-<div th:include="fragments/layoutFragmentsPrivate  :: navFrag" ></div>
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
 
-<div th:replace="fragments/layoutFragments :: marqueeFrag"></div>
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
 <div class="vh-100 container overflow-auto">
 	<div>
@@ -17,7 +17,7 @@
 	</div>
 	<div class="d-flex align-items-center justify-content-center">
 	<h3>Team Details</h3>
-	<hr>
+	<br>
 	</div>
 	<div th:if=${team!=null}>
 		<div>
@@ -78,7 +78,7 @@
 			<a class ="btn btn-warning" href="/user/register-team">Edit Vasavi Sangha Details</a>	
 		</div>
 		<br>
-		<hr>
+		<br>
 		<div class="d-flex align-items-center justify-content-center">
 		<h3>Vasavi Sangha Details</h3>
 		</div>
@@ -162,7 +162,7 @@
 		<div th:if="${team!=null and team.vsDetails!=null}" class="d-flex align-items-center justify-content-center mb-4">
 			<a class ="btn btn-warning" href="/user/edit-vasavi-sangha-details">Edit Vasavi Sangha Details</a>	
 		</div>
-		<hr>
+		<br>
 		<div class="d-flex align-items-center justify-content-center">
 		<h3>Payment Details</h3>
 		</div>
@@ -277,7 +277,7 @@
 	</div>
 </div>
 
-<div th:replace="fragments/layoutFragmentsPrivate :: footFrag"></div>
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
 
 </body>
 </html>

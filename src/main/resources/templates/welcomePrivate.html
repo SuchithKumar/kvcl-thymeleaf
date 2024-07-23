@@ -2,13 +2,13 @@
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:include="fragments/layoutFragmentsPrivate :: headFrag"></head>
+<head th:insert="~{fragments/layoutFragmentsPrivate :: headFrag}"></head>
 
 <body class="d-flex flex-column vh-100">
 
-<div th:include="fragments/layoutFragmentsPrivate  :: navFrag" ></div>
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
 
-<div th:replace="fragments/layoutFragments :: marqueeFrag"></div>
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
 <div class="container overflow-auto text-center vh-100">
 	<h3>KVCL 2024</h3>
@@ -22,7 +22,7 @@
 	<a href="/user-home" class="btn btn-lg btn-primary">Fill in Team Details Now</a>	
 </div>
 
-<div th:replace="fragments/layoutFragmentsPrivate :: footFrag"></div>
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
 
 </body>
 </html>

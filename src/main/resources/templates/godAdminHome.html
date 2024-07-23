@@ -12,14 +12,85 @@
 <div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
 <div class="vh-100 container overflow-auto text-center">
-	<h3>Admin Page</h3>	
+	<h3>Super Admin Page</h3>	
 	<br>
 		<h4>Click on below button to Make an Announcement!!</h4>
-		<a class="btn btn-primary" href="/admin/new-announcement">Make new Announcement</a>
+		<a class="btn btn-primary" href="/godadmin/new-announcement">Make new Announcement</a>
+	<br>
+	<br>
+	<h5>Registered Users</h5>	
+	<div class="container ">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Sl No</th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Phone Number</th>
+						<th>Role</th>
+						<th>Give Admin Access</th>
+						<th>Delete User</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${registered_users}" >
+					 	<td th:text="${stats.count}"></td>
+					 	<td th:text=${item.name}></td>
+					 	<td th:text=${item.email}></td>
+					 	<td th:text=${item.username}></td>
+					 	<td th:text=${item.roles}></td>
+					 	<td><a class="btn btn-primary" th:href="@{'/godadmin/grant-admin-access/' + ${item.userId}}">Grant admin access</a></td>
+					 	<td><a class="btn btn-danger" th:href="@{'/godadmin/delete-user/' + ${item.userId}}">Delete User</a></td>
+					 </tr>
+				</tbody>
+			</table>	
+	</div>
+	<br>
+	<br>
+	<h5>Admins</h5>	
+		<div class="container ">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Phone Number</th>						
+						<th>Revoke Admin Access</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${registered_admins}" >
+					 	<td th:text=${item.name}></td>
+					 	<td th:text=${item.username}></td>
+					 	<td><a class="btn btn-warning" th:href="@{'/godadmin/revoke-admin-access/' + ${item.userId}}">Revoke admin access</a></td>
+					 </tr>
+				</tbody>
+			</table>	
+		</div>
+	<br>
+	<h5>Super Admins</h5>	
+	<div class="container ">
+	<hr>	
+		<table class="table table-responsive table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Phone Number</th>						
+				</tr>
+			</thead>
+			</tbody>
+				 <tr th:each="item,stats : ${super_admins}" >
+				 	<td th:text=${item.name}></td>
+				 	<td th:text=${item.username}></td>
+				 </tr>
+			</tbody>
+		</table>	
+	</div>
 	<br>
 	<br>
 	<h5>Registered Teams</h5>
-	<div>
+	<div class="container ">
 		<hr>	
 			<table class="table table-responsive table-hover">
 				<thead>
@@ -33,6 +104,7 @@
 						<th>No of Accomodation</th>
 						<th>Opted for Food</th>
 						<th>Payment Screenshot</th>
+						<th>Delete Team</th>
 					</tr>
 				</thead>
 				</tbody>
@@ -46,6 +118,7 @@
 					 	<td th:text=${item.noOfAccomodation}></td>
 					 	<td th:text=${item.requireFood}></td>
 					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 50px;" /></td>
+					 	<td><a class="btn btn-danger" th:href="@{'/godadmin/delete-team/' + ${item.id}}">Delete Team</a></td>					 	
 					 </tr>
 				</tbody>
 			</table>	
@@ -53,7 +126,7 @@
 	<br>
 	<br>
 	<h5>Vasavi Sangha Details</h5>
-	<div>
+	<div class="container ">
 		<hr>	
 			<table class="table table-responsive table-hover">
 				<thead>

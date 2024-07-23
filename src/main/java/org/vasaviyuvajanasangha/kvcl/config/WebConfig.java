@@ -49,8 +49,9 @@ public class WebConfig {
 				.requestMatchers("/images/**", "/css/**", "/js/**", "/webjars/**", "/favicon.ico", "/login","static/**","/error")
 				.permitAll()
 				.requestMatchers("/register-user", "/", "/welcome").permitAll()
-				.requestMatchers("/admin-home").hasAnyRole("ADMIN").requestMatchers("/user-home")
-				.hasAnyRole("ADMIN", "USER").anyRequest().authenticated())
+				.requestMatchers("/god-admin-home").hasRole("GODADMIN")
+				.requestMatchers("/admin-home").hasRole("ADMIN").requestMatchers("/user-home")
+				.hasAnyRole("GODADMIN","ADMIN", "USER").anyRequest().authenticated())
 				.formLogin(form -> form.loginPage("/login").successHandler(new SuccessHandler()).permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(new LogoutSuccessHandler())
 						.clearAuthentication(true));

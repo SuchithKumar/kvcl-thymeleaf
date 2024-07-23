@@ -20,10 +20,15 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 		Authentication authentication) throws ServletException, IOException {
 		
 		boolean isAdmin = authentication.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"));
+		boolean isSuperAdmin = authentication.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_GODADMIN"));
+
 		logger.info("auth -> {}",authentication);
-		if(isAdmin) {
+		if(isSuperAdmin) {
+			setDefaultTargetUrl("/godadmin/god-admin-home");
+		}else if(isAdmin) {
 			setDefaultTargetUrl("/admin/admin-home");
-		}else {
+		}
+		else {
 			setDefaultTargetUrl("/user-home");
 		}
 		

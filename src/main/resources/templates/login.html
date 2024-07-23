@@ -3,11 +3,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:include="fragments/layoutFragments :: headFrag"></head>
+<head th:insert="~{fragments/layoutFragments :: headFrag}"></head>
 
 <body>
 
-<div th:replace="fragments/layoutFragments  :: navFrag" ></div>
+<div th:replace="~{fragments/layoutFragments  :: navFrag}" ></div>
 
 <section class="vh-100 gradient-custom">
   <div class="container py-5 vh-100">
@@ -55,7 +55,7 @@
   </div>
 </section>
 
-<div th:replace="fragments/layoutFragments :: footFrag"></div>
+<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
 
 </body>
 </html>
