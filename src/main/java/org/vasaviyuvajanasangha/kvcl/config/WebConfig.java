@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.vasaviyuvajanasangha.kvcl.handlers.LogoutSuccessHandler;
 import org.vasaviyuvajanasangha.kvcl.handlers.SuccessHandler;
 import org.vasaviyuvajanasangha.kvcl.service.MyUserDetailsManager;
@@ -48,7 +46,7 @@ public class WebConfig {
 				.permitAll()
 				.requestMatchers("/images/**", "/css/**", "/js/**", "/webjars/**", "/favicon.ico", "/login","static/**","/error")
 				.permitAll()
-				.requestMatchers("/register-user", "/", "/welcome").permitAll()
+				.requestMatchers("/register-user", "/", "/welcome","/about-us").permitAll()
 				.requestMatchers("/god-admin-home").hasRole("GODADMIN")
 				.requestMatchers("/admin-home").hasRole("ADMIN").requestMatchers("/user-home")
 				.hasAnyRole("GODADMIN","ADMIN", "USER").anyRequest().authenticated())

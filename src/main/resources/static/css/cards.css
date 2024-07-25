@@ -158,7 +158,7 @@ a:hover {
     width: 55px;
   }
   .postcard:hover .postcard__img {
-    transform: scale(1.1);
+    transform: scale(0.9);
   }
   .postcard:nth-child(2n+1) {
     flex-direction: row;

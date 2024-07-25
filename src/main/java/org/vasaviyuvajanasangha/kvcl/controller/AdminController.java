@@ -40,6 +40,12 @@ public class AdminController {
 		return "adminHome";
 	}	
 	
+	@GetMapping("/new-announcement")
+	public String getNewAnnouncement(ModelMap model){
+		model.put("announcement",new Announcement());
+		return "newAnnouncement";
+	}
+	
 	@PostMapping("/new-announcement")
 	public String newAnnouncement(ModelMap model, @ModelAttribute("announcement") Announcement announcement,BindingResult results){
 		if(results.hasErrors()) {

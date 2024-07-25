@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:insert="~{fragments/layoutFragments :: headFragRulesAndRegulations"></head>
+
+<body class="d-flex flex-column vh-100">
+
+<div th:replace="~{fragments/layoutFragments  :: navFrag}" ></div>
+
+<div class="container overflow-auto text-dark vh-100">
+	<section class="about" id="about">
+            <div class="container">
+               		 <div class="heading text-center">
+                    	<h2>About KVCL 2024</h2>
+                     </div>
+                     <ul>
+                    	<li>Karnataka Vasavi Sports League is organized by Vasavi Yuva Jana Sanga, Malleswaram & Vasavi Youth Centre since 8 years</li>
+                    	<li>Every year we organize State Level Cricket, Badminton & Carrom competition.</li>
+                    	<li>The Motto is “Sports for Unity” and the organization is actively running under the leadership of R.P.Ravishankar (President of Karnataka Arya Vysya Mahasabha) & Sri P.N.Govindarajulu (President of Malleswaram Arya Vysya Sanga).</li>
+                    	<li>This year the KCVL is organized by Vasavi Yuvajana Sangha Bangalore</li>
+                     </ul>
+                     <div class="heading text-center">                    
+                        <h3>The Spirit of Cricket </h3>
+                     </div>
+                     <ul>
+                     	<li>Cricket should be played not only according to the Laws but also within the Spirit of Cricket.</li>
+                     	<li>Respect your captain, teammates, opponents, and the authority of the umpires.</li>
+                     	<li>Play hard and play fair, accept the umpire’s decision, show self-discipline, even when things go against you.</li>
+                     	<li>Congratulate the opposition on their successes, and thank the officials and your opposition at the end of the match, whatever the result.</li>
+                     	<li>Cricket is an exciting game that encourages leadership, friendship, and teamwork, which brings together people from different ages, cultures, and background especially when played within the Spirit of Cricket.</li>
+                     </ul>
+                      <!--   <div class="row">
+                            <div class="col-md-6">
+                                <h4>
+                                    <i class="far fa-star"></i>Awesome Design</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>
+                                    <i class="far fa-star"></i>
+                                    Creative Design</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>
+                                    <i class="far fa-star"></i>Better Client Service</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>
+                                    <i class="far fa-star"></i>
+                                    Digital Marketing & Branding</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>
+                                    <i class="far fa-star"></i>Creative Design</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>
+                                    <i class="far fa-star"></i>
+                                    Speed And Flexibility</h4>
+                            </div>
+                        </div> -->
+          			  </div>
+        </section>
+</div>
+<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
+
+</body>
+</html>

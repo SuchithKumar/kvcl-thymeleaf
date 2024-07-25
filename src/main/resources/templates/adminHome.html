@@ -25,27 +25,45 @@
 				<thead>
 					<tr>
 						<th>Sl No</th>
-						<th>Team Logo</th>
 						<th>Team Name</th>
 						<th>Captain</th>
 						<th>Registered By</th>
 						<th>Accomodation Reqd</th>
 						<th>No of Accomodation</th>
 						<th>Opted for Food</th>
-						<th>Payment Screenshot</th>
 					</tr>
 				</thead>
 				</tbody>
 					 <tr th:each="item,stats : ${registered_teams}" >
-					 	<td th:text="${stats.count}"></td>
-					 	<td><img th:src="${item.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" /></td>
+ 					 	<td th:text=${stats.count}></td>
 					 	<td th:text=${item.name}></td>
 					 	<td th:text=${item.captain}></td>
 					 	<td th:text=${item.registeredUser}></td>
 					 	<td th:text=${item.requireAccomodation}></td>
 					 	<td th:text=${item.noOfAccomodation}></td>
 					 	<td th:text=${item.requireFood}></td>
-					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 50px;" /></td>
+					 </tr>
+				</tbody>
+			</table>	
+	</div>
+	<br>
+	<br>
+	<h5>Team Logo And Payments</h5>
+	<div>
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Team Name</th>
+						<th>Team Logo</th>
+						<th>Payment Screenshot</th>
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${registered_teams}" >
+ 					 	<td th:text=${item.name}></td>
+					 	<td><img th:src="${item.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" /></td>
+					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 150px;" /></td>
 					 </tr>
 				</tbody>
 			</table>	

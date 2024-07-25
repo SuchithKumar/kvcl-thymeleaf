@@ -14,12 +14,14 @@
 	<h3>KVCL 2024</h3>
 	<h4>National Level Cricket Tournament for Arya Vysyas</h4>
 	<br>
-		<img class="img-fluid" width="100%" src="../static/images/tournament-annoncement.jpeg" th:src="@{images/tournament-annoncement.jpeg}"/>
+		<img class="img-fluid" width="100%" th:src="@{images/tournament-annoncement.jpeg}"/>
 	<br>
 	<br>
 	<h5>Organized by Vasavi Seva Mandali (R) and Vasavi Yuvajana Sangha</h5>
 	<h5>KG Nagar, Bangalore, </h5>
-	<a href="/user-home" class="btn btn-lg btn-primary">Fill in Team Details Now</a>	
+	<div class="button">
+		<a href="/user-home">Fill in Team Details Now</a>	
+	</div>
 </div>
 
 <div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
