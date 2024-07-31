@@ -11,16 +11,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Announcement;
 import org.vasaviyuvajanasangha.kvcl.service.AdminServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 @Controller
 @RequestMapping("/godadmin")
 @SessionAttributes("announcement")
 public class GodAdminController {
+	
+	@Autowired
+	private AppUserServiceImpl appUserServiceImpl;
 
 	@Autowired
 	private AdminServiceImpl adminService;
@@ -89,4 +94,12 @@ public class GodAdminController {
 	}
 	
 	
+	@PostMapping("/reset-password")
+	public String resetPassword(@RequestParam("number") String number, @RequestParam("password") String password){
+		 var user = appUserServiceImpl.getUserFromUserName(number).get();
+		 user.setPassword(password);
+		 appUserServiceImpl.saveAppUser(user);
+		 return "redirect:/godadmin/god-admin-home";
+		
+	}
 }

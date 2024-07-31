@@ -66,6 +66,29 @@ public class TeamServiceImpl {
 		return Optional.of(updatedTeam);
 	}
 	
+	public Optional<Team> findTeamByName(String name) {
+		var team = repository.findByName(name); 
+		
+		if(team.isEmpty()) {
+			return team;
+		}
+		
+		var updatedTeam = team.get();
+		updatedTeam.setLogoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(updatedTeam.getTeamLogo()));
+		
+		if(updatedTeam.getPaymentInfoDB()!=null)
+			updatedTeam.setPaymentInfoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(updatedTeam.getPaymentInfoDB()));
+
+		
+		var updatedPlayers = updatedTeam.getPlayers();
+		if(!updatedTeam.getPlayers().isEmpty()) {
+			for(Player player : updatedPlayers)
+				player.setPhotoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(player.getPlayerPhoto()));
+		}
+		updatedTeam.setPlayers(updatedPlayers);
+		return Optional.of(updatedTeam);
+	}
+	
 	
 	public List<Team> findAllTeams(){
 		

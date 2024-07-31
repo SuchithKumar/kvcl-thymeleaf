@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:insert="~{fragments/layoutFragmentsPrivate :: headFrag}"></head>
+<head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}"></head>
 
 <body class="d-flex flex-column vh-100">
 
@@ -11,10 +11,180 @@
 
 <div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
-<div class="vh-100 container overflow-auto">
-	<div>
+
+
+<div class="vh-100  overflow-auto">
+	<div class="d-flex align-items-center justify-content-center text-center">
+	<h3>Captain Profile</h3>
 	<br>
 	</div>
+	<div th:if=${profile!=null}>
+		<div class="py-3 m-2">
+			<section class="mb-5" style="background-color: #f4f5f7;">
+			    <div class="row d-flex justify-content-center align-items-center h-30">
+			      <div class="col mb-1 mb-lg-0">
+			        <div class="card mb-3" style="border-radius: .5rem;">
+			          <div class="row row-no-gutters g-0">
+			            <div class="col-md-4 text-center text-white"
+			              style="border-top-left-radius: .5rem; background-color : #F0F0F0; border-bottom-left-radius: .5rem;">
+    			           <img th:src="${profile.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 200px;" />   
+       			          <h4 style="color: black" th:text="${profile.playerName}"></h4>   
+			              <h5 style="color: black" th:text="${profile.teamName}"></h5>
+			              <p style="color: black;"> Edit Captain Info <a class="btn btn-warning" th:href="${'/user/edit-captain/'+{profile.playerId}}"><i class="fa fa-edit"></i></a></p>
+			            </div>
+			             <div class="col-md-8">
+			              <div class="card-body text-center p-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-4 mb-3">
+			                    <h6>Player Profession</h6>
+			                    <p class="text-muted"th:text="${profile.profession}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>Phone</h6>
+			                    <p class="text-muted" th:text="${profile.playerPhone}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>Age</h6>
+			                    <p class="text-muted" th:text="${profile.age}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-4 mb-3">
+			                    <h6>Player Gothram</h6>
+			                    <p class="text-muted" th:text="${profile.playerGothram}"></p>
+			                  </div>
+			                   <div class="col-4 mb-3">
+			                    <h6>Blood Group</h6>
+			                    <p class="text-muted" th:text="${profile.bloodGroup}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>T Shirt Size</h6>
+			                    <p class="text-muted" th:text="${profile.playerShirtSize}"></p>
+			                  </div>
+			                </div>
+			                 <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-3 mb-3">
+			                    <h6>Father Name</h6>
+			                    <p class="text-muted" th:text="${profile.fatherName}"></p>
+			                  </div>
+			                  <div class="col-3 mb-3">
+			                    <h6>Father Contact</h6>
+			                    <p class="text-muted" th:text="${profile.fatherContact}"></p>
+			                  </div>
+			                  <div class="col-3 mb-3">
+			                    <h6>Mother Name</h6>
+			                    <p class="text-muted" th:text="${profile.motherName}"></p>
+			                  </div>
+			                  <div class="col-3 mb-3">
+			                    <h6>Mother Contact</h6>
+			                    <p class="text-muted" th:text="${profile.motherContact}"></p>
+			                  </div>
+			                </div>
+			                 <hr class="mt-0 mb-4">
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-4 mb-3">
+			                    <h6>Player Skill</h6>
+			                    <p class="text-muted" th:text="${profile.playerSkill}"></p>
+			                  </div>
+			                   <div class="col-4 mb-3">
+			                    <h6>Batting Style</h6>
+			                    <p class="text-muted" th:text="${profile.battingStyle}"></p>
+			                  </div>
+			                  <div class="col-4 mb-3">
+			                    <h6>Bowling Style</h6>
+			                    <p class="text-muted" th:text="${profile.bowlingStyle}"></p>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+		  </section>		
+		</div>
+		</div>
+
+	<div class="py-3 m-2 text-center justify-content-center">
+		<pre th:text="${approvalError}" class="text-danger" style="font-weight: bold;"></pre>
+		<div th:if="${approvedPlayers!=null and !approvedPlayers.isEmpty()}" >
+				<h3 class="text-center">Approved player List</h3>				
+				<hr>	
+					<table class="table table-responsive table-hover">
+						<thead>
+							<tr>
+								<th>Sl No</th>
+								<th>Name</th>
+								<th>Phone</th>
+								<th>Email</th>
+								<th>Gothram</th>
+								<th>Player Skill</th>
+								<th>T shirt Size</th>
+								<th>Reject</th>
+							</tr>
+						</thead>
+						</tbody>
+							 <tr th:each="item,stats : ${approvedPlayers}" >
+		 					 	<td th:text=${stats.count}></td>
+							 	<td th:text=${item.playerName}></td>
+							 	<td th:text=${item.playerPhone}></td>
+							 	<td th:text=${item.playerEmail}></td>
+							 	<td th:text=${item.playerGothram}></td>
+							 	<td th:text=${item.playerSkill}></td>
+							 	<td th:text=${item.playerShirtSize}></td>
+							 	
+	 						 	<td th:if="${profile!=null and #strings.equals(item.playerName, profile.playerName)==false}"><a class="btn btn-danger" th:href="@{'/user/reject-player/' + ${item.playerId}}">Reject</a></td>								 	
+							 </tr>
+						</tbody>
+					</table>	
+			</div>
+	</div>
+	<br>
+
+	<div class="py-3 m-2 text-center justify-content-center">
+			<div th:if="${unApprovedPlayers!=null and !unApprovedPlayers.isEmpty()}" >
+					<h3 class="text-center">Players Waiting for Approval</h3>	
+					<h5 class="text-danger">Below players have requested to join your team!</h5>
+					<h5 class="text-danger">Click on Approve button if you want to add them to your team</h5>		
+					<hr>	
+						<table class="table table-responsive table-hover">
+							<thead>
+								<tr>
+									<th>Sl No</th>
+									<th>Name</th>
+									<th>Phone</th>
+									<th>Email</th>
+									<th>Gothram</th>
+									<th>Player Skill</th>
+									<th>T shirt Size</th>
+									<th>Approve</th>
+								</tr>
+							</thead>
+							</tbody>
+								 <tr th:each="item,stats : ${unApprovedPlayers}" >
+			 					 	<td th:text=${stats.count}></td>
+								 	<td th:text=${item.playerName}></td>
+								 	<td th:text=${item.playerPhone}></td>
+								 	<td th:text=${item.playerEmail}></td>
+								 	<td th:text=${item.playerGothram}></td>
+								 	<td th:text=${item.playerSkill}></td>
+								 	<td th:text=${item.playerShirtSize}></td>
+		 						 	<td><a class="btn btn-primary" th:href="@{'/user/approve-player/' + ${item.playerId}}">Approve</a></td>								 	
+								 </tr>
+							</tbody>
+						</table>	
+			</div>
+		</div>
+		<br>
+
+
+	<div class="d-flex align-items-center justify-content-center mb-4" th:if="${addedYourself==false}">
+			<a class ="btn btn-warning" href="/user/add-captain">Add Yourself to Team</a>	
+		</div>
+	<br>
+	<br>
 	<div class="d-flex align-items-center justify-content-center">
 	<h3>Team Details</h3>
 	<br>
@@ -74,12 +244,12 @@
 		</div>
 		</div>
 		<br>
-		<div th:if="${team==null}" class="d-flex align-items-center justify-content-center mb-4">
+ 		<div th:if="${team==null}" class="d-flex align-items-center justify-content-center mb-4">
 			<a class ="btn btn-warning" href="/user/register-team">Add Team Details</a>	
 		</div>	
 		<div th:if="${team!=null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/register-team">Edit Vasavi Sangha Details</a>	
-		</div>
+			<a class ="btn btn-warning" href="/user/register-team">Edit Team Details</a>	
+		</div> 
 		<br>
 		<br>
 		<div class="d-flex align-items-center justify-content-center">
@@ -119,11 +289,11 @@
 			                <hr class="mt-0 mb-4">
 			                <div class="row row-no-gutters pt-1">
 			                  <div class="col-6 mb-3">
-			                    <h6>Vice President</h6>
+			                    <h6>President</h6>
 			                    <p class="text-muted" th:text="${team.vsDetails.vsPresident}"></p>
 			                  </div>
 			                  <div class="col-6 mb-3">
-			                    <h6>Vice President Contact No</h6>
+			                    <h6>President Contact No</h6>
 			                    <p class="text-muted" th:text="${team.vsDetails.vsPresidentNumber}"></p>
 			                  </div>
 			                </div>
@@ -164,7 +334,7 @@
 		</div>
 		<div th:if="${team!=null and team.vsDetails!=null}" class="d-flex align-items-center justify-content-center mb-4">
 			<a class ="btn btn-warning" href="/user/edit-vasavi-sangha-details">Edit Vasavi Sangha Details</a>	
-		</div>
+		</div> 
 		<br>
 		<div class="d-flex align-items-center justify-content-center">
 		<h3>Payment Details</h3>
@@ -190,94 +360,19 @@
 			  </div>	
 			  <br>		  
 		</div>
-		<div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
+		
+		 <div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
 			<a class ="btn btn-warning" href="/user/add-payment-details">Add Payment Details</a>	
 		</div>	
 		<div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
 			<a class ="btn btn-warning" href="/user/add-payment-details">Edit Payment Details</a>	
 		</div>
 		
-		<div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
+		<!-- <div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
 			<h4>Thanks for completing the phase 1 of the registration process. we will review the details and get back for phase 2 of the registration process 🙏</h4>	
-		</div>	
-		
-		<br>
-		<div th:if="${team!=null and team.players!=null and false}" class="d-flex align-items-center justify-content-center">	
-		<h3>Player details</h3>
-		<div class="container">
-			<div th:each="item,stats : ${team.players}">
-			 <section class="vh-10" style="background-color: #f4f5f7;">	
-			  <div class="container py-2 h-10">
-			    <div class="row d-flex justify-content-center align-items-center h-30">
-			      <div class="col mb-1 mb-lg-0">
-			        <div class="card mb-3" style="border-radius: .5rem;">
-			          <div class="row row-no-gutters g-0">
-			            <div class="col-md-4 gradient-custom text-center text-white"
-			              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-			              <img th:src="${item.photoImg}"  alt="Avatar" class="img-fluid my-5" style="width: 150px;" />   
-			              
-			              <h5 style="color: black;" th:text="${item.playerName}">></h5>
-			              <p style="color: black;" th:text="${team.name}"></p>
-			              <p style="color: black;"> Edit Player Info <a th:href="${'/user/edit-player/'+{item.playerId}}"><i class="fa fa-edit"></i></a></p>
-			            </div>
-			            <div class="col-md-8">
-			              <div class="card-body p-4">
-			               <div class="row row-no-gutters pt-1">
-				              	<div class="col-6 mb-3">
-			                		<h6 class="text-start" th:text="${'Player Info ' + {stats.count}}"></h6>
-			                	</div>
-			                	<div class="col-6 mb-3">
-			                		 <p style="color: black;">Delete player <a th:href="${'/user/delete-player/'+{item.playerId}}"><i class="fa fa-trash"></i></a></p>
-			                	</div>
-		                	</div>
-			                <hr class="mt-0 mb-4">
-			                <div class="row row-no-gutters pt-1">
-			                  <div class="col-6 mb-3">
-			                    <h6>Email</h6>
-			                    <p class="text-muted" th:text="${item.playerEmail}"></p>
-			                  </div>
-			                  <div class="col-6 mb-3">
-			                    <h6>Phone</h6>
-			                    <p class="text-muted" th:text="${item.playerPhone}"></p>
-			                  </div>
-			                </div>
-			                <hr class="mt-0 mb-4">
-			                   <div class="row row-no-gutters pt-1">
-			                 <div class="col-6 mb-3">
-			                    <h6>Gothram</h6>
-			                    <p class="text-muted" th:text="${item.playerGothram}"></p>
-			                  </div>
-			                  <div class="col-6 mb-3">
-			                  <div class="col-6 mb-3">
-			                    <h6>T Shirt Size</h6>
-			                    <p class="text-muted" th:text="${item.playerShirtSize}"></p>
-			                  </div>
-			                </div>
-			                <hr class="mt-0 mb-4">
-			                </div>       
-			                <div class="d-flex justify-content-start">
-			                 
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          </div>
-			        </div>
-			    </div>
-			  </div>
-		  </section>
-		</div>	
-	</div>
+		</div>	 --> 
+
 	<br>
-		<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team.players.size()<15}"}>
-			<a class ="btn btn-warning" href="/user/add-player">Add New Player</a>	
-		</div>
-		<div class="d-flex align-items-center justify-content-center mb-4" th:if="${team.players.size()==15}">
-			<label class="form-label">Your have completed adding 15 players</label>
-			<label  class="form-label">Do you wish to Submit the form? Once Form is submitted it is locked with Organizers.</label><br>
-			<a class ="btn btn-warning" href="/user/add-player">Submit Form</a>	
-		</div>
-	</div>
 </div>
 
 <div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>

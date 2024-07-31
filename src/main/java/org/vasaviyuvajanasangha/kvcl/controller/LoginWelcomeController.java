@@ -23,7 +23,7 @@ public class LoginWelcomeController {
 	@GetMapping(path = {"/"})
 	public String helloWelcome(ModelMap map) {
 		map.put("announcement", anServiceImpl.getLastAnnouncement());
-		return "welcome";
+		return "welcomeWithCards";
 	}
 	
 	@GetMapping(path = {"/welcome"})
@@ -47,4 +47,10 @@ public class LoginWelcomeController {
 		map.put("announcement", anServiceImpl.getLastAnnouncement());
 		return "welcomePrivate";
 	}
+	
+	@GetMapping(path = {"/test"})
+	public String testUs(ModelMap map) {
+		return "test.html";
+	}
+	
 }

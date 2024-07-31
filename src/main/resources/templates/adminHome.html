@@ -3,11 +3,11 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:insert="~{fragments/layoutFragmentsPrivate :: headFrag}"></head>
+<head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}"></head>
 
-<body class="d-flex flex-column vh-100 text-center">
+<body class="d-flex flex-column vh-100">
 
-<div th:replace="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
 
 <div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
@@ -54,6 +54,7 @@
 			<table class="table table-responsive table-hover">
 				<thead>
 					<tr>
+						<th>Sl No</th>
 						<th>Team Name</th>
 						<th>Team Logo</th>
 						<th>Payment Screenshot</th>
@@ -61,6 +62,7 @@
 				</thead>
 				</tbody>
 					 <tr th:each="item,stats : ${registered_teams}" >
+					  	<td th:text=${stats.count}></td>
  					 	<td th:text=${item.name}></td>
 					 	<td><img th:src="${item.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" /></td>
 					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 150px;" /></td>
@@ -75,7 +77,8 @@
 		<hr>	
 			<table class="table table-responsive table-hover">
 				<thead>
-					<tr>						
+					<tr>
+						<th>Sl No</th>						
 						<th>Team Name</th>
 						<th>Vasavi Sangha Name</th>
 						<th>Vasavi Sangha Area</th>
@@ -91,6 +94,7 @@
 				</thead>
 				</tbody>
 					 <tr th:each="item,stats : ${vasavi_sangha_details}">
+					  	<td th:text=${stats.count}></td>
 					 	<td th:text="${item.name}"></td>
 					 	<td th:text="${item.vsDetails.vasaviSanghaName}"></td>
 					 	<td th:text=${item.vsDetails.vasaviSanghaArea}></td>

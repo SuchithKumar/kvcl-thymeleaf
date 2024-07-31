@@ -43,7 +43,10 @@ public class AppUser {
 	private String name;
 	
 	private String roles;
+	
+	private Boolean isCaptain;
 
 	@Transient
 	private String reEnterPassword;
+	
 }

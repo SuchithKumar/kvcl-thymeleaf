@@ -46,7 +46,7 @@ public class WebConfig {
 				.permitAll()
 				.requestMatchers("/images/**", "/css/**", "/js/**", "/webjars/**", "/favicon.ico", "/login","static/**","/error")
 				.permitAll()
-				.requestMatchers("/register-user", "/", "/welcome","/about-us").permitAll()
+				.requestMatchers("/register-user", "/", "/welcome","/about-us","/test").permitAll()
 				.requestMatchers("/god-admin-home").hasRole("GODADMIN")
 				.requestMatchers("/admin-home").hasRole("ADMIN").requestMatchers("/user-home")
 				.hasAnyRole("GODADMIN","ADMIN", "USER").anyRequest().authenticated())

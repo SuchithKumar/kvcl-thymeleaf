@@ -37,10 +37,23 @@ public class Player {
 	private String playerName;
 	
 	@NotEmpty
+	private String fatherName;
+	
+	private String fatherContact;
+	
+	@NotEmpty
+	private String motherName;
+	
+	private String motherContact;
+	
+	@NotEmpty
 	private String playerGothram;
 	
 	@NotEmpty
 	private String playerPhone;
+	
+	@NotEmpty
+	private String bloodGroup;
 	
 	@Transient
 	private MultipartFile photo;
@@ -51,11 +64,28 @@ public class Player {
 	@Lob
 	private byte[] playerPhoto;
 	
-	@NotEmpty
 	private String jerseyNumber;
 	
 	@NotEmpty
 	private String playerShirtSize;	
+	
+	private String profession;
+	
+	private int age;
+	
+	@NotEmpty
+	private String playerSkill;
+	
+	@NotEmpty
+	private String battingStyle;
+	
+	@NotEmpty
+	private String bowlingStyle;
+	
+	private String teamName;
+	
+	private Boolean teamApproval;
+	
 	
 	@JsonBackReference
 	@ManyToOne

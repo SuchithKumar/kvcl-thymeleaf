@@ -8,9 +8,11 @@ import org.vasaviyuvajanasangha.kvcl.model.Team;
 import jakarta.transaction.Transactional;
 
 
+
 @Transactional
 public interface TeamRepository extends JpaRepository<Team, Long>{
 	
 	Optional<Team> findByRegisteredUser(String registeredUser);
+	Optional<Team> findByName(String name);
 
 }

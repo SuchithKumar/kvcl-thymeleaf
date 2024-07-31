@@ -63,6 +63,13 @@
                     <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}" />
 	                
 	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+				     	               <label class="form-label fs-4">Are you registering as a Captain?</label>
+				  <br>
+				   Yes<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="Yes" th:field="*{isCaptain}" required="required"/> 
+				   No<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="No" th:field="*{isCaptain}" required="required"/>
+			      </div>
 	
 					<!-- 					
 						<div th:if="${#fields.hasAnyErrors()}">
