@@ -9,9 +9,19 @@
 <body>
 
 <div th:replace="~{fragments/layoutFragments  :: navFrag}" ></div>
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
+				
+<img class="img-fluid" width="100%"
+			th:src="@{images/tournament-announcement.png}" />
+<img class="img-fluid" width="100%"
+			th:src="@{images/kvcl-header-register-now.png}" />
 
+<section class="gradient-custom">
 
-<section class="vh-100 gradient-custom">
+ <p class="text-dark text-center" style="font-size: 35px;font-weight: bolder;">Our Sponsors</p>
+	
+<div th:replace="~{fragments/layoutFragments :: sponsorLogoMarqueeFrag}"></div>
+	   
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -89,6 +99,9 @@
         </div>
       </div>
     </div>
+    
+<div th:replace="~{fragments/layoutFragments :: teamLogoMarqueeFrag}" ></div>
+    
 </section>
 
 <div th:replace="~{fragments/layoutFragments :: footFrag}"></div>

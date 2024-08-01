@@ -51,6 +51,12 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100
 	                <label class="form-label fs-4">Enter Player Name</label>
 	              </div>
 	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('address')}" th:errorclass="text-danger" th:errors="*{address}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{address}" required="required"/>
+	                <label class="form-label fs-4">Enter Full Address</label>
+	              </div>
+	              
 	              <div data-mdb-input-init class="form-outline form-white mb-4">
 	              <p th:if="${#fields.hasErrors('fatherName')}" th:errorclass="text-danger" th:errors="*{fatherName}"/>	              
 	                <input type="text" class="form-control form-control-lg" th:field="*{fatherName}" required="required"/>

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Announcement;
+import org.vasaviyuvajanasangha.kvcl.model.Editable;
 import org.vasaviyuvajanasangha.kvcl.service.AdminServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.EditableServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 @Controller
@@ -35,6 +37,9 @@ public class GodAdminController {
 	
 	@Autowired
 	private AnnouncementServiceImpl announcementsService;
+	
+	@Autowired
+	private EditableServiceImpl editableServiceImpl;
 	
 	@GetMapping("/god-admin-home")
 	public String getAllUsers(ModelMap model) {
@@ -93,12 +98,21 @@ public class GodAdminController {
 		return getAllUsers(model);
 	}
 	
-	
 	@PostMapping("/reset-password")
 	public String resetPassword(@RequestParam("number") String number, @RequestParam("password") String password){
 		 var user = appUserServiceImpl.getUserFromUserName(number).get();
 		 user.setPassword(password);
 		 appUserServiceImpl.saveAppUser(user);
+		 return "redirect:/godadmin/god-admin-home";
+		
+	}
+	
+	@PostMapping("/save-editable")
+	public String saveEditable(@RequestParam("editTeamDetails") Boolean editTeamDetails,
+								@RequestParam("editVasaviMathaDetails") Boolean editVasaviMathaDetails, 
+								@RequestParam("editPaymentDetails") Boolean editPaymentDetails) {
+		 
+		 editableServiceImpl.save(new Editable(editTeamDetails, editVasaviMathaDetails, editPaymentDetails, true, TeamController.getCurrentUser()));
 		 return "redirect:/godadmin/god-admin-home";
 		
 	}

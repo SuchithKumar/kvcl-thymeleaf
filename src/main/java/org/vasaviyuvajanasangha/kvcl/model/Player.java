@@ -5,6 +5,7 @@ import org.vasaviyuvajanasangha.kvcl.validator.ExtendedEmailValidator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -54,6 +55,10 @@ public class Player {
 	
 	@NotEmpty
 	private String bloodGroup;
+	
+	@NotEmpty
+	@Column(length = 1000)
+	private String address;
 	
 	@Transient
 	private MultipartFile photo;

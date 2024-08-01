@@ -36,16 +36,27 @@
 			              <div class="card-body text-center p-4">
 			                <div class="row row-no-gutters pt-1">
 			                  <div class="col-4 mb-3">
-			                    <h6>Player Profession</h6>
+			                    <h6>Profession | Shop Name | Company</h6>
 			                    <p class="text-muted"th:text="${profile.profession}"></p>
 			                  </div>
 			                  <div class="col-4 mb-3">
-			                    <h6>Phone</h6>
+			                    <h6>Contact Number</h6>
 			                    <p class="text-muted" th:text="${profile.playerPhone}"></p>
 			                  </div>
 			                  <div class="col-4 mb-3">
 			                    <h6>Age</h6>
 			                    <p class="text-muted" th:text="${profile.age}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">  
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Email</h6>
+			                    <p class="text-muted"th:text="${profile.playerEmail}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Address</h6>
+			                    <p class="text-muted" th:text="${profile.address}"></p>
 			                  </div>
 			                </div>
 			                <hr class="mt-0 mb-4">
@@ -244,12 +255,17 @@
 		</div>
 		</div>
 		<br>
- 		<div th:if="${team==null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/register-team">Add Team Details</a>	
-		</div>	
-		<div th:if="${team!=null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/register-team">Edit Team Details</a>	
-		</div> 
+		<div th:if="${editable.editTeamDetails}">
+	 		<div th:if="${team==null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/register-team">Add Team Details</a>	
+			</div>	
+			<div th:if="${team!=null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/register-team">Edit Team Details</a>	
+			</div> 
+		</div>
+		<div th:if="${editable.editTeamDetails == false}">
+			<p class="text-center text-warning" style="font-size: 25px;">Edit Option is Disabled</p>
+		</div>
 		<br>
 		<br>
 		<div class="d-flex align-items-center justify-content-center">
@@ -329,12 +345,17 @@
 			  </div>	
 			  <br>
 		</div>
-		<div th:if="${team!=null and team.vsDetails==null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/add-sangha-details">Add Vasavi Sangha Details</a>	
+		<div th:if="${editable.editVasaviMathaDetails}">
+			<div th:if="${team!=null and team.vsDetails==null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/add-sangha-details">Add Vasavi Sangha Details</a>	
+			</div>
+			<div th:if="${team!=null and team.vsDetails!=null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/edit-vasavi-sangha-details">Edit Vasavi Sangha Details</a>	
+			</div> 
 		</div>
-		<div th:if="${team!=null and team.vsDetails!=null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/edit-vasavi-sangha-details">Edit Vasavi Sangha Details</a>	
-		</div> 
+		<div th:if="${editable.editVasaviMathaDetails == false}">
+			<p class="text-center text-warning" style="font-size: 25px;">Edit Option is Disabled</p>
+		</div>
 		<br>
 		<div class="d-flex align-items-center justify-content-center">
 		<h3>Payment Details</h3>
@@ -360,14 +381,17 @@
 			  </div>	
 			  <br>		  
 		</div>
-		
-		 <div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/add-payment-details">Add Payment Details</a>	
-		</div>	
-		<div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
-			<a class ="btn btn-warning" href="/user/add-payment-details">Edit Payment Details</a>	
+		<div th:if="${editable.editPaymentDetails}">
+			 <div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB==null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/add-payment-details">Add Payment Details</a>	
+			</div>	
+			<div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
+				<a class ="btn btn-warning" href="/user/add-payment-details">Edit Payment Details</a>	
+			</div>
 		</div>
-		
+		<div th:if="${editable.editPaymentDetails == false}">
+			<p class="text-center text-warning" style="font-size: 25px;">Edit Option is Disabled</p>
+		</div>
 		<!-- <div th:if="${team!=null and team.vsDetails!=null and team.paymentInfoDB!=null}" class="d-flex align-items-center justify-content-center mb-4">
 			<h4>Thanks for completing the phase 1 of the registration process. we will review the details and get back for phase 2 of the registration process 🙏</h4>	
 		</div>	 --> 

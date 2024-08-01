@@ -1,13 +1,17 @@
 package org.vasaviyuvajanasangha.kvcl.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.vasaviyuvajanasangha.kvcl.model.ApprovalTable;
 import org.vasaviyuvajanasangha.kvcl.model.Player;
 import org.vasaviyuvajanasangha.kvcl.repository.PlayerRepository;
+import org.vasaviyuvajanasangha.kvcl.repository.PlayerRepository.NameOnly;
 
 @Controller
 public class PlayerServiceImpl {
@@ -59,5 +63,12 @@ public class PlayerServiceImpl {
 		var player = optPlayer.get();
 		player.setPhotoImg("data:image/png;base64,"+Base64.getEncoder().encodeToString(player.getPlayerPhoto()));
 		return Optional.of(player);
+	}
+	
+	public List<ApprovalTable> getTeamApprovalReport(){
+		List<NameOnly> rep = repository.teamApprovalView();
+		List<ApprovalTable> table = new ArrayList<>();
+		rep.forEach(a-> table.add(new ApprovalTable(a.getTeamName(),a.getApproved(),a.getUnApproved())));
+		return table;
 	}
 }

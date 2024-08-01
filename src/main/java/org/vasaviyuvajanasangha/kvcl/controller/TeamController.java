@@ -13,10 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.vasaviyuvajanasangha.kvcl.model.Editable;
 import org.vasaviyuvajanasangha.kvcl.model.FileEntity;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
 import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.EditableServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
@@ -37,6 +39,9 @@ public class TeamController {
 	
 	@Autowired
 	private PlayerServiceImpl playerServiceImpl;
+	
+	@Autowired
+	private EditableServiceImpl editableServiceImpl;
 
 	@GetMapping(path = { "/user-home" })
 	public String userHome(ModelMap model) {
@@ -45,12 +50,16 @@ public class TeamController {
 		var user = appUserServiceImpl.getUserFromUserName(getCurrentUser());
 
 		var teamPre = teamServiceImpl.findTeamByRegisterUser(getCurrentUser());
+		
+		Editable editable = editableServiceImpl.getLatestUpdate();
 //		logger.info("update-request : {}",teamPre);
 		if (user.get().getIsCaptain()) {
 			if (teamPre.isEmpty()) {
 				model.put("team", null);
 				model.put("vsDetails", null);
 				model.put("paymentDetails", null);
+				
+				model.put("editable", editable);
 				return "userHome";
 
 			} else {
@@ -86,7 +95,8 @@ public class TeamController {
 				var unApprovedPlayers = team.getPlayers().stream().filter(a->a.getTeamApproval()!=null && a.getTeamApproval().equals(false)).toList();
 				model.put("approvedPlayers", approvedPlayers);
 				model.put("unApprovedPlayers", unApprovedPlayers);
-
+				
+				model.put("editable", editable);
 				return "userHome";
 			}
 		} else {
@@ -94,7 +104,8 @@ public class TeamController {
 			if(player.isPresent()) {
 				model.put("team", player.get().getTeam());
 				model.put("profile", player.get());
-				var approvedPlayers = player.get().getTeam().getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true)).toList();
+				
+				var approvedPlayers = teamServiceImpl.findTeamByName(player.get().getTeamName()).get().getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true)).toList();
 				model.put("approvedPlayers", approvedPlayers);
 
 			}else {
@@ -102,6 +113,7 @@ public class TeamController {
 				model.put("profile", null);
 			}
 			
+			model.put("editable", editable);
 			return "playerHome";
 		}
 

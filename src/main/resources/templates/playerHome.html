@@ -30,7 +30,6 @@
 			              style="border-top-left-radius: .5rem; background-color : #F0F0F0; border-bottom-left-radius: .5rem;">
     			           <img th:src="${profile.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px; height: 250px"  />  
    			              <h4 style="color: black" th:text="${'Player Name : ' + {profile.playerName}}"></h4>  
-  			              <h4 style="color: black" th:text="${'Player Contact : ' + {profile.playerPhone}}"></h4> 
 			              <h5 style="color: black" th:text="${'Team Name : ' + {profile.teamName}}"></h5>
 			              <p style="color: black;"> Edit Player Info <a class="btn btn-warning" th:href="${'/user/edit-player/'+{profile.playerId}}"><i class="fa fa-edit"></i></a></p>
 			            </div>
@@ -42,12 +41,23 @@
 			                    <p class="text-muted"th:text="${profile.profession}"></p>
 			                  </div>
 			                  <div class="col-4 mb-3">
-			                    <h6>Email</h6>
-			                    <p class="text-muted" th:text="${profile.playerEmail}"></p>
+			                    <h6>Contact Number</h6>
+			                    <p class="text-muted" th:text="${profile.playerPhone}"></p>
 			                  </div>
 			                  <div class="col-4 mb-3">
 			                    <h6>Age</h6>
 			                    <p class="text-muted" th:text="${profile.age}"></p>
+			                  </div>
+			                </div>
+			                <hr class="mt-0 mb-4">   
+			                <div class="row row-no-gutters pt-1">
+			                  <div class="col-6 mb-3">
+			                    <h6>Email</h6>
+			                    <p class="text-muted"th:text="${profile.playerEmail}"></p>
+			                  </div>
+			                  <div class="col-6 mb-3">
+			                    <h6>Address</h6>
+			                    <p class="text-muted" th:text="${profile.address}"></p>
 			                  </div>
 			                </div>
 			                <hr class="mt-0 mb-4">
@@ -115,31 +125,55 @@
 	<div class="text-center text-danger" th:if="${profile!=null and profile.teamApproval==false}">
 		<h4>Team details will only be visible after the captain approves you into the Team</h4>
 	</div>
-	<div class="container text-center justify-content-center">
+	<div class="text-center justify-content-center">
 		<div th:if="${profile!=null and profile.teamApproval==true and approvedPlayers!=null and !approvedPlayers.isEmpty()}" >
 				<h3 class="text-center" th:text="${ {profile.teamName} + ' players list'}"></h3>				
 				<hr>	
-					<table class="table table-responsive table-hover">
+					<table class="container table table-responsive table-hover">
 						<thead>
 							<tr>
 								<th>Sl No</th>
-								<th>Name</th>
-								<th>Phone</th>
-								<th>Email</th>
+								<th>Photo</th>					
+								<th>Player Name</th>
+								<th>Team Name</th>					
+								<th>Father Name</th>
+								<th>Father Contact</th>
+								<th>Mother Name</th>
+								<th>Mother Contact</th>	
+								<th>Address</th>
+								<th>Age</th>
+								<th>Blood Group</th>
 								<th>Gothram</th>
-								<th>Player Skill</th>
-								<th>T shirt Size</th>
+								<th>Contact</th>
+								<th>Email</th>
+								<th>Profession</th>
+								<th>T Shirt Size</th>
+								<th>Player Skill</th> 
+								<th>Batting Style</th> 
+								<th>Bowling Style</th> 
 							</tr>
 						</thead>
 						</tbody>
 							 <tr th:each="item,stats : ${approvedPlayers}" >
 		 					 	<td th:text=${stats.count}></td>
-							 	<td th:text=${item.playerName}></td>
-							 	<td th:text=${item.playerPhone}></td>
-							 	<td th:text=${item.playerEmail}></td>
-							 	<td th:text=${item.playerGothram}></td>
-							 	<td th:text=${item.playerSkill}></td>
-							 	<td th:text=${item.playerShirtSize}></td>
+							 	<td><img th:src="${item.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px;" /></td>
+							 	<td th:text="${item.playerName}"></td>
+						 	 	<td th:text="${item.teamName}"></td>
+							 	<td th:text="${item.fatherName}"></td>
+							 	<td th:text="${item.fatherContact}"></td>
+							 	<td th:text="${item.motherName}"></td>
+							 	<td th:text="${item.motherContact}"></td>
+							 	<td th:text="${item.address}"></td>
+							 	<td th:text="${item.age}"></td>
+							 	<td th:text="${item.bloodGroup}"></td>
+							 	<td th:text="${item.playerGothram}"></td>
+							 	<td th:text="${item.playerPhone}"></td>
+							 	<td th:text="${item.playerEmail}"></td>
+							 	<td th:text="${item.profession}"></td>
+							 	<td th:text="${item.playerShirtSize}"></td>
+							 	<td th:text="${item.playerSkill}"></td>
+							 	<td th:text="${item.battingStyle}"></td>
+							 	<td th:text="${item.bowlingStyle}"></td>	
 							 </tr>
 						</tbody>
 					</table>	

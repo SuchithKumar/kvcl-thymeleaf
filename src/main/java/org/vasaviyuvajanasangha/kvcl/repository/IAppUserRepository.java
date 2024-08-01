@@ -1,4 +1,5 @@
 package org.vasaviyuvajanasangha.kvcl.repository;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +11,6 @@ import org.vasaviyuvajanasangha.kvcl.model.AppUser;
 public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
 
 	Optional<AppUser> findByUsername(String username);
+	List<AppUser> findAllByRoles(String roles);
 	
 }

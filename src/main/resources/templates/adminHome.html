@@ -11,13 +11,105 @@
 
 <div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 
-<div class="vh-100 container overflow-auto text-center">
+<div class="vh-100 m-10 overflow-auto text-center">
 	<h3>Admin Page</h3>	
+	<hr>
 	<br>
 		<h4>Click on below button to Make an Announcement!!</h4>
 		<a class="btn btn-primary" href="/admin/new-announcement">Make new Announcement</a>
 	<br>
 	<br>
+	<hr>
+	<h5>Team wise approved count</h5>	
+	<div th:if="${approvalTable!=null}">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Sl No</th>
+						<th>Team Name</th>					
+						<th>Approved Count</th> 
+						<th>Unapproved Count</th> 
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${approvalTable}">
+					  	<td th:text=${stats.count}></td>
+					 	<td th:text="${item.teamName}"></td>
+				 	 	<td th:text="${item.approved}"></td>
+				 	 	<td th:text="${item.unapproved}"></td>			 				 	
+					 </tr>
+				</tbody>
+			</table>	
+	</div>	
+	<br>
+	<br>	
+	<hr>
+	<h5>Team wise player details</h5>
+	<form action="/admin/fetch-team-players" method="post">
+		<div data-mdb-input-init class="form-outline form-white mb-4">
+             <select name="selectedTeamName" id="selectedTeamName"  class="form-control form-control-lg" required="required">
+             		<option th:each="p : ${allteams}" th:value="${p}" th:text="${p}"></option>
+             </select>
+             <label class="form-label fs-4">Select Team</label>
+        </div>
+	<button class="btn btn-primary">Fetch Details</button>
+	</form>
+	
+	<div th:if="${selectedTeamPlayers!=null}">
+		<hr>	
+			<table class="table table-responsive table-hover">
+				<thead>
+					<tr>
+						<th>Sl No</th>
+						<th>Photo</th>					
+						<th>Player Name</th>
+						<th>Team Name</th>					
+                        <th>Approval Status</th> 	
+						<th>Father Name</th>
+						<th>Father Contact</th>
+						<th>Mother Name</th>
+						<th>Mother Contact</th>					
+						<th>Address</th>
+						<th>Age</th>
+						<th>Blood Group</th>
+						<th>Gothram</th>
+						<th>Contact</th>
+						<th>Profession</th>
+						<th>T Shirt Size</th>
+						<th>Player Skill</th> 
+						<th>Batting Style</th> 
+						<th>Bowling Style</th> 
+					</tr>
+				</thead>
+				</tbody>
+					 <tr th:each="item,stats : ${selectedTeamPlayers}">
+					  	<td th:text=${stats.count}></td>
+					 	<td><img th:src="${item.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px;" /></td>
+					 	<td th:text="${item.playerName}"></td>
+				 	 	<td th:text="${item.teamName}"></td>
+					  	<td th:text="${item.teamApproval} ? 'Approved' : 'Not Approved'"></td>	
+					 	<td th:text="${item.fatherName}"></td>
+					 	<td th:text="${item.fatherContact}"></td>
+					 	<td th:text="${item.motherName}"></td>
+					 	<td th:text="${item.motherContact}"></td>
+					 	<td th:text="${item.address}"></td>
+					 	<td th:text="${item.age}"></td>
+					 	<td th:text="${item.bloodGroup}"></td>
+					 	<td th:text="${item.playerGothram}"></td>
+					 	<td th:text="${item.playerPhone}"></td>
+					 	<td th:text="${item.profession}"></td>
+					 	<td th:text="${item.playerShirtSize}"></td>
+					 	<td th:text="${item.playerSkill}"></td>
+					 	<td th:text="${item.battingStyle}"></td>
+					 	<td th:text="${item.bowlingStyle}"></td>					 	
+					 </tr>
+				</tbody>
+			</table>	
+	</div>	
+	<br>
+	<br>	
+	<hr>
 	<h5>Registered Teams</h5>
 	<div>
 		<hr>	
@@ -110,9 +202,8 @@
 				</tbody>
 			</table>	
 	</div>
-	
 	<br>
-	<br>	
+	<br>
 </div>
 
 <div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>

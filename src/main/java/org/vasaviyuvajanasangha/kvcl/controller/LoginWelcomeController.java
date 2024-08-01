@@ -16,7 +16,9 @@ public class LoginWelcomeController {
 	
 	
 	@GetMapping(path = {"/login"})
-	public String login() {
+	public String login(ModelMap model) {
+		model.put("announcement", anServiceImpl.getLastAnnouncement());
+
 		return "login";
 	}
 		

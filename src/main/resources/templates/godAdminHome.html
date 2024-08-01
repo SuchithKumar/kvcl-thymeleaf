@@ -38,6 +38,35 @@
 	<br>
 	<br>
 	<hr>
+	
+	<h5 class="fw-bold mb-2 text-uppercase">Update Editable Options</h5>
+	<br>
+		<form th:action="@{/godadmin/save-editable}" method="post" class="container" >
+				 
+	              <h5 class="fw-bold mb-2 text-uppercase">Can update Team Details?</h5>	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+				   Yes<input type="radio" value="true" name="editTeamDetails" required="required"/>
+				   No<input type="radio" value="false" name="editTeamDetails" required="required"/>
+			      </div>
+			      
+			      <h5 class="fw-bold mb-2 text-uppercase">Can update Vasavi Sangha Details?</h5>	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+				   Yes<input type="radio" value="true" name="editVasaviMathaDetails" required="required"/>
+				   No<input type="radio" value="false" name="editVasaviMathaDetails" required="required"/>
+			      </div>
+			      
+			      <h5 class="fw-bold mb-2 text-uppercase">Can update Payment Details?</h5>	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+				   Yes<input type="radio" value="true" name="editPaymentDetails" required="required"/>
+				   No<input type="radio" value="false" name="editPaymentDetails" required="required"/>
+			      </div>
+ 
+	              <button type="submit">Update Edit Options</button>            
+        </form>
+	<br>
+	<br>
+	<hr>
+	
 	<h5>Registered Users</h5>	
 	<div class="container ">
 		<hr>	
