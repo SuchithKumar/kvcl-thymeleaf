@@ -9,19 +9,19 @@
 <body>
 
 <div th:replace="~{fragments/layoutFragments  :: navFrag}" ></div>
-<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 				
 <img class="img-fluid" width="100%"
 			th:src="@{images/tournament-announcement.png}" />
-<img class="img-fluid" width="100%"
-			th:src="@{images/kvcl-header-register-now.png}" />
 
 <section class="gradient-custom">
 
  <p class="text-dark text-center" style="font-size: 35px;font-weight: bolder;">Our Sponsors</p>
 	
 <div th:replace="~{fragments/layoutFragments :: sponsorLogoMarqueeFrag}"></div>
-	   
+
+<img class="img-fluid" width="100%"
+			th:src="@{images/kvcl-header-register-now.png}" />
+				   
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -31,6 +31,7 @@
 				<p th:text="${errr}" class="text-danger fs-4"></p>
 			</div>	
 			<form th:action="@{/register-user}" method="post" th:object="${user}">
+				  <input type="hidden" th:field="*{isCaptain}"/>	  
 				 
 	              <h2 class="fw-bold mb-2 text-uppercase">KVCL 2K24</h2>
 	              <h5 class="fw-bold mb-2 text-uppercase">User Registration Form</h5>
@@ -74,12 +75,12 @@
 	                
 	              </div>
 	              
-	              <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+	             <!--  <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
 				     	               <label class="form-label fs-4">Are you registering as a Captain?</label>
 				  <br>
 				   Yes<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="Yes" th:field="*{isCaptain}" required="required"/> 
 				   No<input type="radio" style="height:25px; width:25px; vertical-align: middle;" value="No" th:field="*{isCaptain}" required="required"/>
-			      </div>
+			      </div> -->
 	
 					<!-- 					
 						<div th:if="${#fields.hasAnyErrors()}">

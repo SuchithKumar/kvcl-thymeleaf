@@ -58,6 +58,7 @@ public class AddUserController {
 			return "registerUser";
 		}
 		
+		user.setIsCaptain(false);
 		appUserService.saveAppUser(user);
 		model.put("name", user.getUsername());
 		model.put("username", user.getName());

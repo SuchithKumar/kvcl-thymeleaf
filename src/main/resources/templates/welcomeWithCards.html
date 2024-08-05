@@ -3,7 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:insert="~{fragments/layoutFragments :: headFrag}"></head>
+<head th:insert="~{fragments/layoutFragments :: headFrag}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
 
 <body class="d-flex flex-column vh-100">
 	<div class="wrapper">
@@ -11,14 +13,10 @@
 				<nav th:replace="~{fragments/layoutFragments  :: navFrag}"></nav>
 				<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
 				
-				<img class="img-fluid" width="100%"
+								<img class="img-fluid" width="100%"
 							th:src="@{images/tournament-announcement.png}" />
 				<img class="img-fluid" width="100%"
 							th:src="@{images/kvcl-header-register-now.png}" />
-				
-				<h3>KVCL 2024</h3>
-				<h4>Organized by Vasavi Seva Mandali (R) and Vasavi Yuvajana Sangha</h4>
-				<h4>KG Nagar</h4>
 				
 				<div th:replace="~{fragments/layoutFragments :: teamLogoMarqueeFrag}" ></div>
 
@@ -28,17 +26,38 @@
 				<br>
 				</div>
 				
-					<section >
+					<section class="m-0 p-0">
 						<div class="m-2">
-							<div class="h3 text-center text-dark" id="pageHeaderTitle">Title Sponsors</div>
+							<div class="h3 text-center text-dark m-0 p-0"  id="pageHeaderTitle">
+								<span class="titles">Title Sponsors</span>
+							</div>
 								<article class="postcard dark" style="background-color: #670E10">
-								<a class="postcard__img_link" > 
-									<img  class="postcard__img" th:src="@{/images/sponsor-logo/kuberan.jpg}"  alt="Image Title" />
-									</a>
+ 								
+ 								<div id="kuberanCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" style="width:500px;height:380px;margin-top: 150px;margin-right: 10px">
+								  
+								  <div class="carousel-inner" >
+								    <div class="carousel-item" data-bs-interval=2000 >
+								      <img  th:src="@{/images/sponsor-logo/carousel/kuberan/file1.jpg}"  class="postcard_carousel" alt="...">
+								    </div>
+								    <div class="carousel-item active" data-bs-interval=2000 >
+								      <img  th:src="@{/images/sponsor-logo/carousel/kuberan/file2.png}" class="postcard_carousel" alt="...">
+								    </div>
+								   
+								  </div>
+								   <button class="carousel-control-prev" type="button" data-bs-target="#kuberanCarousel" data-bs-slide="prev">
+								    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								    <span class="visually-hidden">Previous</span>
+								  </button>
+								  <button class="carousel-control-next" type="button" data-bs-target="#kuberanCarousel" data-bs-slide="next">
+								    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+								    <span class="visually-hidden">Next</span>
+								  </button>
+								
+								</div>								
 								<div class="postcard__text">
 <!-- 								 	<img class="postcard__owner" th:src="@{/images/sponsor-owner/kuberan.jpeg}" alt="Card image">			
- -->									<p class="postcard__title" style="color: #C59E01; font-weight: bold; font-size:50px;">Kuberan By</p>
-									<h1 class="postcard__title" style="color: #C59E01">K V Vishnu</h1>
+ -->									<p class="postcard__title titleName text-center" style="color: #C59E01; font-weight: bold; font-size:50px;">Kuberan </p>
+									<h1 class="postcard__title titleName text-center" style="color: #C59E01">K V Vishnu</h1>
 									
 									<!-- <div class="postcard_img mb-2">
 						                  <img th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
@@ -46,7 +65,7 @@
 									<div class="postcard__subtitle small">
 										 <h5><i class="fa-solid fa-shop"></i>226, Chickpet main road, Bengaluru, Karnataka 560053</h5>
 									</div>
-									<div style="padding-bottom: 25px" class="postcard__preview-txt"><p>Kuberan is a renowned purveyor of exquisite silk fabrics, embodying the rich heritage and timeless elegance of India. 
+									<div style="padding-bottom: 10px" class="postcard__preview-txt-title-sponsor" ><p>Kuberan is a renowned purveyor of exquisite silk fabrics, embodying the rich heritage and timeless elegance of India. 
 									With a legacy spanning generations, we have been crafting masterpieces that adorn the lives of discerning customers worldwide.<p>
 									<!-- <p>
 									Our commitment to excellence is reflected in every thread, as we meticulously select the finest raw silk to create fabrics that are not just textiles, 
@@ -56,33 +75,45 @@
 									 We are dedicated to preserving traditional weaving techniques while embracing modern technology to deliver the best possible products to our customers.</p>
 									<p>Experience the opulence of Kuberan Silks and let our fabrics elevate your style and grace your special occasions.</p>
 									</div>
-									
+									<ul class="postcard__tagbox" style="margin-bottom: 10px;margin-top: 15px">
+										<li class="tag__item blue"><a target="_blank" href="https://maps.app.goo.gl/XD931hqbjgE4nLmU9"><i class="fa-solid fa-location-dot">Location</i></a></li>
+										<li class="tag__item"><a target="_blank" href="https://www.instagram.com/kuberan_silks/?hl=en"><i class="fa-brands fa-instagram xs">Instagram</i></a></li>
+										<li class="tag__item"><a target="_blank" href="https://www.facebook.com/kuberansilks"><i class="fa-brands fa-facebook xs">Facebook</i></a></li>
+										<li class="tag__item"><a target="_blank" href="https://in.pinterest.com/Kuberan_Silks/_created/"><i class="fa-brands fa-pinterest xs">Pinterest</i></a></li>
+									</ul>
+	
 									<ul class="postcard__tagbox">
-											<li class="tag__item blue"><a target="_blank" href="https://maps.app.goo.gl/XD931hqbjgE4nLmU9"><i class="fa-solid fa-location-dot">Location</i></a></li>
 											<li class="tag__item blue"><i class="fa-solid fa-phone"></i>+91-9902579292</li>
 											<li class="tag__item blue"><i class="fa-solid fa-phone"></i>+91-9740011016</li>
 									</ul>
 								</div>
 								</article>	
 							</div>
-					</section>	
-					
+					</section>
 					<br>
-					<br>
- 	
-					<section >
+					<section class="m-0 p-0">
 						<div class="m-2">
-							<div class="h3 text-center text-dark" id="pageHeaderTitle">Co Sponsored By</div>
+							<div class="h3 text-center text-dark m-0 p-0" id="pageHeaderTitle">
+								<span class="titles">Co Sponsors</span>
+							</div>
 							
+							 <div class="ribbon3 fancy-wipe">
+			                  	<span class="text">
+									25% off on all branded frames, sunglasses and lenses & contact lenses available at wholesale prices!
+								</span>
+								<span class="wipe-in">
+									25% off on all branded frames, sunglasses and lenses & contact lenses available at wholesale prices!
+								</span>
+		                  	</div>	
 							
 							<article class="postcard dark" style="background-color: #3978bb">
 							<a class="postcard__img_link" > 
-								<img  class="postcard__img" th:src="@{/images/sponsor-logo/vinod-opthalmic-works.jpeg}"  alt="Image Title" />
+								<img  class="postcard__img" th:src="@{/images/sponsor-logo/vinod-opthalmic-works.jpeg}"  alt="Image Title" style="margin-top: 20px;margin-bottom: 10px;margin-left: 10px"/>
 								</a>
 							<div class="postcard__text">
 							 	<img class="postcard__owner" th:src="@{/images/sponsor-owner/vinod-opthalmic-works.jpeg}" alt="Card image">			
-								<p class="postcard__title" style="color: #FFFF6E;font-weight: bold;font-size: 30px">Vinod Ophthalmic Works By</p>
-								<h1 class="postcard__title" style="color: #FFFF6E">Gaurav V S</h1>
+								<p class="postcard__title titleName" style="color: #FFFF6E;font-weight: bold;font-size: 30px">Vinod Ophthalmic Works </p>
+								<h1 class="postcard__title titleName" style="color: #FFFF6E">Gaurav V S</h1>
 								
 								<!-- <div class="postcard_img mb-2">
 					                  <img th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
@@ -91,13 +122,12 @@
 									 <h5><i class="fa fa-solid fa-tags"></i>Sharpening one’s vision</h5>
 									 <h5><i class="fa-solid fa-shop"></i> #1, 19th cross, R.T.Street, Bengaluru, 560053</h5>
 								</div>
-								<div style="padding-bottom: 25px" class="postcard__preview-txt">Your Spectacles will be dispatched within 15-20 mins
-										In house manufacturing setup
-										Priority store for LUXOTICA brands 
-										Authorised dealers of Manufacturers, wholesalers and retailers of Frame, Lenses, contact lenses and sunglasses</div>
-								<x-sign>25% off on all branded frames, sunglasses and lenses &
-										contact lenses available at wholesale prices!
-										</x-sign>
+								<div style="padding-bottom: 5px" class="postcard__preview-txt">
+								<p>Established in the year 1977, Vinod Opthalmic Works specializes in manufacturing, wholesale and retail of optical products and its located at the heart of the city(#1,19th Cross,R.T.Street,Bangalore 560053.). We have established glass manufacturing unit in the year 1985 and CR lenses manufacturing unit in 2005 and evolved ourselves as per the latest market trends. Vinod Opthalmic Works is a pioneer in the optical industry of Bangalore and is known for its efficiency and quality in the market.</p>
+								<p>At present we are catering to more than 220 retailers and doctors on a daily basis .We deal with Lenses, Frames, Contact lenses and a completely computerized fitting center to cater the needs of our customers. We have been importing CR Lenses from China from as early as 2005 and edging machines to provide the best to our customers .At a capacity to fit more than 300 fittings per days, we can cater to most of our customers with required accuracy and with minimum waiting time</p>
+								<p>Vinod Opthalmic Works has a Vision to provide the powered spectacles to all the needy at a very reasonable price and to keep customer satisfaction as its main priority</p>
+								<p>At Vinod ophthalmic Works Trust and Quality is assured. We are looking forward to provide the best of services.</p>
+								</div>
 								<ul class="postcard__tagbox">
 										<li class="tag__item blue"><a target="_blank" href="https://maps.app.goo.gl/Mzm811cRLA6YHyYZ6"><i class="fa-solid fa-location-dot">Location</i></a></li>
 										<li class="tag__item blue"><i class="fa-solid fa-phone"></i>080 41517666</li>
@@ -108,19 +138,19 @@
 							
 							<article class="postcard dark" style="background-color: #eab676">
 							<a class="postcard__img_link" > 
-								<img  class="postcard__img" th:src="@{/images/sponsor-logo/sapthagiri.png}"  alt="Image Title" />
+								<img  class="postcard__img" th:src="@{/images/sponsor-logo/sapthagiri.png}"  alt="Image Title" style="margin-top: 20px;margin-bottom: 10px;margin-left: 10px"/>
 								</a>
 							<div class="postcard__text">
 							 	<img class="postcard__owner" th:src="@{/images/sponsor-owner/sapthagiri.png}" alt="Card image">			
-								<p style="color: black;font-size: 25px;font-weight: bold;">Sapthagiri Panel Products Pvt Ltd By</p>
-								<h1 class="postcard__title" style="color: black">Arjun</h1>
+								<p class="postcard__title titleName" style="color: black;font-size: 28px;font-weight: bold;margin-top: 15px">Sapthagiri Panel Products Pvt Ltd </p>
+								<h1 class="postcard__title titleName" style="color: black;margin-top: 15px">Arjun</h1>
 								
 								<!-- <div class="postcard_img mb-2">
 					                  <img th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
 				               </div> -->
-								<div class="postcard__subtitle small">
+								<div style="padding-bottom: 5px;margin-top: 20px" class="postcard__subtitle small">
 									 <h5><i class="fa fa-solid fa-tags"></i>Experience The Excellence!</h5>
-									 <h5><i class="fa-solid fa-shop"></i>SRMT Compound, 275/8, Mysore Rd, Byatarayanapura, Bengaluru - 560026</h5>
+									 <h5><i class="fa-solid fa-shop"></i>SRMT Compound, 275/8, Mysore Rd, atarayanapura, Bengaluru - 560026</h5>
 								</div>
 								<div class="postcard__preview-txt"><p>Sapthagiri Group is a first-generation business venture specializing in the dealing wide varieties of plywood's, veneers, MDF, Lamination sheets, Flush doors, Acrylic Solid surfaces, 
 								External Wall cladding .etc. since 1997. With an excellent distribution network, Sapthagiri Group has significant presence in South India, with an aspiration to scale nationwide. 
@@ -137,21 +167,21 @@
 							
 							<article class="postcard dark" style="background-color: #ffd966">
 							<a class="postcard__img_link" > 
-								<img  class="postcard__img" th:src="@{/images/sponsor-logo/siri-lightings.png}"  alt="Image Title" />
+								<img  class="postcard__img" th:src="@{/images/sponsor-logo/siri-lightings.png}"  alt="Image Title" style="margin-top: 20px;margin-bottom: 10px;margin-left: 10px"/>
 								</a>
 							<div class="postcard__text">
 							 	<img class="postcard__owner" th:src="@{/images/sponsor-owner/siri-lightings.png}" alt="Card image">			
-								<p style="color: black;font-size: 35px;font-weight: bold;">Siri Lightings By</p>
-								<h1 class="postcard__title" style="color: black">T S Shiva Kumar</h1>
+								<p class="postcard__title titleName" style="color: black;font-size: 30px;font-weight: bold;margin-top: 15px">Siri Lightings </p>
+								<h1 class="postcard__title titleName" style="color: black;margin-top: 15px">T S Shiva Kumar</h1>
 								
 								<!-- <div class="postcard_img mb-2">
 					                  <img th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
 				               </div> -->
-								<div class="postcard__subtitle small">
+								<div style="padding-bottom: 5px;margin-top: 30px" class="postcard__subtitle small">
 <!-- 									 <h5><i class="fa fa-solid fa-tags"></i>Experience The Excellence!</h5>
  -->									 <h5 style="color: black"><i class="fa-solid fa-shop"></i>#85/8, 10th C Main Road, 1st Block Jayanagar, Bangalore - 560011</h5>
 								</div>
-								<div class="postcard__preview-txt" style="color: black;"><p style="color: black">Leading LED Solutions. Parnter of Choice for Builders & Architects. Innovate, Illuminate, Inspire</p></div>
+								<div class="postcard__preview-txt-small" style="color: black; padding-bottom: 5px"><p style="color: black">Leading LED Solutions. Parnter of Choice for Builders & Architects. Innovate, Illuminate, Inspire</p></div>
 								<!-- <x-sign>25% off on all branded frames, sunglasses and lenses &
 										contact lenses available at wholesale prices!
 										</x-sign> -->
@@ -162,50 +192,19 @@
 							</div>
 							</article>
 							
-							<article class="postcard dark" style="background-color: #313b44">
-							<a class="postcard__img_link" > 
-								<img  class="postcard__img" th:src="@{/images/sponsor-logo/esperto.png}"  alt="Image Title" />
-								</a>
-							<div class="postcard__text">
-							 	<img class="postcard__owner" th:src="@{/images/sponsor-owner/esperto.png}" alt="Card image">			
-								<p style="font-size: 35px;font-weight: bold;">Esperto Car Care By</p>
-								<p style="font-size: 20px;font-weight: bold;" >Jayanth B E, Rohan Nachappa & Mohammad Sahil</p>
-								
-								<!-- <div class="postcard_img mb-2">
-					                  <img th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
-				               </div> -->
-								<div class="postcard__subtitle small">
-<!-- 									 <h5><i class="fa fa-solid fa-tags"></i>Experience The Excellence!</h5>
- -->									 <h5><i class="fa-solid fa-shop"></i>37,38, 80 ft road , Koramangala 1st block, Bangalore - 560034</h5>
-								</div>
-								<div class="postcard__preview-txt"><p>Esperto is dedicated to giving you the very best of ceramic protection and paint protection film 
-								Services in Detailing industry. Your number one source for all types of Auto detailing services.</p></div>
-								<!-- <x-sign>25% off on all branded frames, sunglasses and lenses &
-										contact lenses available at wholesale prices!
-										</x-sign> -->
-								<ul class="postcard__tagbox">
-										<li class="tag__item blue"><a target="_blank" href="https://maps.app.goo.gl/Lu54ZPSnVYz7ZdMH7"><i class="fa-solid fa-location-dot">Location</i></a></li>
-										<li class="tag__item blue"><i class="fa-solid fa-phone"></i>+91-7338555444</li>
-										<li class="tag__item"><a href="https://www.instagram.com/esperto_carcare?igsh=MTkwcm5jcng0Z3pmOA=="><i class="fa-brands fa-instagram">Instagram</i></a>
-										<li class="tag__item"><a href="https://www.facebook.com/share/fp3XrSCjmicTGcQx/?mibextid=kFxxJD"><i class="fa-brands fa-facebook">Facebook</i></a>
-								
-								</ul>
-							</div>
-							</article>
-							
 							<article class="postcard dark" style="background-color: #a76045">
 							<a class="postcard__img_link" > 
-								<img  class="postcard__img" th:src="@{/images/sponsor-logo/bsgroup.png}"  alt="Image Title" />
+								<img  class="postcard__img" th:src="@{/images/sponsor-logo/bsgroup.png}"  alt="Image Title" style="margin-top: 20px;margin-bottom: 10px;margin-left: 10px"/>
 								</a>
 							<div class="postcard__text">
 							 	<img class="postcard__owner" th:src="@{/images/sponsor-owner/bsgroup.png}" alt="Card image">			
-								<p style="font-size: 35px;font-weight: bold;">BS Group By</p>
-								<h1 class="postcard__title" style="color: white;">Veera Prathap</h1>
+								<p class="postcard__title titleName" style="color: white;font-size: 30px;font-weight: bold;margin-top: 15px">BS Group </p>
+								<h1  class="postcard__title titleName" style="color: white;margin-top: 15px">Veera Prathap</h1>
 								
 								<!-- <div class="postcard_img mb-2">
 					                  <img th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
 				               </div> -->
-								<div class="postcard__subtitle small">
+								<div style="padding-bottom: 5px;margin-top: 20px" class="postcard__subtitle small">
 <!--  									 <h5><i class="fa fa-solid fa-tags"></i>We are one team with one mission & vision!</h5>
  --> 									 <h5><i class="fa-solid fa-shop"></i> NO 33 , BS Complex, Pillappa Lane , Bangalore  560002</h5>
 								</div>
@@ -216,7 +215,7 @@
 										contact lenses available at wholesale prices!
 										</x-sign> -->
 								<ul class="postcard__tagbox">
-										<li class="tag__item blue"><a target="_blank" href="https://maps.app.goo.gl/EJ7sxBq5JcKW5KGa9"><i class="fa-solid fa-location-dot">  Location</i></a></li>
+										<li class="tag__item blue"><a target="_blank" href="https://maps.app.goo.gl/49QXaVMAP3dFHgR97"><i class="fa-solid fa-location-dot">  Location</i></a></li>
 										<li class="tag__item blue"><i class="fa-solid fa-phone"></i>+91-8553825275</li>
 								</ul>
 							</div>
@@ -224,25 +223,36 @@
 						</div>
 					</section>
 					
+					<br>
+					<section class="m-0 p-0">
 					
-					<div class="h1 text-center text-dark" id="pageHeaderTitle">Team Sponsors</div>
-
-
-					<section>
+						<div class="h1 text-center text-dark m-0 p-0" id="pageHeaderTitle">
+							<span class="titles">Team Sponsors</span>
+						</div>
+					
 					   <div class="text-dark m-2">
 					   <div class="row">
 					   
 					         <div class="col-md-4">
 					            <div class="card profile-card-2">
-					               <div class="card-img-block mb-2" style="max-height: 240px">
+					               <div class="mb-2" style="max-height: 240px">
 					                  <img class="img-fluid" th:src="@{/images/sponsor-logo/eshwari-silver-photos.png}" alt="Card image">
 					               </div>
 					             
-					               <div class="card-body pt-5">
+					               <div class="card-body">					           
 					                  <img th:src="@{/images/sponsor-owner/eshwari-silver-photos.jpg}" alt="profile-image" class="profile" />
+					                  <div class="ribbon text-center fancy-wipe">
+					                  	<span class="text">
+											Flat 10% off use ESPMK2024	
+										</span>
+										<span class="wipe-in">
+											Flat 10% off use ESPMK2024	
+										</span>
+					                  </div>
+					                  
            					          	<p class="address card-text"><i class="fa-solid fa-shop"></i>Mysore Road, Bengaluru</p>
-           					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-8971919653</p>
-					                  <h5 class="card-title">Eshwari Sliver Photos By</h5>
+           					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-8970191919</p>
+					                  <h5 class="card-title">Eshwari Sliver Photos </h5>
    					                  <h5 class="card-title">P Murali Krishna</h5>
 					                  
 					                  <p class="card-text">
@@ -259,15 +269,17 @@
 					         			
 					        <div class="col-md-4">
 					            <div class="card profile-card-2">
-					               <div class="card-img-block mb-2" style="max-height: 240px">
+					               <div class="mb-2" style="max-height: 240px">
 					                  <img class="img-fluid" style="overflow:scroll hidden;" th:src="@{/images/sponsor-logo/plastico-impex.png}" alt="Card image">
 					               </div>
 					             
-					               <div class="card-body pt-5">
+					               <div class="card-body ">
 					                  <img th:src="@{/images/sponsor-owner/plastico-impex.png}" alt="profile-image" class="profile" />
            					          	<p class="address card-text"><i class="fa-solid fa-shop"></i>Basavangudi, Bangalore</p>
            					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-9739813969</p>
-					                  <h5 class="card-title">Plastico Impex By Sarvesh C S</h5>
+					                  <h5 class="card-title">Plastico Impex</h5>
+					                  <h5 class="card-title">Sarvesh C S</h5>
+					                  
 					                  <p class="card-text">Plastico Impex is formed in 2018 with aim to provide high quality products. We cater to gifting and promotional requirement of companies, to support events like product launches, sports, brand promotions, store launches etc.</p>
 					                   
 					                  <div class="icon-block">
@@ -280,15 +292,15 @@
 					          				
 					        <div class="col-md-4">
 					            <div class="card profile-card-2">
-					               <div class="card-img-block mb-2" style="max-height: 240px">
+					               <div class="mb-2" style="max-height: 240px">
 					                  <img class="img-fluid" th:src="@{/images/sponsor-logo/pamadi-jewellers.png}" alt="Card image">
 					               </div>
 					             
-					               <div class="card-body pt-5">
+					               <div class="card-body ">
 					                  <img th:src="@{/images/sponsor-owner/pamadi-jewellers.png}" alt="profile-image" class="profile" />
            					          	<p class="address card-text"><a target="_blank" href="https://maps.app.goo.gl/pnQqS8qBuBGrC1bj6"><i class="fa-solid fa-shop"></i></a>Basavanagudi, Bengaluru</p>
            					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-9480611257</p>
-					                  <h5 class="card-title">Pamadi Jewelers by</h5>
+					                  <h5 class="card-title">Pamadi Jewelers </h5>
   					                  <h5 class="card-title">Niranjan S Pamadi</h5> 
 					                  <p class="card-text">
 					                 The store is best known for recreating some of the rarer and forgotten designs in jewellery, 
@@ -304,16 +316,16 @@
 					         
 					         <div class="col-md-4">
 					            <div class="card profile-card-2">
-					               <div class="card-img-block mb-2" style="max-height: 240px">
+					               <div class="mb-2" style="max-height: 240px">
 					                  <img class="img-fluid" style="overflow:scroll hidden;" th:src="@{/images/sponsor-logo/balaji-grills.png}" alt="Card image">
 					               </div>
 					             
-					               <div class="card-body pt-5">
+					               <div class="card-body ">
 					                  <img th:src="@{/images/sponsor-owner/balaji-grills.png}" alt="profile-image" class="profile" />
            					          	<p class="address card-text"><i class="fa-solid fa-shop"></i>Hosur Road, Bangalore</p>
            					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-8904184940</p>
 					                  <h5 class="card-title">Balaji Grills & </h5>
-					                  <h5 class="card-title">Sri Maruthi plywoods By Nagarjun</h5>
+					                  <h5 class="card-title">Sri Maruthi plywoods  Nagarjun</h5>
            					          <h5 class="card-title"></h5>
 					                  <p class="card-text">The first ones in Karnataka to start mdf jali cutting through machines, 
 					                  it’s 45 yr old business, the first one to start manufacturing perforated Prelam mdf of
@@ -328,18 +340,75 @@
 					         </div>
 					         
 					         <div class="col-md-4">
+					            <div class="card profile-card-2">					      	
+					               <div class="mb-2" style="max-height: 240px">
+					                  <img class="img-fluid" style="overflow:scroll hidden;" th:src="@{/images/sponsor-logo/mystique.png}" alt="Card image">
+					               </div>
+					             
+					               <div class="card-body ">						               				               
+					                  <img th:src="@{/images/sponsor-owner/mystique.png}" alt="profile-image" class="profile" />						                  
+					                  <div class="ribbon2 fancy-wipe">
+					                  	<span class="text">
+											projects of our community to get complimentary chimney worth 15k
+										</span>
+										<span class="wipe-in">
+											projects of our community to get complimentary chimney worth 15k
+										</span>
+					                  </div>				                  
+	          					          	<p class="address card-text"><i class="fa-solid fa-shop"></i>Kaveripura, Bangalore</p>
+	          					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-9844708879</p>
+					                  <h5 class="card-title">Mystiques of R & A</h5>
+					                  <h5 class="card-title">Adithya Sakala</h5>
+	          					          <h5 class="card-title"></h5>
+					                  <p class="card-text">At Mystiques of R&A, we believe that excellent design defies trends. Our portfolio demonstrates how innovation and classic design can work together to create environments that will be captivating for decades to come.
+					                  We take great pride in our abilities to create custom designs that complement your lifestyle and ensure that every component seamlessly fits into the space.Connect with us to discover the limitless opportunities for reinventing your surroundings.</p>					                   
+					                  <div class="icon-block">
+					                  	<a target="_blank" href="https://www.instagram.com/invites/contact/?i=mwgzje7z3q6q&utm_content=ef1xzo1"><i class="fa-brands fa-instagram xs"></i></a>
+					                  	<a target="_blank" href="https://www.facebook.com/share/PCDt1GNfZNr38Qvq/?mibextid=LQQJ4d"><i class="fa-brands fa-facebook xs"></i></a>
+					                  	<a target="_blank" class="md-6" href="https://maps.app.goo.gl/ENnKUPefeJckfNWNA?g_st=iw"> <i class="fa-solid fa-location-dot"></i></a>
+					                  </div>
+					               </div>
+					            </div>    
+					         </div>	
+					         
+					           <div class="col-md-4">
 					            <div class="card profile-card-2">
-					               <div class="card-img-block mb-2" style="max-height: 240px">
+					               <div class="mb-2" style="max-height: 240px">
+					                  <img class="img-fluid" style="overflow:scroll hidden;" th:src="@{/images/sponsor-logo/esperto.png}" alt="Card image">
+					               </div>
+					             
+					               <div class="card-body ">
+					                  <img th:src="@{/images/sponsor-owner/esperto.png}" alt="profile-image" class="profile" />
+	          					          	<p class="address card-text"><i class="fa-solid fa-shop"></i>Koramangala, Bangalore</p>
+	          					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-7338555444</p>
+					                  <h5 class="card-title">Esperto Car Care </h5>
+					                  <h5 class="card-title">Jayanth B E</h5>
+	          					          <h5 class="card-title"></h5>
+					                  <p class="card-text">Esperto is dedicated to giving you the very best of ceramic protection and paint protection film 
+										Services in Detailing industry. Your number one source for all types of Auto detailing services</p>
+					                   
+					                  <div class="icon-block">
+					                  	<a target="_blank" href="https://www.instagram.com/esperto_carcare?igsh=MTkwcm5jcng0Z3pmOA=="><i class="fa-brands fa-instagram xs"></i></a>
+					                  	<a target="_blank" href="https://www.facebook.com/share/fp3XrSCjmicTGcQx/?mibextid=kFxxJD"><i class="fa-brands fa-facebook xs"></i></a>
+					                  	<a target="_blank" class="md-6" href="https://maps.app.goo.gl/Lu54ZPSnVYz7ZdMH7"> <i class="fa-solid fa-location-dot"></i></a>
+					                  </div>
+					               </div>
+					            </div>    
+					         </div>		
+					         
+					         <div class="col-md-4">
+					            <div class="card profile-card-2">
+					               <div class="mb-2" style="max-height: 240px">
 					                  <img class="img-fluid" style="overflow:scroll hidden;" th:src="@{/images/sponsor-logo/panchajanya.png}" alt="Card image">
 					               </div>
 					             
-					               <div class="card-body pt-5">
+					               <div class="card-body ">
 					                  <img th:src="@{/images/sponsor-owner/panchajanya.jpeg}" alt="profile-image" class="profile" />
            					          	<p class="address card-text"><i class="fa-solid fa-shop"></i>C.T.Street, Bangalore</p>
            					          	<p class="contact card-text"><i class="fa-solid fa-phone"></i>+91-8694891173</p>
-					                  <h5 class="card-title">Panchajanya silver photos By</h5>
+					                  <h5 class="card-title">Panchajanya silver photos </h5>
            					          <h5 class="card-title">Shiva Kumar C</h5>
-					                  <p class="card-text">Exclusively handcrafted by highly skilled artist , we offer traditional frames 
+					                  <p class="card-text">Exclusively handcrafted  highly skilled artist , we offer traditional frames 
 					                  	99.99 % pure silver and gold for your Pooja room</p>              
 					                  <div class="icon-block">
 					                  	<a target="_blank" href="https://www.instagram.com/paanchajanya_silver_photos?igsh=MXR0NzhocmpvbjQxNg=="><i class="fa-brands fa-instagram xs"></i></a>
@@ -347,7 +416,8 @@
 					                  </div>
 					               </div>
 					            </div>
-					         </div>					         
+					         </div>	
+					         			         
 				         </div>				
 					</div>
 				</section>
@@ -355,6 +425,5 @@
 
 		</div>
 	<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
-
 </body>
 </html>

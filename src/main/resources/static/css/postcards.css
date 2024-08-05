@@ -151,17 +151,37 @@ x-sign {
   display: flex;
   flex-direction: column;
 }
+
+.postcard .postcard__preview-txt-title-sponsor {
+  font-size:20px;
+  overflow: auto;
+  text-overflow: ellipsis;
+  text-align: justify;
+  height: 400px;
+}
+
 .postcard .postcard__preview-txt {
-  overflow: hidden;
+  font-size: 20px;
+  overflow: auto;
+  text-overflow: ellipsis;
+  text-align: justify;
+  height: 240px;
+  margin-bottom: 20px;
+}
+
+.postcard .postcard__preview-txt-small {
+  font-size: 20px;
+  overflow: auto;
   text-overflow: ellipsis;
   text-align: justify;
   height: 100%;
+  margin-bottom: 20px;
 }
+
 .postcard .postcard__tagbox {
   display: flex;
   flex-flow: row wrap;
   font-size: 14px;
-  margin: 20px 0 0 0;
   padding: 0;
   justify-content: center;
 }
@@ -212,6 +232,14 @@ x-sign {
     margin: 2px;
   }
   
+  .postcard_carousel{
+  	max-width: 500px;
+  	max-height: 380px;
+  	margin-right: 10px;
+  	margin-left: 10px;
+  	margin-bottom: 10px;	
+  }
+  
   .postcard .postcard__owner {
     border-radius: 20px;
     float : right;
@@ -225,7 +253,7 @@ x-sign {
   
   
   .postcard .postcard__text {
-    padding: 3rem;
+    padding: 1rem;
     width: 100%;
   }
   .postcard .media.postcard__text:before {
@@ -393,4 +421,9 @@ x-sign {
   .yellow:nth-child(2n)::before {
     background-image: linear-gradient(80deg, rgba(189, 187, 73, 0.1), transparent 50%);
   }
+}
+
+.titleName{
+	margin-bottom: 0px;
+	margin-top: 0rem;
 }

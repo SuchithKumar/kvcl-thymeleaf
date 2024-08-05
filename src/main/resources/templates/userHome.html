@@ -193,9 +193,43 @@
 
 	<div class="d-flex align-items-center justify-content-center mb-4" th:if="${addedYourself==false}">
 			<a class ="btn btn-warning" href="/user/add-captain">Add Yourself to Team</a>	
+	</div>
+	<br>
+
+	<div th:if="${team!=null}">
+		<div class="container-lg text-center" style="margin-bottom: 10px">
+			<span class="titles" th:text="${team.name}"></span>
 		</div>
+		<div class="container-lg text-center" style="margin-bottom: 20px">
+			<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 350px;" />
+			<p>Click on the photos for more info!</p>
+		</div>
+		
+		<div class="container-lg">
+			 <div class="row">		   		
+			   <div th:each="item,stats : ${approvedPlayers}" class="col-md-3" style="margin-left: 35px;margin-bottom: 10px;margin-right: 35px">
+				   	<div class="pro-container" >
+					   	<div class="pro-card">
+					   	   <div class="pro-side">
+					        <img th:src="${item.photoImg}"  style="width: 260px; height: 300px">
+					        <h2 class="text-center" style="font-family: 'Times New Roman', serif;" th:text="${item.playerName}"></h2>
+					      </div>
+					      <div class="pro-side pro-back text-center">
+					        <h2>Player Skill</h2>
+					        <h3 th:text="${item.playerSkill}"></h3>
+					        <h2>Batting Style</h2>
+					        <h3  th:text="${item.battingStyle}"></h3>
+					        <h2>Bowling Style</h2>
+					        <h3 th:text="${item.bowlingStyle}"></h3>
+					      </div>
+					   	</div> 
+				    </div>
+				  </div>
+			</div>
+		</div>	
+	</div>
 	<br>
-	<br>
+	
 	<div class="d-flex align-items-center justify-content-center">
 	<h3>Team Details</h3>
 	<br>

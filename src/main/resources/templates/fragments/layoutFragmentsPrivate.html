@@ -16,7 +16,8 @@
 	<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<style>
+	<link rel="stylesheet" th:href="@{/css/profile.css}">
+<style>
 .marquee {
     width: 100%;
     line-height: 30px;
@@ -28,7 +29,7 @@
 .marquee p {
     display: inline-block;
     padding-left: 100%;
-    animation: marquee 10s linear infinite;
+    animation: marquee 15s linear infinite;
 }
 @keyframes marquee {
     0%   { transform: translate(0, 0); }
@@ -40,7 +41,82 @@
 	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
 
 }	
-	</style>
+
+.pro-container {
+  height: 300px;
+  width: 260px;
+  perspective: 320px;
+  position: relative;
+  margin-bottom: 50px;
+}
+.pro-card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 1s ease-in-out;
+}
+.pro-card:hover {
+  
+  transform: rotateY(180deg); 
+  /*
+  
+  transform: rotate(90deg); 
+  transform-origin: bottom left;
+  
+  /*
+  transform: skewx(10deg) translatex(150px);
+  */
+}
+
+.pro-back:hover {
+  
+  transform: rotateY(180deg); 
+  /*
+  
+  transform: rotate(90deg); 
+  transform-origin: bottom left;
+  
+  /*
+  transform: skewx(10deg) translatex(150px);
+  */
+}
+
+.pro-card .pro-side {
+  backface-visibility: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.pro-card .pro-back {
+  color: white;
+  transform: rotateY(180deg);
+  /*
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  */
+background: rgb(2,0,36);
+  /*
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,29,33,1) 54%, rgba(0,212,255,1) 100%);  
+  */
+  /* https://cssgradient.io/ */
+}
+
+.pro-back .pro-card {
+  color: white;
+  transform: rotateY(180deg);
+  /*
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  */
+background: rgb(2,0,36);
+  /*
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,29,33,1) 54%, rgba(0,212,255,1) 100%);  
+  */
+  /* https://cssgradient.io/ */
+}
+
+</style>
 <meta charset="UTF-8">
 <title>KVCL 2024</title>
 </head>
