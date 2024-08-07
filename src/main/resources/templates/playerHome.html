@@ -210,6 +210,149 @@
 			</div>
 		</div>	
 	</div>
+
+
+	<div class="container-lg pt-20 mt-40" >
+		<div class="text-center">
+			<span class="titles">Team Details</span>
+		</div>
+		<br>
+
+		<div th:if=${team!=null}>
+			<div>
+				<section class="vh-10">
+					<div >
+						<div>
+							<div class="col mb-1 mb-lg-0">
+								<div class="card mb-3" style="border-radius: .5rem;">
+									<div class="row row-no-gutters g-0">
+										<div class="col-md-4 text-center text-white"
+											 style="border-top-left-radius: .5rem; background-color : #F0F0F0; border-bottom-left-radius: .5rem;">
+											<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
+											<h5 style="color: black" th:text="${team.name}"></h5>
+											<p style="color: black" th:text="${'captain : '+{team.captain}}"></p>
+										</div>
+										<div class="col-md-8">
+											<div class="card-body text-center p-4">
+												<div class="row row-no-gutters pt-1">
+													<div class="col-6 mb-3">
+														<h6>Team Name</h6>
+														<p class="text-muted"th:text="${team.name}"></p>
+													</div>
+													<div class="col-6 mb-3">
+														<h6>Captain</h6>
+														<p class="text-muted" th:text="${team.captain}"></p>
+													</div>
+												</div>
+												<hr class="mt-0 mb-4">
+												<div class="row row-no-gutters pt-1">
+													<div class="col-6 mb-3">
+														<h6>Reqd accomodation?</h6>
+														<p class="text-muted" th:text="${team.requireAccomodation}"></p>
+													</div>
+													<div class="col-6 mb-3">
+														<h6>Reqd food?</h6>
+														<p class="text-muted" th:text="${team.requireFood}"></p>
+													</div>
+												</div>
+												<hr>
+												<div class="row-row-no-gutters pt-1">
+													<div class="col-12 mb-3">
+														<h6>Need accodation for</h6>
+														<p class="text-muted" th:text="${team.noOfAccomodation}"></p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="container-lg text-center">
+		<h3></h3>
+		<span class="titles">Vasavi Sangha Details</span>
+	<div th:if="${team!=null and team.vsDetails!=null}">
+		<div>
+			<section>
+				<div class="">
+					<div>
+						<div class="col mb-1 mb-lg-0">
+							<div class="card mb-3" style="border-radius: .5rem;">
+								<div class="row row-no-gutters g-0">
+									<div class="card-body text-center p-4">
+										<div class="row row-no-gutters pt-1">
+											<div class="col-6 mb-3">
+												<h6>Name</h6>
+												<p class="text-muted" th:text="${team.vsDetails.vasaviSanghaName}"></p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>Area</h6>
+												<p class="text-muted" th:text="${team.vsDetails.vasaviSanghaArea}"></p>
+											</div>
+										</div>
+										<hr class="mt-0 mb-4">
+
+										<div class="row row-no-gutters pt-1">
+											<div class="col-6 mb-3">
+												<h6>State</h6>
+												<p class="text-muted"th:text="${team.vsDetails.state}"></p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>City</h6>
+												<p class="text-muted" th:text="${team.vsDetails.city}"></p>
+											</div>
+										</div>
+										<hr class="mt-0 mb-4">
+										<div class="row row-no-gutters pt-1">
+											<div class="col-6 mb-3">
+												<h6>President</h6>
+												<p class="text-muted" th:text="${team.vsDetails.vsPresident}"></p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>President Contact No</h6>
+												<p class="text-muted" th:text="${team.vsDetails.vsPresidentNumber}"></p>
+											</div>
+										</div>
+										<hr class="mt-0 mb-4">
+										<div class="row row-no-gutters pt-1">
+											<div class="col-6 mb-3">
+												<h6>Secretary</h6>
+												<p class="text-muted" th:text="${team.vsDetails.vsSecretary}"></p>
+											</div>
+											<div class="col-6 mb-3">
+												<h6>Secretary Contact No</h6>
+												<p class="text-muted" th:text="${team.vsDetails.vsSecretaryNumber}"></p>
+											</div>
+											<hr class="mt-0 mb-4">
+											<div class="row row-no-gutters pt-1">
+												<div class="col-6 mb-3">
+													<h6>Treasurer</h6>
+													<p class="text-muted" th:text="${team.vsDetails.vsTreasurer}"></p>
+												</div>
+												<div class="col-6 mb-3">
+													<h6>Treasurer Contact No</h6>
+													<p class="text-muted" th:text="${team.vsDetails.vsTreasurerNumber}"></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<br>
+		</div>
+	</div>
+	<br>
 </div>
 <br>
 <br>

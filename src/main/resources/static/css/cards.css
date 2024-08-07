@@ -154,23 +154,20 @@ x-sign {
 .postcard .postcard__tagbox {
   display: flex;
   flex-flow: row wrap;
-  font-size: 14px;
-  margin: 20px 0 0 0;
+  font-size: 24px;
+  margin: 100px 0 0 0;
   padding: 0;
   justify-content: center;
 }
 .postcard .postcard__tagbox .tag__item {
   display: inline-block;
-  background: rgba(83, 83, 83, 0.4);
   border-radius: 3px;
   padding: 2.5px 10px;
   margin: 0 5px 5px 0;
   cursor: default;
   user-select: none;
-  transition: background-color 0.3s;
 }
 .postcard .postcard__tagbox .tag__item:hover {
-  background: rgba(83, 83, 83, 0.8);
 }
 .postcard:before {
   content: "";
@@ -179,7 +176,6 @@ x-sign {
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: linear-gradient(-70deg, #424242, transparent 50%);
   opacity: 1;
   border-radius: 10px;
 }
@@ -195,7 +191,6 @@ x-sign {
     font-size: 2rem;
   }
   .postcard .postcard__tagbox {
-    justify-content: start;
   }
   .postcard .postcard__img {
     max-width: 300px;

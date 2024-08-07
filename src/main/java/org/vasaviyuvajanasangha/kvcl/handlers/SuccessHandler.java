@@ -24,9 +24,9 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
 
 		logger.info("auth -> {}",authentication);
 		if(isSuperAdmin) {
-			setDefaultTargetUrl("/godadmin/god-admin-home");
+			setDefaultTargetUrl("/user-home");
 		}else if(isAdmin) {
-			setDefaultTargetUrl("/admin/admin-home");
+			setDefaultTargetUrl("/user-home");
 		}
 		else {
 			setDefaultTargetUrl("/user-home");

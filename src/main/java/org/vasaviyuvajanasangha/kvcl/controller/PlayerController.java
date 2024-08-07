@@ -86,7 +86,7 @@ public class PlayerController {
 		player.setPlayerPhone(user.getUsername());
 		player.setPlayerEmail(user.getEmail());
 		player.setTeamApproval(true);
-		playerServiceImpl.savePlayerIgnoreImg(player);
+		playerServiceImpl.savePlayer(player);
 
 		return "redirect:/user-home";
 	}
@@ -182,7 +182,7 @@ public class PlayerController {
 		AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
 		dbPlayer.setPlayerPhone(user.getUsername());
 		dbPlayer.setPlayerEmail(user.getEmail());
-		dbPlayer.setTeamApproval(false);
+		dbPlayer.setTeamApproval(true);
 		playerServiceImpl.savePlayer(dbPlayer);
 
 		return "redirect:/user-home";
