@@ -1,6 +1,7 @@
 package org.vasaviyuvajanasangha.kvcl.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
 @Controller
-@SessionAttributes({ "name", "username", "team", "players", "announcement" })
+@SessionAttributes({ "name", "username", "announcement" })
 public class TeamController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -112,7 +113,9 @@ public class TeamController {
 				model.put("team", null);
 				model.put("profile", null);
 			}
-			
+
+			List<Team> allTeams =  teamServiceImpl.findAllTeams();
+			model.put("allteams", allTeams);
 			model.put("editable", editable);
 			return "playerHome";
 		}

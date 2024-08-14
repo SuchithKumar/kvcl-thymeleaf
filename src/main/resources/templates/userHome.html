@@ -18,6 +18,9 @@
 	<h3>Captain Profile</h3>
 	<br>
 	</div>
+	<div class="text-center" th:if="${addedYourself==false}">
+		<a class ="btn btn-warning" href="/user/add-captain">Add Yourself to Team</a>
+	</div>
 	<div th:if=${profile!=null}>
 		<div class="py-3 m-2">
 			<section class="mb-5" style="background-color: #f4f5f7;">
@@ -131,6 +134,7 @@
 								<th>Phone</th>
 								<th>Email</th>
 								<th>Gothram</th>
+								<th>Profession</th>
 								<th>Player Skill</th>
 								<th>T shirt Size</th>
 								<th>Reject</th>
@@ -143,7 +147,8 @@
 							 	<td th:text=${item.playerPhone}></td>
 							 	<td th:text=${item.playerEmail}></td>
 							 	<td th:text=${item.playerGothram}></td>
-							 	<td th:text=${item.playerSkill}></td>
+								 <td th:text=${item.profession}></td>
+								 <td th:text=${item.playerSkill}></td>
 							 	<td th:text=${item.playerShirtSize}></td>
 							 	
 	 						 	<td th:if="${profile!=null and #strings.equals(item.playerName, profile.playerName)==false}"><a class="btn btn-danger" th:href="@{'/user/reject-player/' + ${item.playerId}}">Reject</a></td>								 	
@@ -168,6 +173,7 @@
 									<th>Phone</th>
 									<th>Email</th>
 									<th>Gothram</th>
+									<th>Profession</th>
 									<th>Player Skill</th>
 									<th>T shirt Size</th>
 									<th>Approve</th>
@@ -180,7 +186,8 @@
 								 	<td th:text=${item.playerPhone}></td>
 								 	<td th:text=${item.playerEmail}></td>
 								 	<td th:text=${item.playerGothram}></td>
-								 	<td th:text=${item.playerSkill}></td>
+									 <td th:text=${item.profession}></td>
+									 <td th:text=${item.playerSkill}></td>
 								 	<td th:text=${item.playerShirtSize}></td>
 		 						 	<td><a class="btn btn-primary" th:href="@{'/user/approve-player/' + ${item.playerId}}">Approve</a></td>								 	
 								 </tr>
@@ -190,12 +197,6 @@
 		</div>
 		<br>
 
-
-	<div class="d-flex align-items-center justify-content-center mb-4" th:if="${addedYourself==false}">
-			<a class ="btn btn-warning" href="/user/add-captain">Add Yourself to Team</a>	
-	</div>
-	<br>
-
 	<div th:if="${team!=null}">
 		<div class="container-lg text-center" style="margin-bottom: 10px">
 			<span class="titles" th:text="${team.name}"></span>
@@ -204,29 +205,42 @@
 			<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 350px;" />
 			<p>Click on the photos for more info!</p>
 		</div>
-		
+
 		<div class="container-lg">
-			 <div class="row">		   		
-			   <div th:each="item,stats : ${approvedPlayers}" class="col-md-3" style="margin-left: 35px;margin-bottom: 10px;margin-right: 35px">
-				   	<div class="pro-container" >
-					   	<div class="pro-card">
-					   	   <div class="pro-side">
-					        <img th:src="${item.photoImg}"  style="width: 260px; height: 300px">
-					        <h2 class="text-center" style="font-family: 'Times New Roman', serif;" th:text="${item.playerName}"></h2>
-					      </div>
-					      <div class="pro-side pro-back text-center">
-					        <h2>Player Skill</h2>
-					        <h3 th:text="${item.playerSkill}"></h3>
-					        <h2>Batting Style</h2>
-					        <h3  th:text="${item.battingStyle}"></h3>
-					        <h2>Bowling Style</h2>
-					        <h3 th:text="${item.bowlingStyle}"></h3>
-					      </div>
-					   	</div> 
-				    </div>
-				  </div>
+			<div class="row">
+				<div th:each="item,stats : ${approvedPlayers}" class="col-md-3" style="margin-left: 35px;margin-bottom: 40px;margin-right: 35px">
+					<div class="pro-container" >
+						<div class="pro-card">
+							<div class="pro-side">
+								<img th:src="${item.photoImg}"  style="width: 260px; height: 300px;border-radius:10px;border:15px solid #0e2238;border-bottom:55px solid #0e2238">
+								<img th:if="${item.playerSkill == 'Batsmen' or item.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px">
+								<img th:if="${item.playerSkill == 'Bowler' or item.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:120px">
+
+								<h2 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:70px" th:text="${item.playerName}"></h2>
+								<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:80px" th:text="${item.profession}"></h5>
+
+							</div>
+							<div class="pro-side pro-back text-center">
+								<h5><strong>Age</strong></h5>
+								<h6 th:text="${item.age}"></h6>
+								<h5><strong>Jersey Size</strong></h5>
+								<h6 th:text="${item.playerShirtSize}"></h6>
+								<h5><strong>Batting Style</strong></h5>
+								<h6  th:text="${item.battingStyle}"></h6>
+								<h5><strong>Bowling Style</strong></h5>
+								<h6 th:text="${item.bowlingStyle}"></h6>
+								<h5><strong>Gothram</strong></h5>
+								<h6 th:text="${item.playerGothram}"></h6>
+								<h5><strong>Phone</strong></h5>
+								<h6  th:text="${item.playerPhone}"></h6>
+								<h5><strong>Email</strong></h5>
+								<h6  th:text="${item.playerEmail}"></h6>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 	<br>
 	

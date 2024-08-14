@@ -1,25 +1,32 @@
 package org.vasaviyuvajanasangha.kvcl.controller;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferInt;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.AppUser;
 import org.vasaviyuvajanasangha.kvcl.model.Player;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.utils.ImageResizer;
+
+import javax.imageio.ImageIO;
 
 @Controller
-@SessionAttributes({ "name", "username", "team", "players", "announcement", "profile" })
+@SessionAttributes({ "name", "username", "announcement" })
 public class PlayerController {
 
 	@Autowired
@@ -194,5 +201,17 @@ public class PlayerController {
 
 		return "redirect:/user-home";
 	}
+
+	@GetMapping("/user/resizeImages")
+	@ResponseBody
+	public String fixSizes(){
+//		var players = playerServiceImpl.findPlayerById(254L);
+		var players = playerServiceImpl.findAllPlayers();
+		players.stream().forEach(playerServiceImpl::saveResizedImage);
+//		playerServiceImpl.saveResizedImage(players);
+		return "success";
+	}
+
+
 
 }

@@ -235,6 +235,13 @@ x-sign {
   	margin-left: 10px;
   	margin-bottom: 10px;	
   }
+
+  .postcard_carousel2{
+    	max-width: 360px;
+    	max-height: 450px;
+    	margin-left: 10px;
+    	margin-bottom: 10px;
+    }
   
   .postcard .postcard__owner {
     border-radius: 20px;
