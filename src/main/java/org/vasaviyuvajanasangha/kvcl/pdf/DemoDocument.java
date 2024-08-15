@@ -1,0 +1,36 @@
+package org.vasaviyuvajanasangha.kvcl.pdf;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.vasaviyuvajanasangha.kvcl.model.Team;
+
+import java.io.ByteArrayOutputStream;
+
+@Service
+public class DemoDocument {
+
+	@Autowired
+	private DocumentGenerator documentGenerator;
+	
+	@Autowired
+	private SpringTemplateEngine springTemplateEngine;
+	
+	@Autowired
+	private DataMapper dataMapper;
+
+	public ByteArrayOutputStream generateDocument(Team team) {
+		
+		String finalHtml = null;
+		
+		Context dataContext = dataMapper.setData(team);
+		
+		finalHtml = springTemplateEngine.process("registrationPdf", dataContext);
+
+		return  documentGenerator.htmlToPdf(finalHtml);
+	}
+}

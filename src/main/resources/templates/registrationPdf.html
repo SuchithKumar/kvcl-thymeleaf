@@ -1,0 +1,154 @@
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<style>
+th,td {
+  border: 1px solid;
+}
+
+.container {
+width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+}
+
+.text-center{
+    text-align:center
+}
+
+table, td, th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+</style>
+<title></title>
+</head>
+<body class="container">
+
+<div class="container text-center">
+    <h2>KVCL 2024</h2>
+</div>
+
+<div class="container text-center">
+    <h3>Thanking note from KG Nagar Vasavi Yuvajana sanga</h3>
+</div>
+
+<div class="container text-center">
+    <h3 class="text-center">Team Details</h3>
+    <table class="table" style="margin: 0 0 10px 0;border:1px solid;">
+        <thead style="font-size:14px">
+        <tr>
+            <th class="text-center">Logo</th>
+            <th class="text-center">Team Name</th>
+            <th class="text-center">Captain</th>
+            <th class="text-center">Accomodation</th>
+        </tr>
+        </thead>
+        <tbody style="font-size:12px">
+        <tr>
+            <td class="text-center" ><img th:src="${team.logoImg}" style="width: 140px; height: 160px"></td>
+            <td class="text-center" th:text="${team.name}"></td>
+            <td class="text-center" th:text="${team.captain}"></td>
+            <td class="text-center" th:text="${team.noOfAccomodation}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="container text-center">
+    <h3>Player Details</h3>
+    <table class="table" style="margin: 0 0 10px 0;border:1px solid;">
+        <thead style="font-size:14px">
+        <tr>
+            <th class="text-center">Sl.No</th>
+            <th class="text-center">Photo</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Gothram</th>
+            <th class="text-center">Contact</th>
+            <th class="text-center">Size</th>
+        </tr>
+
+        </thead>
+        <tbody style="font-size:11px">
+        <tr th:each="player,stats : ${team.players}">
+            <td class="text-center" style="width:50px" th:text="${stats.count}"></td>
+            <td class="text-center" style="width:260px;height:180px"><img th:src="${player.photoImg}" style="width: 140px; height: 160px;margin-right:80px"></td>
+            <td class="text-center" style="width:100px;" th:text="${player.playerName}"></td>
+            <td class="text-center" th:text="${player.playerGothram}"></td>
+            <td style="width:260px">
+                <table class="text-center" style="margin-bottom:20px;border:0px;width:100%">
+                    <thead style="font-size:12px">
+                    <tr>
+                        <th style="border:0px;">Address</th>
+                    </tr>
+                    </thead>
+                    <tbody style="font-size:11px">
+                    <tr>
+                        <td style="border:0px;" th:text="${player.address}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="text-center" style="margin-bottom:20px;border:0px;width:100%">
+                    <thead style="font-size:12px">
+                    <tr>
+                        <th style="border:0px;">Phone</th>
+                    </tr>
+                    </thead>
+                    <tbody style="font-size:11px">
+                    <tr>
+                        <td style="border:0px;" th:text="${player.playerPhone}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="text-center" style="border:0px;width:100%">
+                    <thead style="font-size:12px">
+                    <tr>
+                        <th style="border:0px;">Email ID</th>
+                    </tr>
+                    </thead>
+                    <tbody style="font-size:11px">
+                    <tr>
+                        <td style="border:0px;" th:text="${player.playerEmail}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td class="text-center" style="width:50px;" th:text="${player.playerShirtSize}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="container text-center">
+    <h3>Rules and Regulations</h3>
+</div>
+
+<div class="container text-center">
+    <h3>Declaration</h3>
+</div>
+</body>
+</html>

@@ -5,12 +5,17 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.AppUser;
 import org.vasaviyuvajanasangha.kvcl.model.Player;
+import org.vasaviyuvajanasangha.kvcl.model.Team;
+import org.vasaviyuvajanasangha.kvcl.pdf.DemoDocument;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
@@ -37,6 +44,9 @@ public class PlayerController {
 
 	@Autowired
 	private AppUserServiceImpl appUserServiceImpl;
+
+	@Autowired
+	DemoDocument demoDocument;
 
 	@GetMapping("/user/add-player")
 	public String addUserToTeam(ModelMap model) {
@@ -217,6 +227,29 @@ public class PlayerController {
 		return "success";
 	}
 
+	@GetMapping("/user/download")
+	public ResponseEntity downloadRegistrationForm(){
+		String playerName = TeamController.getCurrentUser();
+		var player = playerServiceImpl.findPlayerByPhone(playerName);
+		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
+		try(ByteArrayOutputStream pdfStream = demoDocument.generateDocument(team)){
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_PDF);
+			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kvcl-2024-team-registration.pdf");
+			headers.setContentLength(pdfStream.size());
+			return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
+	@GetMapping("/user/form")
+	public String downloadRegistrationForm(ModelMap model){
+		String playerName = TeamController.getCurrentUser();
+		var player = playerServiceImpl.findPlayerByPhone(playerName);
+		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
+		model.put("team",team);
+		return "registrationPdf";
+	}
 
 }
