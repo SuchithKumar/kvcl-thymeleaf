@@ -1,0 +1,190 @@
+<!doctype html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<style>
+.gradient-custom {
+/* fallback for old browsers */
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
+}
+
+.error{
+	background: white;
+	color: black;
+}
+
+</style>
+
+<div th:replace="~{fragments/layoutFragmentsPrivate  :: headFrag}" ></div>
+
+<body>
+
+<nav th:replace="~{fragments/layoutFragmentsPrivate :: navFrag}"></nav>
+
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-90">
+    <div class="row d-flex justify-content-center align-items-center h-80">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+           <!-- <div class="mb-md-5 mt-md-4 pb-5">  --> 
+			<form th:action="${'/user/edit-player/'+{player.playerId}}" th:method="post" th:object="${player}" enctype="multipart/form-data">
+  				  
+  				  <input type="hidden" th:field="*{playerId}"/>
+				  <input type="hidden" th:field="*{playerPhoto}"/>
+  				  <input type="hidden" th:field="*{jerseyNumber}"/>
+   				  <input type="hidden" th:field="*{playerPhone}"/>
+				  <input type="hidden" th:field="*{photoImg}"/>
+  				  <input type="hidden" th:field="*{playerEmail}"/>
+ 				  <input type="hidden" th:field="*{team}"/>
+   				  <input type="hidden" th:field="*{teamApproval}"/>
+ 				  
+  				  			  	
+	              <h1 class="fw-bold mb-2 text-uppercase">KVCL 2K24</h1>
+	              <h5 class="fw-bold mb-2 text-uppercase">Add / Modify Player Details</h5>
+	              <p class="text-white-50 mb-5">Please enter your Player details!</p>
+	
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('playerName')}" th:errorclass="text-danger" th:errors="*{playerName}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{playerName}" required="required"/>
+	                <label class="form-label fs-4">Enter Player Name</label>
+	              </div>
+	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('address')}" th:errorclass="text-danger" th:errors="*{address}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{address}" required="required"/>
+	                <label class="form-label fs-4">Enter Full Address</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('fatherName')}" th:errorclass="text-danger" th:errors="*{fatherName}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{fatherName}" required="required"/>
+	                <label class="form-label fs-4">Enter Father Name</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('fatherContact')}" th:errorclass="text-danger" th:errors="*{fatherContact}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{fatherContact}" pattern="[0-9]{10}" />
+	                <label class="form-label fs-4" >Enter Father Phone number </label>
+	              </div>
+	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('motherName')}" th:errorclass="text-danger" th:errors="*{motherName}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{motherName}" required="required"/>
+	                <label class="form-label fs-4">Enter Mother Name</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('motherContact')}" th:errorclass="text-danger" th:errors="*{motherContact}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{motherContact}" pattern="[0-9]{10}" />
+	                <label class="form-label fs-4" >Enter Mother Phone number </label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <label class="form-label fs-4">Select your Blood Group</label>
+		              <select style="width:100px;" id="valueSelect" name="bloodGroup" >
+			            <option th:each="val : ${bloodGroups}"
+			                    th:value="${val}"
+			                    th:text="${val}"
+			                    th:selected="${#strings.equals(val, player.bloodGroup)==true}">
+			            </option>
+			          </select>
+		          </div>
+         		  
+         		  <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('photo')}" th:errorclass="text-danger" th:errors="*{photo}"/>	              
+	                <input type="file" class="form-control form-control-lg" th:field="*{photo}" accept="image/*" required="required"/>
+	                <label class="form-label fs-4">Upload a passport-sized photo or a photo with clear facial visibility.</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+		              <select th:field="*{teamName}"  class="form-control form-control-lg" required="required">
+		              		<option th:each="p : ${allteams}" 
+		              				th:value="${p}" 
+		              				th:text="${p}"
+		              				th:selected="${#strings.equals(p, player.teamName)==true}">
+		              				>
+              				</option>
+		              </select>
+		              <label class="form-label fs-4">Select Team</label>
+	              </div>
+         		  
+         		   <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('playerGothram')}" th:errorclass="text-danger" th:errors="*{playerGothram}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{playerGothram}" required="required"/>
+	                <label class="form-label fs-4">Enter Player Gothram</label>
+	              </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <label class="form-label fs-4">Select your Age</label>
+		              <select style="width:100px;" id="valueSelect" name="age" th:value="*{age}">
+			            <option th:each="val : ${#numbers.sequence(15, 70)}"
+			                    th:value="${val}"
+			                    th:text="${val}"
+			                    th:selected="${#strings.equals(val, player.age)==true}">
+			                    
+			            </option>
+			          </select>
+		          </div>
+	              
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	              <p th:if="${#fields.hasErrors('profession')}" th:errorclass="text-danger" th:errors="*{profession}"/>	              
+	                <input type="text" class="form-control form-control-lg" th:field="*{profession}" required="required"/>
+	                <label class="form-label fs-4">Enter Profession (company / shop / business name)</label>
+	              </div>
+	              
+	               <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+				   Batsmen<input type="radio" value="Batsmen" th:field="*{playerSkill}" required="required"/> 
+				   Bowler<input type="radio" value="Bowler" th:field="*{playerSkill}" required="required"/>
+				   Allrounder<input type="radio" value="Allrounder" th:field="*{playerSkill}" required="required"/>
+   	                <label class="form-label fs-4">Please select your Skill</label>
+			      </div>
+	              
+                   <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <label class="form-label fs-4">Select your Batting style</label>
+		              <select style="width:100px;" id="valueSelect" name="battingStyle" th:value="*{battingStyle}">
+			            <option th:each="val : ${battingStyles}"
+			                    th:value="${val}"
+			                    th:text="${val}"
+			                    th:selected="${#strings.equals(val, player.battingStyle)==true}">
+			            </option>
+			          </select>
+		          </div>
+		          
+		          <div data-mdb-input-init class="form-outline form-white mb-4">
+	               <label class="form-label fs-4">Select your Bowling style</label>
+		              <select style="width:100px;" id="valueSelect" name="bowlingStyle" th:value="*{bowlingStyle}">
+			            <option th:each="val : ${bowlingStyles}"
+			                    th:value="${val}"
+			                    th:text="${val}"
+			                    th:selected="${#strings.equals(val, player.bowlingStyle)==true}">         
+			            </option>
+			          </select>
+		          </div>
+         		  
+         		  <div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+				   S<input type="radio" value="S" th:field="*{playerShirtSize}" required="required"/> 
+				   M<input type="radio" value="M" th:field="*{playerShirtSize}" required="required"/>
+				   L<input type="radio" value="L" th:field="*{playerShirtSize}" required="required"/>
+				   XL<input type="radio" value="XL" th:field="*{playerShirtSize}" required="required"/>
+				   XXL<input type="radio" value="XXL" th:field="*{playerShirtSize}" required="required"/>
+				   XXXL<input type="radio" value="XXXL" th:field="*{playerShirtSize}" required="required"/>
+				   4XL<input type="radio" value="4XXL" th:field="*{playerShirtSize}" required="required"/><br>
+
+				  <label class="form-label fs-4">Please select T Shirt Jersey Size</label>
+			      </div>
+			      
+	              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Save Player Details</button>
+				</form>	
+            </div>	
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
+
+</body>	
+</html>

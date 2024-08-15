@@ -40,6 +40,11 @@ public class PlayerServiceImpl {
 		return repository.save(player);
 	}
 
+	public Player updatePlayer(Player player) {
+		player.setPlayerPhoto(getResizedImage(player.getPlayerPhoto()));
+		return repository.save(player);
+	}
+
 	private byte[] getResizedImage(byte[] input){
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(input);

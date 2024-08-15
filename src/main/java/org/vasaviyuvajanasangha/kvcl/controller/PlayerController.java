@@ -57,13 +57,15 @@ public class PlayerController {
 	public String updateUserInTeam(ModelMap model, Player player, BindingResult results) {
 
 		var team = teamServiceImpl.findTeamByName(player.getTeamName());
-		player.setTeam(team.get());
-		AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
-		player.setPlayerPhone(user.getUsername());
-		player.setPlayerEmail(user.getEmail());
-		player.setTeamApproval(false);
-		playerServiceImpl.savePlayer(player);
-
+		var present = playerServiceImpl.findPlayerByPhone(player.getPlayerPhone());
+		if(!present.isPresent()){
+			player.setTeam(team.get());
+			AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
+			player.setPlayerPhone(user.getUsername());
+			player.setPlayerEmail(user.getEmail());
+			player.setTeamApproval(false);
+			playerServiceImpl.savePlayer(player);
+		}
 		return "redirect:/user-home";
 	}
 
@@ -88,13 +90,15 @@ public class PlayerController {
 
 		var team = teamServiceImpl.findTeamByRegisterUser(TeamController.getCurrentUser());
 		player.setTeam(team.get());
-		AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
-		player.setTeamName(team.get().getName());
-		player.setPlayerPhone(user.getUsername());
-		player.setPlayerEmail(user.getEmail());
-		player.setTeamApproval(true);
-		playerServiceImpl.savePlayer(player);
-
+		var present = playerServiceImpl.findPlayerByPhone(player.getPlayerPhone());
+		if(!present.isPresent()) {
+			AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
+			player.setTeamName(team.get().getName());
+			player.setPlayerPhone(user.getUsername());
+			player.setPlayerEmail(user.getEmail());
+			player.setTeamApproval(true);
+			playerServiceImpl.savePlayer(player);
+		}
 		return "redirect:/user-home";
 	}
 
@@ -143,12 +147,13 @@ public class PlayerController {
 		model.put("battingStyles", List.of("None", "Right Hand Batsmen", "Left Hand Batsmen"));
 		model.put("bowlingStyles",
 				List.of("None", "Right Arm Med Fast", "Left Arm Med Fast", "Right Arm Spin", "Left Arm Spin"));
-		return "addPlayer";
+		return "editPlayer";
 	}
 
 	@PostMapping("/user/edit-player/{playerId}")
 	public String updateUserInTeam(ModelMap model, @PathVariable Long playerId, Player player, BindingResult results) {
-		var team = teamServiceImpl.findTeamByRegisterUser(TeamController.getCurrentUser());
+		var cur = TeamController.getCurrentUser();
+		var team = teamServiceImpl.findTeamByName(player.getTeamName());
 		var dbPlayer = playerServiceImpl.findPlayerById(playerId);
 		try {
 			dbPlayer.setPlayerPhoto(player.getPhoto().getBytes());
@@ -160,7 +165,7 @@ public class PlayerController {
 		dbPlayer.setPlayerPhone(user.getUsername());
 		dbPlayer.setPlayerEmail(user.getEmail());
 		dbPlayer.setTeamApproval(false);
-		playerServiceImpl.savePlayer(dbPlayer);
+		playerServiceImpl.updatePlayer(dbPlayer);
 
 		return "redirect:/user-home";
 	}
@@ -173,12 +178,12 @@ public class PlayerController {
 		model.put("battingStyles", List.of("None", "Right Hand Batsmen", "Left Hand Batsmen"));
 		model.put("bowlingStyles",
 				List.of("None", "Right Arm Med Fast", "Left Arm Med Fast", "Right Arm Spin", "Left Arm Spin"));
-		return "addCaptain";
+		return "editCaptain";
 	}
 
 	@PostMapping("/user/edit-captain/{playerId}")
 	public String updateCaptainInfo(ModelMap model, @PathVariable Long playerId, Player player, BindingResult results) {
-		var team = teamServiceImpl.findTeamByRegisterUser(TeamController.getCurrentUser());
+		var team = teamServiceImpl.findTeamByName(player.getTeamName());
 		var dbPlayer = playerServiceImpl.findPlayerById(playerId);
 		try {
 			dbPlayer.setPlayerPhoto(player.getPhoto().getBytes());
@@ -190,7 +195,7 @@ public class PlayerController {
 		dbPlayer.setPlayerPhone(user.getUsername());
 		dbPlayer.setPlayerEmail(user.getEmail());
 		dbPlayer.setTeamApproval(true);
-		playerServiceImpl.savePlayer(dbPlayer);
+		playerServiceImpl.updatePlayer(dbPlayer);
 
 		return "redirect:/user-home";
 	}

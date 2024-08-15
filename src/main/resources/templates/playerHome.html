@@ -220,14 +220,47 @@
 		<div class="container-lg text-center" style="margin-bottom: 10px">
 			<span class="titles" th:text="${team.name}"></span>
 		</div>
-		<div class="container-lg text-center" style="margin-bottom: 20px">
-			<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 350px;" />
+		<div class="container-lg text-center" style="margin-bottom: 100px">
+			<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px;" />
 			<p>Click on the photos for more info!</p>
+			<div class="pro-container-captain" >
+				<div class="pro-card">
+					<div class="pro-side">
+						<img th:src="${teamCaptain.photoImg}"  style="width: 260px; height: 300px;border-radius:10px;border:15px solid #0e2238;border-bottom:55px solid #0e2238">
+						<img th:if="${teamCaptain.playerSkill == 'Batsmen' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:-35px">
+						<img th:src="@{images/icons/captain.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:0px">
+						<img th:if="${teamCaptain.playerSkill == 'Bowler' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:35px">
+
+						<h2 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:70px" th:text="${teamCaptain.playerName}"></h2>
+						<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:80px" th:text="${teamCaptain.profession}"></h5>
+
+					</div>
+					<div class="pro-side pro-back text-center">
+						<h5><strong>Age</strong></h5>
+						<h6 th:text="${teamCaptain.age}"></h6>
+						<h5><strong>Jersey Size</strong></h5>
+						<h6 th:text="${teamCaptain.playerShirtSize}"></h6>
+						<h5><strong>Batting Style</strong></h5>
+						<h6  th:text="${teamCaptain.battingStyle}"></h6>
+						<h5><strong>Bowling Style</strong></h5>
+						<h6 th:text="${teamCaptain.bowlingStyle}"></h6>
+						<h5><strong>Gothram</strong></h5>
+						<h6 th:text="${teamCaptain.playerGothram}"></h6>
+						<h5><strong>Phone</strong></h5>
+						<h6  th:text="${teamCaptain.playerPhone}"></h6>
+						<h5><strong>Email</strong></h5>
+						<h6  th:text="${teamCaptain.playerEmail}"></h6>
+					</div>
+				</div>
+			</div>
 		</div>
+
+
+
 
 		<div class="container-lg">
 			 <div class="row">
-			   <div th:each="item,stats : ${approvedPlayers}" class="col-md-3" style="margin-left: 35px;margin-bottom: 40px;margin-right: 35px">
+			   <div th:each="item,stats : ${approvedPlayers}" class="col-md-3" style="margin-left: 35px;margin-bottom: 50px;margin-right: 35px">
 				   	<div class="pro-container" >
 					   	<div class="pro-card">
 					   	   <div class="pro-side">
