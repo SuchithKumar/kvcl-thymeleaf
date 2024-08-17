@@ -1,23 +1,19 @@
 package org.vasaviyuvajanasangha.kvcl.model;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
 import org.vasaviyuvajanasangha.kvcl.validator.ExtendedEmailValidator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -90,7 +86,13 @@ public class Player {
 	private String teamName;
 	
 	private Boolean teamApproval;
-	
+
+
+	@Column(columnDefinition = "int4 default 0")
+	private Integer likes;
+
+	@OneToMany(mappedBy = "player")
+	private List<Likes> likeList;
 	
 	@JsonBackReference
 	@ManyToOne

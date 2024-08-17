@@ -54,6 +54,10 @@ public class TeamController {
 		
 		Editable editable = editableServiceImpl.getLatestUpdate();
 //		logger.info("update-request : {}",teamPre);
+		if(!user.isPresent()){
+			return "redirect:/login";
+		}
+
 		if (user.get().getIsCaptain()) {
 			if (teamPre.isEmpty()) {
 				model.put("team", null);
@@ -65,9 +69,11 @@ public class TeamController {
 
 			} else {
 				var team = teamPre.get();
-				var captain = team.getPlayers().stream().filter(a-> team.getRegisteredUser().equalsIgnoreCase(a.getPlayerPhone())).findAny().get();
+				var captain = team.getPlayers().stream().filter(a-> team.getRegisteredUser().equalsIgnoreCase(a.getPlayerPhone())).findAny();
+				int count = team.getPlayers().stream().map(a->a.getLikes()).reduce(0,(a,b)->a+b);
 
 				model.put("team", team);
+				model.put("count",count);
 
 				if (team.getVsDetails() != null) {
 					model.put("vsDetails", team.getVsDetails());
@@ -93,13 +99,15 @@ public class TeamController {
 				}else {
 					model.put("profile", null);
 				}
-				
-				var approvedPlayers = team.getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true) && a!=captain).toList();
-				var unApprovedPlayers = team.getPlayers().stream().filter(a->a.getTeamApproval()!=null && a.getTeamApproval().equals(false)).toList();
-				model.put("teamCaptain",captain);
-				model.put("approvedPlayers", approvedPlayers);
-				model.put("unApprovedPlayers", unApprovedPlayers);
-				
+
+				if(captain.isPresent()) {
+					model.put("teamCaptain", captain.get());
+					var approvedPlayers = team.getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true) && a!=captain.get()).toList();
+					var unApprovedPlayers = team.getPlayers().stream().filter(a->a.getTeamApproval()!=null && a.getTeamApproval().equals(false)).toList();
+					model.put("approvedPlayers", approvedPlayers);
+					model.put("unApprovedPlayers", unApprovedPlayers);
+				}
+
 				model.put("editable", editable);
 				return "userHome";
 			}
@@ -107,14 +115,18 @@ public class TeamController {
 			var player = playerServiceImpl.findPlayerByPhone(getCurrentUser());
 			if(player.isPresent()) {
 				var team = player.get().getTeam();
-				var captain = team.getPlayers().stream().filter(a-> team.getRegisteredUser().equalsIgnoreCase(a.getPlayerPhone())).findAny().get();
+				var captain = team.getPlayers().stream().filter(a-> team.getRegisteredUser().equalsIgnoreCase(a.getPlayerPhone())).findAny();
+				int count = team.getPlayers().stream().map(a->a.getLikes()).reduce(0,(a,b)->a+b);
 
+				model.put("count",count);
 				model.put("team", team);
 				model.put("profile", player.get());
-				
-				var approvedPlayers = teamServiceImpl.findTeamByName(player.get().getTeamName()).get().getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true) && a!=captain).toList();
-				model.put("teamCaptain",captain);
-				model.put("approvedPlayers", approvedPlayers);
+
+				if(captain.isPresent()) {
+					var approvedPlayers = teamServiceImpl.findTeamByName(player.get().getTeamName()).get().getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true) && a!=captain.get()).toList();
+					model.put("teamCaptain", captain.get());
+					model.put("approvedPlayers", approvedPlayers);
+				}
 
 			}else {
 				model.put("team", null);

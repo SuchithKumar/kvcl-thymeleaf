@@ -1,41 +1,38 @@
 package org.vasaviyuvajanasangha.kvcl.controller;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.DataBufferInt;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.vasaviyuvajanasangha.kvcl.model.AppUser;
-import org.vasaviyuvajanasangha.kvcl.model.Player;
-import org.vasaviyuvajanasangha.kvcl.model.Team;
+import org.vasaviyuvajanasangha.kvcl.model.*;
 import org.vasaviyuvajanasangha.kvcl.pdf.DemoDocument;
+import org.vasaviyuvajanasangha.kvcl.repository.LikesRepo;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.ImageService;
 import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.utils.ImageResizer;
 
-import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes({ "name", "username", "announcement" })
 public class PlayerController {
 
+	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	@Autowired
 	private PlayerServiceImpl playerServiceImpl;
 
@@ -44,6 +41,12 @@ public class PlayerController {
 
 	@Autowired
 	private AppUserServiceImpl appUserServiceImpl;
+
+	@Autowired
+	private LikesRepo likesRepo;
+
+	@Autowired
+	private ImageService imageService;
 
 	@Autowired
 	DemoDocument demoDocument;
@@ -74,6 +77,7 @@ public class PlayerController {
 			player.setPlayerPhone(user.getUsername());
 			player.setPlayerEmail(user.getEmail());
 			player.setTeamApproval(false);
+			player.setLikes(0);
 			playerServiceImpl.savePlayer(player);
 		}
 		return "redirect:/user-home";
@@ -107,6 +111,7 @@ public class PlayerController {
 			player.setPlayerPhone(user.getUsername());
 			player.setPlayerEmail(user.getEmail());
 			player.setTeamApproval(true);
+			player.setLikes(0);
 			playerServiceImpl.savePlayer(player);
 		}
 		return "redirect:/user-home";
@@ -232,7 +237,8 @@ public class PlayerController {
 		String playerName = TeamController.getCurrentUser();
 		var player = playerServiceImpl.findPlayerByPhone(playerName);
 		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
-		try(ByteArrayOutputStream pdfStream = demoDocument.generateDocument(team)){
+		String tournament_announcement =  imageService.getImg("tournament-announcement.png");
+		try(ByteArrayOutputStream pdfStream = demoDocument.generateDocument(team,tournament_announcement)){
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_PDF);
 			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kvcl-2024-team-registration.pdf");
@@ -249,7 +255,143 @@ public class PlayerController {
 		var player = playerServiceImpl.findPlayerByPhone(playerName);
 		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
 		model.put("team",team);
+
+		String tournament_announcement =  imageService.getImg("tournament-announcement.png");
+		model.put("tournamentAnnouncement",tournament_announcement);
+
 		return "registrationPdf";
+	}
+
+//	working prototype of all squads
+//	@GetMapping("/squads")
+//	public String squads(ModelMap model){
+//		List<Team> allTeams =  teamServiceImpl.findAllTeams();
+//		List<Squad> squads = new ArrayList<>();
+//		for(Team team : allTeams){
+////			logger.info("setting team : {}",team.getName());
+//
+//			var captain = playerServiceImpl.findPlayerByPhone(team.getRegisteredUser());
+//			if(captain.isPresent()) {
+//				var approvedPlayers = team.getPlayers().stream().filter(a -> a != captain.get() && a.getTeamApproval() == true).collect(Collectors.toList());
+//				squads.add(new Squad(team, captain.get(), approvedPlayers));
+//			}
+//		}
+//		model.put("squads",squads);
+//		return "privateSquads";
+//	}
+
+	@GetMapping("/squads/show-squad")
+	public String showSquad(@RequestParam String selectedTeamName,@RequestParam(required = false) String msg, RedirectAttributes redirectAttributes, Model model){
+		List<Squad> squads = new ArrayList<>();
+
+		List<Team> allTeams =  List.of(teamServiceImpl.findTeamByName(selectedTeamName).get());
+		long count = 0;
+		for(Team team : allTeams){
+			count = team.getPlayers().stream().map(a->a.getLikes()).reduce(0,(a,b)->a+b);
+			logger.info("setting team : {}",team.getName());
+			var captain = playerServiceImpl.findPlayerByPhone(team.getRegisteredUser());
+			if(captain.isPresent()) {
+				var approvedPlayers = team.getPlayers().stream().filter(a -> a != captain.get() && a.getTeamApproval() == true).collect(Collectors.toList());
+				squads.add(new Squad(team, captain.get(), approvedPlayers));
+			}
+		}
+		if(msg!=null && !msg.isEmpty())
+			redirectAttributes.addFlashAttribute("msg",msg);
+		redirectAttributes.addFlashAttribute("squads",squads);
+		redirectAttributes.addFlashAttribute("count",count);
+		return "redirect:/squads";
+	}
+
+	@GetMapping("/squads")
+	public String squads(ModelMap model){
+		List<String> teamNames = teamServiceImpl.findAllTeamNames();
+		model.put("teamNames",teamNames);
+		return "squads";
+	}
+
+	@GetMapping("/user/collab")
+	public String collab(@RequestParam Long playerId,@RequestParam String selectedTeamName,RedirectAttributes model){
+		var currentPlayer = playerServiceImpl.findPlayerByPhone(TeamController.getCurrentUser()).get();
+		var currentPlayerTeam = teamServiceImpl.findTeamByName(currentPlayer.getTeamName());
+		var alreadyCollabed = likesRepo.findByLikedPlayerIdAndPlayer(playerId,currentPlayer);
+
+		var likedPlayer = playerServiceImpl.findPlayerById(playerId);
+		var likedPlayerTeam = teamServiceImpl.findTeamByName(likedPlayer.getTeamName());
+		var likedPlayerAlreadyCollabed = likesRepo.findByLikedPlayerIdAndPlayer(currentPlayer.getPlayerId(),likedPlayer);
+
+		if(!currentPlayer.getTeamApproval()){
+			return "redirect:/squads/show-squad?selectedTeamName="+selectedTeamName+"&msg=warning";
+		}
+
+		if(playerId==currentPlayer.getPlayerId()){
+			model.addFlashAttribute("msg","error");
+			return "redirect:/squads";
+		}
+
+		//same player or same team player collab check
+		if(currentPlayerTeam.equals(likedPlayerTeam)){
+			model.addFlashAttribute("msg","error");
+			return "redirect:/squads";
+		}
+
+
+		if(alreadyCollabed.isPresent() && likedPlayerAlreadyCollabed.isPresent()){
+			if(alreadyCollabed.get().isAccepted()&&likedPlayerAlreadyCollabed.get().isAccepted()==true){
+				model.addFlashAttribute("msg","warning");
+				return "redirect:/squads/show-squad?selectedTeamName="+selectedTeamName+"&msg=warning";
+			}
+		}
+
+
+		if(!likedPlayerAlreadyCollabed.isPresent()){
+			if(!alreadyCollabed.isPresent()){
+				incrementLike(playerId);
+				likesRepo.save(new Likes(playerId,LocalDateTime.now(),currentPlayer,false));
+				model.addFlashAttribute("msg","success");
+			}else{
+				var dbCollab = alreadyCollabed.get();
+				dbCollab.setTime(LocalDateTime.now());
+				likesRepo.save(dbCollab);
+				model.addFlashAttribute("msg","warning");
+				return "redirect:/squads/show-squad?selectedTeamName="+selectedTeamName+"&msg=warning";
+
+			}
+		}else{
+			if(!alreadyCollabed.isPresent()){
+				incrementLike(playerId);
+				likesRepo.save(new Likes(playerId,LocalDateTime.now(),currentPlayer,true));
+
+				var dbCollab = likedPlayerAlreadyCollabed.get();
+				dbCollab.setAccepted(true);
+				likesRepo.save(dbCollab);
+
+				model.addFlashAttribute("msg","success");
+			}else{
+				var dbCollab = alreadyCollabed.get();
+				dbCollab.setTime(LocalDateTime.now());
+				dbCollab.setAccepted(true);
+
+				var likedPlayerDb = likedPlayerAlreadyCollabed.get();
+				likedPlayerDb.setAccepted(true);
+
+				likesRepo.save(dbCollab);
+				likesRepo.save(likedPlayerDb);
+
+				model.addFlashAttribute("msg","success");
+			}
+		}
+
+		return "redirect:/squads/show-squad?selectedTeamName="+selectedTeamName+"&msg=success";
+	}
+
+	private void incrementLike(Long playerId) {
+		var player = playerServiceImpl.findPlayerById(playerId);
+		if(player.getLikes()!=null)
+			player.setLikes(player.getLikes()+1);
+		else
+			player.setLikes(1);
+
+		playerServiceImpl.savePlayerIgnoreImg(player);
 	}
 
 }

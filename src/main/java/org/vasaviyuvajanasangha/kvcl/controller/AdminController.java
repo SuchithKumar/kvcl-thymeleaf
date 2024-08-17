@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Announcement;
+import org.vasaviyuvajanasangha.kvcl.repository.LikesRepo;
 import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.LikesService;
 import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
 
@@ -33,11 +35,17 @@ public class AdminController {
 	
 	@Autowired
 	private AnnouncementServiceImpl announcementsService;
-	
+
+	@Autowired
+	private LikesService likesService;
+
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping("/admin-home")
 	public String getAllUsers(ModelMap model) {
+
+		var collabMap = likesService.getCollabCount();
+		model.put("collabMap",collabMap);
 		var playersApr = playerServiceImpl.getTeamApprovalReport();
 		model.put("approvalTable", playersApr);
 		model.put("allteams", teamServiceImpl.findAllTeams().stream()
@@ -47,8 +55,8 @@ public class AdminController {
 		model.put("registered_teams",teamServiceImpl.findAllTeams());
 		model.put("vasavi_sangha_details", teams.stream().filter(a->a.getVsDetails()!=null).toList());
 		return "adminHome";
-	}	
-	
+	}
+
 	@GetMapping("/new-announcement")
 	public String getNewAnnouncement(ModelMap model){
 		model.put("announcement",new Announcement());

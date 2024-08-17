@@ -23,12 +23,12 @@ public class DemoDocument {
 	@Autowired
 	private DataMapper dataMapper;
 
-	public ByteArrayOutputStream generateDocument(Team team) {
+	public ByteArrayOutputStream generateDocument(Team team,String tournamentAnnouncement) {
 		
 		String finalHtml = null;
 		
 		Context dataContext = dataMapper.setData(team);
-		
+		dataContext.setVariable("tournamentAnnouncement",tournamentAnnouncement);
 		finalHtml = springTemplateEngine.process("registrationPdf", dataContext);
 
 		return  documentGenerator.htmlToPdf(finalHtml);

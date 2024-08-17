@@ -30,10 +30,14 @@ public class PlayerServiceImpl {
 
 	@Autowired
 	private PlayerRepository repository;
+
+	@Autowired
+	private LikesService likesService;
 	
 	public Player savePlayer(Player player) {
 		try {
 			player.setPlayerPhoto(getResizedImage(player.getPhoto().getBytes()));
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -151,5 +155,10 @@ public class PlayerServiceImpl {
 
 	public List<Player> findAllPlayers(){
 		return repository.findAll();
+	}
+
+	public void resetLikes(){
+		repository.updateLikes();
+		likesService.deleteLikes();
 	}
 }

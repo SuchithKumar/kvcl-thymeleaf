@@ -45,6 +45,26 @@
 	<br>
 	<br>	
 	<hr>
+	<h3>Player Wise Collabs Count</h3>
+	<div class="container-lg">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Player</th>
+					<th>Accepted Count</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="entry: ${collabMap}">
+					<td th:text="${entry.key.playerName}"></td>
+					<td th:text="${entry.value}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<br>
+	<br>
+	<hr>
 	<h5>Team wise player details</h5>
 	<form action="/admin/fetch-team-players" method="post">
 		<div data-mdb-input-init class="form-outline form-white mb-4">

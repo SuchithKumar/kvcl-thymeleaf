@@ -74,6 +74,5 @@ public class Team {
 	@OneToMany(mappedBy = "team",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Player> players;
 	
-	
-	
+
 }

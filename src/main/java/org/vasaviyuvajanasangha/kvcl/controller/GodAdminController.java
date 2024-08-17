@@ -15,11 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Announcement;
 import org.vasaviyuvajanasangha.kvcl.model.Editable;
-import org.vasaviyuvajanasangha.kvcl.service.AdminServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.EditableServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.*;
 
 @Controller
 @RequestMapping("/godadmin")
@@ -39,7 +35,10 @@ public class GodAdminController {
 	private AnnouncementServiceImpl announcementsService;
 	
 	@Autowired
-	private EditableServiceImpl editableServiceImpl;
+	private EditableServiceImpl editableService;
+
+	@Autowired
+	private PlayerServiceImpl playerService;
 	
 	@GetMapping("/god-admin-home")
 	public String getAllUsers(ModelMap model) {
@@ -112,8 +111,14 @@ public class GodAdminController {
 								@RequestParam("editVasaviMathaDetails") Boolean editVasaviMathaDetails, 
 								@RequestParam("editPaymentDetails") Boolean editPaymentDetails) {
 		 
-		 editableServiceImpl.save(new Editable(editTeamDetails, editVasaviMathaDetails, editPaymentDetails, true, TeamController.getCurrentUser()));
+		 editableService.save(new Editable(editTeamDetails, editVasaviMathaDetails, editPaymentDetails, true, TeamController.getCurrentUser()));
 		 return "redirect:/godadmin/god-admin-home";
 		
+	}
+
+	@GetMapping("/reset-collab-count")
+	public String resetCount(){
+		playerService.resetLikes();
+		return "redirect:/user-home";
 	}
 }

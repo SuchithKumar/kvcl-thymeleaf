@@ -123,6 +123,10 @@ public class TeamServiceImpl {
 		
 		return newTeams;
 	}
+
+	public List<String> findAllTeamNames(){
+		return repository.findDistinctTeamNames();
+	}
 	
 	
 }

@@ -1,0 +1,135 @@
+<!doctype html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+<!--<div th:insert="~{fragments/layoutFragmentsPrivate  :: sidebarFrag}" ></div>-->
+
+<div class="vh-100 overflow-auto">
+
+	<div th:if="${squads!=null}">
+		<div th:each="squad : ${squads}">
+
+				<div class="container-lg text-center" style="margin-bottom: 10px">
+					<span class="titles" th:text="${squad.team.name}"></span>
+				</div>
+				<div class="container-lg text-center" style="margin-bottom: 20px">
+				<img th:src="${squad.team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 350px;" />
+					<div class="container-lg text-center">
+						<div class="row">
+							<div class="pro-container-captain" >
+								<div class="pro-card">
+									<div class="pro-side">
+										<img th:src="${squad.teamCaptain.photoImg}"  style="width: 260px; height: 300px;border-radius:10px;border:15px solid #0e2238;border-bottom:55px solid #0e2238">
+										<img th:if="${squad.teamCaptain.playerSkill == 'Batsmen' or squad.teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:-35px">
+										<img th:src="@{images/icons/captain.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:0px">
+										<img th:if="${squad.teamCaptain.playerSkill == 'Bowler' or squad.teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:35px">
+										<h3 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:70px" th:text="${squad.teamCaptain.playerName}"></h3>
+										<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:80px" th:text="${squad.teamCaptain.profession}"></h5>
+									</div>
+									<div class="pro-side pro-back text-center">
+										<h5><strong>Age</strong></h5>
+										<h6 th:text="${squad.teamCaptain.age}"></h6>
+										<h5><strong>Jersey Size</strong></h5>
+										<h6 th:text="${squad.teamCaptain.playerShirtSize}"></h6>
+										<h5><strong>Batting Style</strong></h5>
+										<h6  th:text="${squad.teamCaptain.battingStyle}"></h6>
+										<h5><strong>Bowling Style</strong></h5>
+										<h6 th:text="${squad.teamCaptain.bowlingStyle}"></h6>
+										<h5><strong>Gothram</strong></h5>
+										<h6 th:text="${squad.teamCaptain.playerGothram}"></h6>
+										<div class="text-center">
+											<a th:href="@{'/user/collab/' + ${squad.teamCaptain.playerId}}"><img th:src="@{/images/icons/collab.png}" style="width:60px;height:60px"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<br>
+
+			<div class="container-lg">
+				<div class="row">
+					<div th:each="item,stats : ${squad.approvedPlayers}" class="col-md-3" style="margin-left: 35px;margin-bottom: 50px;margin-right: 35px">
+						<div class="pro-container" >
+							<div class="pro-card">
+								<div class="pro-side">
+									<img th:src="${item.photoImg}"  style="width: 260px; height: 300px;border-radius:10px;border:15px solid #0e2238;border-bottom:55px solid #0e2238">
+									<img th:if="${item.playerSkill == 'Batsmen' or item.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px">
+									<img th:if="${item.playerSkill == 'Bowler' or item.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:120px">
+
+									<h3 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:70px" th:text="${item.playerName}"></h3>
+									<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:80px" th:text="${item.profession}"></h5>
+								</div>
+								<div class="pro-side pro-back text-center">
+									<h5><strong>Age</strong></h5>
+									<h6 th:text="${item.age}"></h6>
+									<h5><strong>Jersey Size</strong></h5>
+									<h6 th:text="${item.playerShirtSize}"></h6>
+									<h5><strong>Batting Style</strong></h5>
+									<h6  th:text="${item.battingStyle}"></h6>
+									<h5><strong>Bowling Style</strong></h5>
+									<h6 th:text="${item.bowlingStyle}"></h6>
+									<h5><strong>Gothram</strong></h5>
+									<h6 th:text="${item.playerGothram}"></h6>
+									<div class="text-center">
+										<a th:href="@{'/user/collab/' + ${item.playerId}}"><img th:src="@{/images/icons/collab.png}" style="width:60px;height:60px"></a>
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<br>
+			<br>
+			</div>
+
+		</div>
+</div>
+<br>
+<br>
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
+
+<script th:inline="javascript">
+  toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-full-width",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
+var str = [[${msg}]];
+if(str!=null){
+	console.log('str : '+str);
+	if(str.includes('success')){
+		toastr.success('success','Collab Save Request!',{timeOut:3000});
+	}else if(str.includes('warning')){
+		toastr.warning('already saved!','nothing to save!',{timeOut:3000});
+	}else{
+		toastr.error('Illegal request!','Cant save this request!',{timeOut:3000});
+	}
+}
+</script>
+
+</body>
+</html>
