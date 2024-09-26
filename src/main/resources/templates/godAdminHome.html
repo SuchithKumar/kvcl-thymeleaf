@@ -22,14 +22,29 @@
 		<h4>Reset Likes</h4>
 		<a class="btn btn-primary" href="/godadmin/reset-collab-count">Reset</a>
 	</div>
+	<hr>
+	<form th:action="@{/godadmin/grant-admin-access}" method="get" class="container" >
+
+		<h5 class="fw-bold mb-2 text-uppercase">Make user as Admin</h5>
+		<p class="text-white-50 mb-5">Please enter your registered Phone number for updating user as admin!</p>
+
+		<div data-mdb-input-init class="form-outline form-white mb-4">
+			<input type="text" class="form-control form-control-lg" id="userId" name="userId" required="required"/>
+			<label class="form-label fs-4">Enter Phone</label>
+		</div>
+
+		<button class="btn btn-primary" type="submit">Upgrade user to Admin</button>
+	</form>
+	<br>
+	<br>
 	<br>
 	<br>
 	<hr>
 		<form th:action="@{/godadmin/reset-password}" method="post" class="container" >
 				 
 	              <h5 class="fw-bold mb-2 text-uppercase">Password Reset Form</h5>
-	              <p class="text-white-50 mb-5">Please enter your details to register your team for Tournament!</p>
-	
+	              <p class="text-white-50 mb-5">Please enter your registered phone number for Resetting password!</p>
+
 	              <div data-mdb-input-init class="form-outline form-white mb-4">
 	                <input type="text" class="form-control form-control-lg" name="number" required="required"/>
 	                <label class="form-label fs-4">Enter Phone</label>
@@ -39,7 +54,7 @@
 	                <input type="text" class="form-control form-control-lg" name="password" required="required"/>
 	                <label class="form-label fs-4">Enter Password</label>
 	              </div>
-	              <button type="submit">Reset Password</button>            
+	              <button class="btn btn-primary" type="submit">Reset Password</button>
         </form>
 	<br>
 	<br>
@@ -66,43 +81,55 @@
 				   Yes<input type="radio" value="true" name="editPaymentDetails" required="required"/>
 				   No<input type="radio" value="false" name="editPaymentDetails" required="required"/>
 			      </div>
+
+					<h5 class="fw-bold mb-2 text-uppercase">Enable Fixtures?</h5>
+					<div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+						Yes<input type="radio" value="true" name="enableFixtures" required="required"/>
+						No<input type="radio" value="false" name="enableFixtures" required="required"/>
+					</div>
+
+					<h5 class="fw-bold mb-2 text-uppercase">Enable Ties?</h5>
+					<div data-mdb-input-init class="form-outline form-white mb-4 fs-4">
+						Yes<input type="radio" value="true" name="enableTies" required="required"/>
+						No<input type="radio" value="false" name="enableTies" required="required"/>
+					</div>
  
-	              <button type="submit">Update Edit Options</button>            
+	              <button class="btn btn-primary" type="submit">Update Edit Options</button>
         </form>
 	<br>
 	<br>
 	<hr>
 	
-	<h5>Registered Users</h5>	
-	<div class="container ">
-		<hr>	
-			<table class="table table-responsive table-hover">
-				<thead>
-					<tr>
-						<th>Sl No</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Phone Number</th>
-						<th>Role</th>
-						<th>Give Admin Access</th>
-						<th>Delete User</th>
-					</tr>
-				</thead>
-				</tbody>
-					 <tr th:each="item,stats : ${registered_users}" >
-					 	<td th:text="${stats.count}"></td>
-					 	<td th:text=${item.name}></td>
-					 	<td th:text=${item.email}></td>
-					 	<td th:text=${item.username}></td>
-					 	<td th:text=${item.roles}></td>
-					 	<td><a class="btn btn-primary" th:href="@{'/godadmin/grant-admin-access/' + ${item.userId}}">Grant admin access</a></td>
-					 	<td><a class="btn btn-danger" th:href="@{'/godadmin/delete-user/' + ${item.userId}}">Delete User</a></td>
-					 </tr>
-				</tbody>
-			</table>	
-	</div>
-	<br>
-	<br>
+<!--	<h5>Registered Users</h5>	-->
+<!--	<div class="container ">-->
+<!--		<hr>	-->
+<!--			<table class="table table-responsive table-hover">-->
+<!--				<thead>-->
+<!--					<tr>-->
+<!--						<th>Sl No</th>-->
+<!--						<th>Name</th>-->
+<!--						<th>Email</th>-->
+<!--						<th>Phone Number</th>-->
+<!--						<th>Role</th>-->
+<!--						<th>Give Admin Access</th>-->
+<!--						<th>Delete User</th>-->
+<!--					</tr>-->
+<!--				</thead>-->
+<!--				</tbody>-->
+<!--					 <tr th:each="item,stats : ${registered_users}" >-->
+<!--					 	<td th:text="${stats.count}"></td>-->
+<!--					 	<td th:text=${item.name}></td>-->
+<!--					 	<td th:text=${item.email}></td>-->
+<!--					 	<td th:text=${item.username}></td>-->
+<!--					 	<td th:text=${item.roles}></td>-->
+<!--					 	<td><a class="btn btn-primary" th:href="@{'/godadmin/grant-admin-access/' + ${item.userId}}">Grant admin access</a></td>-->
+<!--					 	<td><a class="btn btn-danger" th:href="@{'/godadmin/delete-user/' + ${item.userId}}">Delete User</a></td>-->
+<!--					 </tr>-->
+<!--				</tbody>-->
+<!--			</table>	-->
+<!--	</div>-->
+<!--	<br>-->
+<!--	<br>-->
 	<h5>Admins</h5>	
 		<div class="container ">
 		<hr>	
@@ -144,83 +171,83 @@
 	</div>
 	<br>
 	<br>
-	<h5>Registered Teams</h5>
-	<div class="container ">
-		<hr>	
-			<table class="table table-responsive table-hover">
-				<thead>
-					<tr>
-						<th>Sl No</th>
-						<th>Team Logo</th>
-						<th>Team Name</th>
-						<th>Captain</th>
-						<th>Registered By</th>
-						<th>Accomodation Reqd</th>
-						<th>No of Accomodation</th>
-						<th>Opted for Food</th>
-						<th>Payment Screenshot</th>
-						<th>Delete Team</th>
-					</tr>
-				</thead>
-				</tbody>
-					 <tr th:each="item,stats : ${registered_teams}" >
-					 	<td th:text="${stats.count}"></td>
-					 	<td><img th:src="${item.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" /></td>
-					 	<td th:text=${item.name}></td>
-					 	<td th:text=${item.captain}></td>
-					 	<td th:text=${item.registeredUser}></td>
-					 	<td th:text=${item.requireAccomodation}></td>
-					 	<td th:text=${item.noOfAccomodation}></td>
-					 	<td th:text=${item.requireFood}></td>
-					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 50px;" /></td>
-					 	<td><a class="btn btn-danger" th:href="@{'/godadmin/delete-team/' + ${item.id}}">Delete Team</a></td>					 	
-					 </tr>
-				</tbody>
-			</table>	
-	</div>
-	<br>
-	<br>
-	<h5>Vasavi Sangha Details</h5>
-	<div class="container ">
-		<hr>	
-			<table class="table table-responsive table-hover">
-				<thead>
-					<tr>	
-						<th>Sl No</th>				
-						<th>Team Name</th>
-						<th>Vasavi Sangha Name</th>
-						<th>Vasavi Sangha Area</th>
-						<th>City</th>
-						<th>State</th>
-						<th>President</th>
-						<th>President no</th>
-						<th>Secretary</th>
-						<th>Secretary no</th>
-						<th>Treasurer</th>
-						<th>Treasurer no</th>
-					</tr>
-				</thead>
-				</tbody>
-					 <tr th:each="item,stats : ${vasavi_sangha_details}">
-					 	<td th:text="${stats.count}"></td>
-					 	<td th:text="${item.name}"></td>
-					 	<td th:text="${item.vsDetails.vasaviSanghaName}"></td>
-					 	<td th:text=${item.vsDetails.vasaviSanghaArea}></td>
-					 	<td th:text=${item.vsDetails.city}></td>
-					 	<td th:text=${item.vsDetails.state}></td>
-					 	<td th:text=${item.vsDetails.vsPresident}></td>
-					 	<td th:text=${item.vsDetails.vsPresidentNumber}></td>
-					 	<td th:text=${item.vsDetails.vsSecretary}></td>
-					 	<td th:text=${item.vsDetails.vsSecretaryNumber}></td>
-					 	<td th:text=${item.vsDetails.vsTreasurer}></td>
-					 	<td th:text=${item.vsDetails.vsTreasurerNumber}></td>
-					 </tr>
-				</tbody>
-			</table>	
-	</div>
-	
-	<br>
-	<br>	
+<!--	<h5>Registered Teams</h5>-->
+<!--	<div class="container ">-->
+<!--		<hr>	-->
+<!--			<table class="table table-responsive table-hover">-->
+<!--				<thead>-->
+<!--					<tr>-->
+<!--						<th>Sl No</th>-->
+<!--						<th>Team Logo</th>-->
+<!--						<th>Team Name</th>-->
+<!--						<th>Captain</th>-->
+<!--						<th>Registered By</th>-->
+<!--						<th>Accomodation Reqd</th>-->
+<!--						<th>No of Accomodation</th>-->
+<!--						<th>Opted for Food</th>-->
+<!--						<th>Payment Screenshot</th>-->
+<!--						<th>Delete Team</th>-->
+<!--					</tr>-->
+<!--				</thead>-->
+<!--				</tbody>-->
+<!--					 <tr th:each="item,stats : ${registered_teams}" >-->
+<!--					 	<td th:text="${stats.count}"></td>-->
+<!--					 	<td><img th:src="${item.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 80px;" /></td>-->
+<!--					 	<td th:text=${item.name}></td>-->
+<!--					 	<td th:text=${item.captain}></td>-->
+<!--					 	<td th:text=${item.registeredUser}></td>-->
+<!--					 	<td th:text=${item.requireAccomodation}></td>-->
+<!--					 	<td th:text=${item.noOfAccomodation}></td>-->
+<!--					 	<td th:text=${item.requireFood}></td>-->
+<!--					 	<td th:if="${item.paymentInfoDB!=null}"><img th:src="${item.paymentInfoImg}" alt="Avatar" class="img-fluid my-5" style="width: 50px;" /></td>-->
+<!--					 	<td><a class="btn btn-danger" th:href="@{'/godadmin/delete-team/' + ${item.id}}">Delete Team</a></td>					 	-->
+<!--					 </tr>-->
+<!--				</tbody>-->
+<!--			</table>	-->
+<!--	</div>-->
+<!--	<br>-->
+<!--	<br>-->
+<!--	<h5>Vasavi Sangha Details</h5>-->
+<!--	<div class="container ">-->
+<!--		<hr>	-->
+<!--			<table class="table table-responsive table-hover">-->
+<!--				<thead>-->
+<!--					<tr>	-->
+<!--						<th>Sl No</th>				-->
+<!--						<th>Team Name</th>-->
+<!--						<th>Vasavi Sangha Name</th>-->
+<!--						<th>Vasavi Sangha Area</th>-->
+<!--						<th>City</th>-->
+<!--						<th>State</th>-->
+<!--						<th>President</th>-->
+<!--						<th>President no</th>-->
+<!--						<th>Secretary</th>-->
+<!--						<th>Secretary no</th>-->
+<!--						<th>Treasurer</th>-->
+<!--						<th>Treasurer no</th>-->
+<!--					</tr>-->
+<!--				</thead>-->
+<!--				</tbody>-->
+<!--					 <tr th:each="item,stats : ${vasavi_sangha_details}">-->
+<!--					 	<td th:text="${stats.count}"></td>-->
+<!--					 	<td th:text="${item.name}"></td>-->
+<!--					 	<td th:text="${item.vsDetails.vasaviSanghaName}"></td>-->
+<!--					 	<td th:text=${item.vsDetails.vasaviSanghaArea}></td>-->
+<!--					 	<td th:text=${item.vsDetails.city}></td>-->
+<!--					 	<td th:text=${item.vsDetails.state}></td>-->
+<!--					 	<td th:text=${item.vsDetails.vsPresident}></td>-->
+<!--					 	<td th:text=${item.vsDetails.vsPresidentNumber}></td>-->
+<!--					 	<td th:text=${item.vsDetails.vsSecretary}></td>-->
+<!--					 	<td th:text=${item.vsDetails.vsSecretaryNumber}></td>-->
+<!--					 	<td th:text=${item.vsDetails.vsTreasurer}></td>-->
+<!--					 	<td th:text=${item.vsDetails.vsTreasurerNumber}></td>-->
+<!--					 </tr>-->
+<!--				</tbody>-->
+<!--			</table>	-->
+<!--	</div>-->
+<!--	-->
+<!--	<br>-->
+<!--	<br>	-->
 </div>
 
 <div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>

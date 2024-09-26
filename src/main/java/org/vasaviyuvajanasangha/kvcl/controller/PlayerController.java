@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.*;
 import org.vasaviyuvajanasangha.kvcl.pdf.DemoDocument;
+import org.vasaviyuvajanasangha.kvcl.pdf.upload.service.FilesStorageService;
 import org.vasaviyuvajanasangha.kvcl.repository.LikesRepo;
 import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.ImageService;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -50,6 +53,9 @@ public class PlayerController {
 
 	@Autowired
 	DemoDocument demoDocument;
+
+	@Autowired
+	private FilesStorageService storageService;
 
 	@GetMapping("/user/add-player")
 	public String addUserToTeam(ModelMap model) {
@@ -168,19 +174,19 @@ public class PlayerController {
 	@PostMapping("/user/edit-player/{playerId}")
 	public String updateUserInTeam(ModelMap model, @PathVariable Long playerId, Player player, BindingResult results) {
 		var cur = TeamController.getCurrentUser();
-		var team = teamServiceImpl.findTeamByName(player.getTeamName());
-		var dbPlayer = playerServiceImpl.findPlayerById(playerId);
+		var team = teamServiceImpl.findTeamByName(player.getTeamName()).get();
 		try {
-			dbPlayer.setPlayerPhoto(player.getPhoto().getBytes());
+			player.setPlayerPhoto(player.getPhoto().getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		dbPlayer.setTeam(team.get());
+
 		AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
-		dbPlayer.setPlayerPhone(user.getUsername());
-		dbPlayer.setPlayerEmail(user.getEmail());
-		dbPlayer.setTeamApproval(false);
-		playerServiceImpl.updatePlayer(dbPlayer);
+		player.setPlayerPhone(user.getUsername());
+		player.setPlayerEmail(user.getEmail());
+		player.setTeamApproval(false);
+		player.setTeam(team);
+		playerServiceImpl.updatePlayer(player);
 
 		return "redirect:/user-home";
 	}
@@ -198,19 +204,20 @@ public class PlayerController {
 
 	@PostMapping("/user/edit-captain/{playerId}")
 	public String updateCaptainInfo(ModelMap model, @PathVariable Long playerId, Player player, BindingResult results) {
-		var team = teamServiceImpl.findTeamByName(player.getTeamName());
+		var team = teamServiceImpl.findTeamByName(player.getTeamName()).get();
 		var dbPlayer = playerServiceImpl.findPlayerById(playerId);
 		try {
-			dbPlayer.setPlayerPhoto(player.getPhoto().getBytes());
+			player.setPlayerPhoto(player.getPhoto().getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		dbPlayer.setTeam(team.get());
+
 		AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
-		dbPlayer.setPlayerPhone(user.getUsername());
-		dbPlayer.setPlayerEmail(user.getEmail());
-		dbPlayer.setTeamApproval(true);
-		playerServiceImpl.updatePlayer(dbPlayer);
+		player.setPlayerPhone(user.getUsername());
+		player.setPlayerEmail(user.getEmail());
+		player.setTeamApproval(true);
+		player.setTeam(team);
+		playerServiceImpl.updatePlayer(player);
 
 		return "redirect:/user-home";
 	}
@@ -233,15 +240,29 @@ public class PlayerController {
 	}
 
 	@GetMapping("/user/download")
-	public ResponseEntity downloadRegistrationForm(){
+	public ResponseEntity downloadRegistrationForm(@RequestParam(required = false) Optional<String> lang){
 		String playerName = TeamController.getCurrentUser();
 		var player = playerServiceImpl.findPlayerByPhone(playerName);
 		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
 		String tournament_announcement =  imageService.getImg("tournament-announcement.png");
-		try(ByteArrayOutputStream pdfStream = demoDocument.generateDocument(team,tournament_announcement)){
+		String kannadaThanks = imageService.getImg("kvcl-kannada-thanks.png");
+		String kannadaAnnouncement = imageService.getImg("kvcl-kannada-announcement2.png");
+		String emptyCheckBox = imageService.getImg("square.png");
+		String kvclPdfSponsors = imageService.getImg("kvcl-pdf-sponsors.png");
+		List<String> images = List.of(tournament_announcement,kannadaThanks,kannadaAnnouncement,emptyCheckBox,kvclPdfSponsors);
+
+		String template = "registrationPdf";
+		String language = "english";
+		if(lang.isPresent() && lang.get().equalsIgnoreCase("ka")){
+			language = "kannada";
+			template = "registrationPdfKannada";
+		}
+
+		team.setPlayers(team.getPlayers().stream().filter(a->a.getTeamApproval()==true).collect(Collectors.toList()));
+		try(ByteArrayOutputStream pdfStream = demoDocument.generateDocument(template,team,images)){
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_PDF);
-			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kvcl-2024-team-registration.pdf");
+			headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kvcl2024-declaration-form-"+language+".pdf");
 			headers.setContentLength(pdfStream.size());
 			return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
 		} catch (IOException e) {
@@ -257,9 +278,33 @@ public class PlayerController {
 		model.put("team",team);
 
 		String tournament_announcement =  imageService.getImg("tournament-announcement.png");
-		model.put("tournamentAnnouncement",tournament_announcement);
+		String kannadaThanks = imageService.getImg("kvcl-kannada-thanks.png");
+		String kannadaAnnouncement = imageService.getImg("kvcl-kannada-announcement2.png");
+		String emptyCheckBox = imageService.getImg("square.png");
+		String kvclPdfSponsors = imageService.getImg("kvcl-pdf-sponsors.png");
+		List<String> images = List.of(tournament_announcement,kannadaThanks,kannadaAnnouncement,emptyCheckBox,kvclPdfSponsors);
+		model.put("images",images);
 
 		return "registrationPdf";
+	}
+
+	@GetMapping("/user/formk")
+	public String downloadRegistrationFormKannada(ModelMap model){
+		String playerName = TeamController.getCurrentUser();
+		var player = playerServiceImpl.findPlayerByPhone(playerName);
+		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
+		model.put("team",team);
+
+		String tournament_announcement =  imageService.getImg("tournament-announcement.png");
+		String kannadaThanks = imageService.getImg("kvcl-kannada-thanks.png");
+		String kannadaAnnouncement = imageService.getImg("kvcl-kannada-announcement2.png");
+		String emptyCheckBox = imageService.getImg("square.png");
+		String kvclPdfSponsors = imageService.getImg("kvcl-pdf-sponsors.png");
+		List<String> images = List.of(tournament_announcement,kannadaThanks,kannadaAnnouncement,emptyCheckBox,kvclPdfSponsors);
+
+		model.put("images",images);
+
+		return "registrationPdfKannada";
 	}
 
 //	working prototype of all squads
@@ -283,7 +328,7 @@ public class PlayerController {
 	@GetMapping("/squads/show-squad")
 	public String showSquad(@RequestParam String selectedTeamName,@RequestParam(required = false) String msg, RedirectAttributes redirectAttributes, Model model){
 		List<Squad> squads = new ArrayList<>();
-
+		AppUser user = appUserServiceImpl.getUserFromUserName(TeamController.getCurrentUser()).get();
 		List<Team> allTeams =  List.of(teamServiceImpl.findTeamByName(selectedTeamName).get());
 		long count = 0;
 		for(Team team : allTeams){
@@ -299,6 +344,8 @@ public class PlayerController {
 			redirectAttributes.addFlashAttribute("msg",msg);
 		redirectAttributes.addFlashAttribute("squads",squads);
 		redirectAttributes.addFlashAttribute("count",count);
+		redirectAttributes.addFlashAttribute("user",user);
+		redirectAttributes.addFlashAttribute("sponsor",imageService.getImgSponsor(squads.get(0).getTeam().getSponsor()));
 		return "redirect:/squads";
 	}
 
@@ -382,6 +429,27 @@ public class PlayerController {
 		}
 
 		return "redirect:/squads/show-squad?selectedTeamName="+selectedTeamName+"&msg=success";
+	}
+
+
+	@PostMapping("/user/upload-pdf")
+	public String uploadPdf(@RequestParam("file") MultipartFile file){
+		if(file.getOriginalFilename().contains(".pdf")){
+			String user = TeamController.getCurrentUser();
+			var player = playerServiceImpl.findPlayerByPhone(user).get();
+			String pdfName = player.getTeam().getName()+".pdf";
+			String message = "";
+			try {
+				storageService.save(file,pdfName);
+				message = "Uploaded the file successfully: " + pdfName;
+				return "redirect:/user-home";
+			} catch (Exception e) {
+				message = "Could not upload the file: " + pdfName + ". Error: " + e.getMessage();
+				return "redirect:/user-home";
+			}
+		}else{
+			return "redirect:/user-home";
+		}
 	}
 
 	private void incrementLike(Long playerId) {

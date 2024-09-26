@@ -2,6 +2,8 @@ package org.vasaviyuvajanasangha.kvcl.pdf;
 
 import java.io.FileOutputStream;
 
+import com.itextpdf.layout.font.FontProvider;
+import com.itextpdf.layout.font.FontSet;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.html2pdf.ConverterProperties;
@@ -21,7 +23,7 @@ public class DocumentGenerator {
 			
 			PdfWriter pdfwriter = new PdfWriter(byteArrayOutputStream);
 			
-			DefaultFontProvider defaultFont = new DefaultFontProvider(false, true, false);
+			DefaultFontProvider defaultFont = new DefaultFontProvider(false, true, true);
 			
 			ConverterProperties converterProperties = new ConverterProperties();
 			
@@ -29,7 +31,7 @@ public class DocumentGenerator {
 			try {
 				HtmlConverter.convertToPdf(processedHtml, pdfwriter, converterProperties);
 			}catch (IllegalArgumentException e){
-
+				e.printStackTrace();
 			}
 //			FileOutputStream fout = new FileOutputStream("registration-form.pdf");
 			

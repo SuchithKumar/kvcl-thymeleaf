@@ -10,6 +10,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 @Service
 public class DemoDocument {
@@ -23,13 +24,13 @@ public class DemoDocument {
 	@Autowired
 	private DataMapper dataMapper;
 
-	public ByteArrayOutputStream generateDocument(Team team,String tournamentAnnouncement) {
+	public ByteArrayOutputStream generateDocument(String template, Team team, List<String> images) {
 		
 		String finalHtml = null;
 		
 		Context dataContext = dataMapper.setData(team);
-		dataContext.setVariable("tournamentAnnouncement",tournamentAnnouncement);
-		finalHtml = springTemplateEngine.process("registrationPdf", dataContext);
+		dataContext.setVariable("images",images);
+		finalHtml = springTemplateEngine.process(template, dataContext);
 
 		return  documentGenerator.htmlToPdf(finalHtml);
 	}

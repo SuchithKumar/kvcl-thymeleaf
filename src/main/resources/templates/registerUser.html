@@ -13,15 +13,28 @@
 <img class="img-fluid" width="100%"
 			th:src="@{images/tournament-announcement.png}" />
 
-<section class="gradient-custom">
-
- <p class="text-dark text-center" style="font-size: 35px;font-weight: bolder;">Our Sponsors</p>
-	
-<div th:replace="~{fragments/layoutFragments :: sponsorLogoMarqueeFrag}"></div>
+<!-- <p class="text-dark text-center" style="font-size: 35px;font-weight: bolder;">Our Sponsors</p>-->
+<!--	-->
+<!--<div th:replace="~{fragments/layoutFragments :: sponsorLogoMarqueeFrag}"></div>-->
 
 <img class="img-fluid" width="100%"
-			th:src="@{images/kvcl-header-register-now.png}" />
-				   
+			th:src="@{images/scpfw-kvcl-2024.png}" />
+<div>
+<!--	<div class="ribbon text-center fancy-wipe" style="margin:20px;padding-bottom:25px;font-size:40px">-->
+<!--        <span class="text">-->
+<!--            Scroll down to login / register-->
+<!--        </span>-->
+<!--		<span class="wipe-in">-->
+<!--            Scroll down to login / register-->
+<!--         </span>-->
+<!--	</div>-->
+<!--	<div th:replace="~{fragments/sponsorsFragment :: eventSponsorsFrag}"></div>-->
+<!--	<div th:replace="~{fragments/sponsorsFragment :: titleSponsorsFrag}"></div>-->
+<!--	<div th:replace="~{fragments/sponsorsFragment :: printingPartnersFrag}"></div>-->
+<!--	<div th:replace="~{fragments/sponsorsFragment :: coSponsorsFrag}"></div>-->
+<!--	<div th:replace="~{fragments/sponsorsFragment :: teamSponsorsFrag}"></div>-->
+<!--	<div th:replace="~{fragments/sponsorsFragment :: miscSponsorsFrag}"></div>-->
+
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -31,7 +44,8 @@
 				<p th:text="${errr}" class="text-danger fs-4"></p>
 			</div>	
 			<form th:action="@{/register-user}" method="post" th:object="${user}">
-				  <input type="hidden" th:field="*{isCaptain}"/>	  
+				  <input type="hidden" th:field="*{isCaptain}"/>
+				  <input type="hidden" th:field="*{isViewer}"/>
 				 
 	              <h2 class="fw-bold mb-2 text-uppercase">KVCL 2K24</h2>
 	              <h5 class="fw-bold mb-2 text-uppercase">User Registration Form</h5>
@@ -102,8 +116,8 @@
     </div>
     
 <div th:replace="~{fragments/layoutFragments :: teamLogoMarqueeFrag}" ></div>
-    
-</section>
+
+</div>
 
 <div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
 

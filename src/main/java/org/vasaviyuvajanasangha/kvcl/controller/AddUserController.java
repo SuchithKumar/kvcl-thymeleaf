@@ -59,6 +59,7 @@ public class AddUserController {
 		}
 		
 		user.setIsCaptain(false);
+		user.setIsViewer(true);
 		appUserService.saveAppUser(user);
 		model.put("name", user.getUsername());
 		model.put("username", user.getName());

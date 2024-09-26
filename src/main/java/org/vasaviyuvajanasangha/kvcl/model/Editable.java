@@ -32,6 +32,10 @@ public class Editable {
 	
 	@NotNull
 	private Boolean editPlayers;
+
+	private Boolean enableFixtures;
+
+	private Boolean enableTies;
 	
 	@NotNull
 	@PastOrPresent
@@ -40,13 +44,15 @@ public class Editable {
 	@NotEmpty
 	private String updatedBy;
 	
-	public Editable(Boolean a,Boolean b, Boolean c,Boolean d,String e) {
+	public Editable(Boolean a,Boolean b, Boolean c,Boolean d,String e,Boolean f,Boolean g) {
 		this.editTeamDetails = a;
 		this.editVasaviMathaDetails = b;
 		this.editPaymentDetails = c;
 		this.editPlayers = d;
 		this.updateDate = LocalDateTime.now();
 		this.updatedBy = e;
+		this.enableFixtures = f;
+		this.enableTies = g;
 	}
 	
 }

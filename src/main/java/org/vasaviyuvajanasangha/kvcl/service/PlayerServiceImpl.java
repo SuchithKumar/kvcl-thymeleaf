@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.vasaviyuvajanasangha.kvcl.model.ApprovalTable;
 import org.vasaviyuvajanasangha.kvcl.model.Player;
 import org.vasaviyuvajanasangha.kvcl.repository.PlayerRepository;
@@ -23,7 +24,7 @@ import org.vasaviyuvajanasangha.kvcl.utils.ImageResizer;
 
 import javax.imageio.ImageIO;
 
-@Controller
+@Service
 public class PlayerServiceImpl {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -49,7 +50,7 @@ public class PlayerServiceImpl {
 		return repository.save(player);
 	}
 
-	private byte[] getResizedImage(byte[] input){
+	public static byte[] getResizedImage(byte[] input){
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(input);
 			BufferedImage bufferedImage = null;

@@ -46,6 +46,8 @@ public class AppUser {
 	
 	private Boolean isCaptain;
 
+	private Boolean isViewer;
+
 	@Transient
 	private String reEnterPassword;
 	

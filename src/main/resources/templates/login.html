@@ -11,21 +11,33 @@
 
 <div th:replace="~{fragments/layoutFragments  :: navFrag}" ></div>
 				
+<img class="img-fluid" width="100%" th:src="@{images/tournament-announcement.png}" />
+
+<!--<div class="text-center">-->
+<!--    <span class="titles">Our Sponsors</span>-->
+<!--</div>-->
+<!--	-->
+<!-- <div th:replace="~{fragments/layoutFragments :: sponsorLogoMarqueeFrag}"></div>-->
+<div>
 <img class="img-fluid" width="100%"
-			th:src="@{images/tournament-announcement.png}" />
+			th:src="@{images/scpfw-kvcl-2024.png}" />
 
-<section class="gradient-custom">
+<!--    <div class="ribbon text-center fancy-wipe" style="margin:20px;padding-bottom:25px;font-size:40px">-->
+<!--        <span class="text">-->
+<!--            Scroll down to login / register-->
+<!--        </span>-->
+<!--        <span class="wipe-in">-->
+<!--            Scroll down to login / register-->
+<!--         </span>-->
+<!--    </div>-->
+<!--    <div th:replace="~{fragments/sponsorsFragment :: eventSponsorsFrag}"></div>-->
+<!--    <div th:replace="~{fragments/sponsorsFragment :: titleSponsorsFrag}"></div>-->
+<!--    <div th:replace="~{fragments/sponsorsFragment :: printingPartnersFrag}"></div>-->
+<!--    <div th:replace="~{fragments/sponsorsFragment :: coSponsorsFrag}"></div>-->
+<!--    <div th:replace="~{fragments/sponsorsFragment :: teamSponsorsFrag}"></div>-->
+<!--    <div th:replace="~{fragments/sponsorsFragment :: miscSponsorsFrag}"></div>-->
 
-    <div class="text-center">
-        <span class="titles">Our Sponsors</span>
-    </div>
-	
- <div th:replace="~{fragments/layoutFragments :: sponsorLogoMarqueeFrag}"></div>
-
-<img class="img-fluid" width="100%"
-			th:src="@{images/kvcl-header-register-now.png}" />
-
-  <div class="container py-5">
+    <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
@@ -56,7 +68,6 @@
 	            <!--   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
 	
 	              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-
 			</form>
             </div>
             <div>
@@ -69,13 +80,9 @@
     </div>
   </div>
   <br>
-
 <div th:replace="~{fragments/layoutFragments :: teamLogoMarqueeFrag}" ></div>
-  
-</section>
-<br>
-<br>
-<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
 
+<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
+</div>
 </body>
 </html>

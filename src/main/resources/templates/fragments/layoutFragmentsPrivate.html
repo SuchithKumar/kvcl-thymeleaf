@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 
@@ -19,10 +20,11 @@
 	<link rel="stylesheet" th:href="@{/css/sidebar.css}">
 	<link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css"/>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" th:href="@{/css/button.css}">
 	<link rel="stylesheet" th:href="@{/css/profile.css}">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css">
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 <style>
 .marquee {
@@ -137,20 +139,221 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,29,33,1) 54%, rgba
 
 </style>
 <meta charset="UTF-8">
-<title>KVCL 2024</title>
+<title>SCPFW KVCL 2024</title>
 </head>
+
+	<head th:fragment="headFragUpdates">
+		<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.2/css/all.css}">
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/sidebar.css}">
+		<link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css"/>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" th:href="@{/css/button.css}">
+		<link rel="stylesheet" th:href="@{/css/profile.css}">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css">
+		<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+		<style>
+.marquee {
+    width: 100%;
+    line-height: 30px;
+	color: Black;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.marquee p {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+}
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+.gradient-custom {
+	background: rgb(34,193,195);
+	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(220,239,165,1) 100%);
+
+}
+
+.pro-container-captain {
+  height: 350px;
+  width: 260px;
+  perspective: 320px;
+  position: relative;
+  margin-bottom: 50px;
+  margin-top:50px;
+  margin-left: 36.5%;
+}
+
+.pro-container {
+  height: 350px;
+  width: 260px;
+  perspective: 320px;
+  position: relative;
+  margin-bottom: 50px;
+}
+.pro-card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 1s ease-in-out;
+}
+.pro-card:hover {
+
+  transform: rotateY(180deg);
+  /*
+
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+
+  /*
+  transform: skewx(10deg) translatex(150px);
+  */
+}
+
+.pro-back:hover {
+
+  transform: rotateY(180deg);
+  /*
+
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+
+  /*
+  transform: skewx(10deg) translatex(150px);
+  */
+}
+
+.pro-card .pro-side {
+  backface-visibility: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.pro-card .pro-back {
+  overflow: auto;
+  text-overflow: ellipsis;
+  color: white;
+  transform: rotateY(180deg);
+  /*
+  background: #0e2238;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  */
+background: #0e2238;
+  /*
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,29,33,1) 54%, rgba(0,212,255,1) 100%);
+  */
+  /* https://cssgradient.io/ */
+}
+
+.pro-back .pro-card {
+  color: white;
+  transform: rotateY(180deg);
+  /*
+  background: #0e2238;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  */
+background: #0e2238;
+  /*
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,29,33,1) 54%, rgba(0,212,255,1) 100%);
+  */
+  /* https://cssgradient.io/ */
+}
+/* Lazy Load Styles */
+.card-image {
+  display: block;
+  min-height: 20rem; /* layout hack */
+  background: #fff center center no-repeat;
+  background-size: cover;
+  filter: blur(3px); /* blur the lowres image */
+}
+
+.card-image > img {
+  display: block;
+  width: 100%;
+  opacity: 0; /* visually hide the img element */
+}
+
+.card-image.is-loaded {
+  filter: none; /* remove the blur on fullres image */
+  transition: filter 1s;
+}
+
+
+
+
+/* Layout Styles */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.card-list {
+  display: block;
+  margin: 1rem auto;
+  padding: 0;
+  font-size: 0;
+  text-align: center;
+  list-style: none;
+}
+
+.card {
+  display: inline-block;
+  width: 90%;
+  max-width: 20rem;
+  margin: 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+}
+
+.card:hover {
+  transform: translateY(-0.5rem) scale(1.0125);
+  box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
+}
+
+.card-description {
+  display: block;
+  padding: 1em 0.5em;
+  color: #515151;
+  text-decoration: none;
+}
+
+.card-description > h2 {
+  margin: 0 0 0.5em;
+}
+
+.card-description > p {
+  margin: 0;
+}
+</style>
+		<meta charset="UTF-8">
+		<title>SCPFW KVCL 2024</title>
+	</head>
 
 <div th:fragment="navFrag">
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark p-1 ">
-		<a class="navbar-brand m-1" href="/welcome-private">KVCL 2024</a>
+		<a class="navbar-brand m-1" href="/welcome-private">SCPFW KVCL 2024</a>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="/welcome-private">Home</a></li>			
 				<li class="nav-item"><a class="nav-link" href="/user-home">User Dashboard</a></li>
+				<li class="nav-item"><a class="nav-link" href="/about-us-private">Tournament Details</a></li>
+				<li class="nav-item"><a class="nav-link" href="/our-sponsors-private">Our Sponsors</a></li>
 				<li class="nav-item" sec:authorize="hasAnyRole('ADMIN','GODADMIN','USER')" ><a class="nav-link" href="/squads">Squads</a></li>
+				<li class="nav-item"><a class="nav-link" href="/fixtures">Fixtures</a></li>
+				<li class="nav-item"><a class="nav-link" href="/updates">Updates</a></li>
 				<li class="nav-item" sec:authorize="hasAnyRole('ADMIN','GODADMIN')" ><a class="nav-link" href="/admin/admin-home">Admin Dashboard</a></li>
 				<li class="nav-item" sec:authorize="hasRole('GODADMIN')" ><a class="nav-link" href="/godadmin/god-admin-home">Super Admin Dashboard</a></li>
-			<!--<li class="nav-item"><a class="nav-link" href="/admin-home">Admin Home</a></li>-->
 			</ul>
 		</div>
 		<ul class="navbar-nav">
@@ -262,7 +465,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,29,33,1) 54%, rgba
 <div th:fragment="footFrag">
 <footer class="bg-body-tertiary text-center text-lg-start">
 	  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2024 Copyright:
+
     <a class="text-body" href="/welcome-private">Karnataka Arya Vysya Vasavi Yuvajana Sangha, KG Nagar, Bangalore</a>
   </div>
 </footer>

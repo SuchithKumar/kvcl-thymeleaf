@@ -1,6 +1,7 @@
 <html
         xmlns:th="http://www.thymeleaf.org"
         xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
 <style>
 th,td {
   border: 1px solid;
@@ -42,113 +43,332 @@ table {
   border-collapse: collapse;
   width: 100%;
 }
+
+#row1 {
+    margin-top:125px;
+    position: relative;
+    max-width: 100%;
+}
+
+#row2 {
+    margin-top:15px;
+    position: relative;
+    max-width: 100%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
 </style>
-<title></title>
+    <title></title>
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans Kannada' rel='stylesheet'>
 </head>
-<body class="container">
-
-<div class="container text-center">
-    <img th:src="${tournamentAnnouncement}" alt="" style="width: 100%; height: 180px">
-</div>
-
-<div class="container text-center">
-    <h3>Thanking note from KG Nagar Vasavi Yuvajana sanga</h3>
-</div>
-<page>
-<div class="container text-center">
-    <h3 class="text-center">Team Details</h3>
-    <table class="table" style="margin: 0 0 10px 0;border:1px solid;">
-        <thead style="font-size:14px">
-        <tr>
-            <th class="text-center">Logo</th>
-            <th class="text-center">Team Name</th>
-            <th class="text-center">Captain</th>
-            <th class="text-center">Accomodation</th>
-        </tr>
-        </thead>
-        <tbody style="font-size:12px">
-        <tr>
-            <td class="text-center" ><img th:src="${team.logoImg}" style="width: 140px; height: 160px"></td>
-            <td class="text-center" th:text="${team.name}"></td>
-            <td class="text-center" th:text="${team.captain}"></td>
-            <td class="text-center" th:text="${team.noOfAccomodation}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<div class="container text-center">
-    <h3>Player Details</h3>
-    <table class="table" style="margin: 0 0 10px 0;border:1px solid;">
-        <thead style="font-size:14px">
-        <tr>
-            <th class="text-center">Sl.No</th>
-            <th class="text-center">Photo</th>
-            <th class="text-center">Name</th>
-            <th class="text-center">Gothram</th>
-            <th class="text-center">Contact</th>
-            <th class="text-center">Size</th>
-        </tr>
-
-        </thead>
-        <tbody style="font-size:11px">
-        <tr th:each="player,stats : ${team.players}">
-            <td class="text-center" style="width:50px" th:text="${stats.count}"></td>
-            <td class="text-center" style="width:260px;height:180px"><img th:src="${player.photoImg}" style="width: 140px; height: 160px;margin-right:80px"></td>
-            <td class="text-center" style="width:100px;" th:text="${player.playerName}"></td>
-            <td class="text-center" th:text="${player.playerGothram}"></td>
-            <td style="width:260px">
-                <table class="text-center" style="margin-bottom:20px;border:0px;width:100%">
-                    <thead style="font-size:12px">
-                    <tr>
-                        <th style="border:0px;">Address</th>
-                    </tr>
-                    </thead>
-                    <tbody style="font-size:11px">
-                    <tr>
-                        <td style="border:0px;" th:text="${player.address}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="text-center" style="margin-bottom:20px;border:0px;width:100%">
-                    <thead style="font-size:12px">
-                    <tr>
-                        <th style="border:0px;">Phone</th>
-                    </tr>
-                    </thead>
-                    <tbody style="font-size:11px">
-                    <tr>
-                        <td style="border:0px;" th:text="${player.playerPhone}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="text-center" style="border:0px;width:100%">
-                    <thead style="font-size:12px">
-                    <tr>
-                        <th style="border:0px;">Email ID</th>
-                    </tr>
-                    </thead>
-                    <tbody style="font-size:11px">
-                    <tr>
-                        <td style="border:0px;" th:text="${player.playerEmail}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-            <td class="text-center" style="width:50px;" th:text="${player.playerShirtSize}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<body>
 
 
 <div class="container text-center">
-    <h3>Rules and Regulations</h3>
+    <img th:src="${images[0]}" alt="" style="width: 100%; height: 180px">
 </div>
 
-<div class="container text-center">
-    <h3>Declaration</h3>
+<div class="container">
+    <h3 th:text="${'Dear ' + {team.name} + ' Team,'}"></h3>
+    <div style="font-size:16px;">
+        <p>On behalf of the KG Nagar Vasavi Seva Mandali, Vasavi Mahila Mandali and Vasavi Yuvajana Sangha, I would like to extend our heartfelt gratitude for successfully completing the registration for the KVCL 2024 National Level Cricket Tournament.</p>
+        <p>We are thrilled to have you join us for this prestigious event, which celebrates the spirit of cricket and the vibrant Arya Vysya community. Your commitment to participate is a testament to your passion for the game and your desire to compete at the highest level.</p>
+        <p>We are particularly excited about the involvement of the Arya Vysya community, as it highlights the growing prominence and enthusiasm for cricket within our community.</p>
+        <p>This tournament is not just an opportunity to showcase your cricketing skills but also a platform to demonstrate the spirit of unity and teamwork.</p>
+        <p>We encourage all team members to come together, support one another, and embody the values of sportsmanship and camaraderie. By doing so, you will not only enhance your performance on the field but also contribute to building a stronger, more cohesive community.</p>
+        <p>We are working diligently to ensure that KVCL 2024 is organized to the highest standards, providing you with an excellent platform to shine. The tournament promises to be a celebration of cricket, filled with thrilling matches, fierce competition, and opportunities to forge lasting connections.</p>
+        <p>Once again, thank you for your registration. We look forward to welcoming you to the field and witnessing some outstanding performances. Should you have any questions or require further assistance, please do not hesitate to contact us.</p>
+        <p>Wishing you the very best for the tournament!</p>
+        <h4>Jai Vasavi</h4>
+    </div>
 </div>
+
+
+<div style="page-break-before: always">
+    <div class="container">
+        <h2>Awards and Rewards</h2>
+    </div>
+    <div class="container">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Winners</td>
+                <td>Trophy + Medals + INR 30000</td>
+            </tr>
+            <tr>
+                <td>Runners</td>
+                <td>Trophy + Medals + INR 15000</td>
+            </tr>
+            <tr>
+                <td>Best Bowler</td>
+                <td>Memento + INR 5000</td>
+            </tr>
+            <tr>
+                <td>Best Batter</td>
+                <td>Memento + INR 5000</td>
+            </tr>
+            <tr>
+                <td>Best Fielder</td>
+                <td>Memento + INR 5000</td>
+            </tr>
+            <tr>
+                <td>Most Valued Player of the Tournament</td>
+                <td>Memento + INR 5000</td>
+            </tr>
+            <tr>
+                <td>Spirit of Unity</td>
+                <td>Memento + INR 7500</td>
+            </tr>
+            <tr>
+                <td>Man of the Match for each match</td>
+                <td>Mementos / Medals</td>
+            </tr>
+            <tr>
+                <td>Participation</td>
+                <td>Medals / Certificates</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>Team Details</h2>
+        <table class="table" style="margin: 0 0 10px 0;border:1px solid;">
+            <thead style="font-size:16px">
+            <tr>
+                <th class="text-center">Logo</th>
+                <th class="text-center">Team Name</th>
+                <th class="text-center">Captain</th>
+                <th class="text-center">Accommodation</th>
+            </tr>
+            </thead>
+            <tbody style="font-size:14px">
+            <tr>
+                <td class="text-center" ><img th:src="${team.logoImg}" style="width: 140px; height: 160px"></td>
+                <td class="text-center" th:text="${team.name}"></td>
+                <td class="text-center" th:text="${team.captain}"></td>
+                <td class="text-center" th:text="${team.noOfAccomodation}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <h2>Accommodation details</h2>
+        <ol>
+            <li>Do you need Accommodation? <img th:src="${images[3]}" width="12px" height="12px" ></li>
+            <li>IF Yes, For how many players do you need accommodation : ______</li>
+            <li>Need Accommodation on 26th Night <img th:src="${images[3]}" width="12px" height="12px" >, 27th/28th Night: <img th:src="${images[3]}" width="12px" height="12px" ></li>
+            <p> Note : Stay will be provided free of cost in 2 or 3 Star Hotels. Stay cannot be arranged if requested after submission of this form.</p>
+        </ol>
+    </div>
+</div>
+
+<div style="page-break-before: always">
+    <div class="container">
+        <h2>Player Details</h2>
+        <table class="table" style="margin: 0 0 10px 0;border:1px solid;">
+            <thead style="font-size:16px">
+            <tr>
+                <th class="text-center">Sl.No</th>
+                <th class="text-center">Photo</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Gothram</th>
+                <th class="text-center">Contact</th>
+                <th class="text-center">Size</th>
+            </tr>
+
+            </thead>
+            <tbody style="font-size:13px">
+            <tr th:each="player,stats : ${team.players}" th:if="${player.teamApproval==true}">
+                <td class="text-center" style="width:50px" th:text="${stats.count}"></td>
+                <td class="text-center" style="width:260px;height:180px"><img th:src="${player.photoImg}" style="width: 140px; height: 160px;margin-right:80px"></td>
+                <td class="text-center" style="width:100px;" th:text="${player.playerName}"></td>
+                <td class="text-center" th:text="${player.playerGothram}"></td>
+                <td style="width:260px">
+                    <table class="text-center" style="margin-bottom:20px;border:0px;width:100%">
+                        <thead style="font-size:14px">
+                        <tr>
+                            <th style="border:0px;">Address</th>
+                        </tr>
+                        </thead>
+                        <tbody style="font-size:13px">
+                        <tr>
+                            <td style="border:0px;" th:text="${player.address}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="text-center" style="margin-bottom:20px;border:0px;width:100%">
+                        <thead style="font-size:14px">
+                        <tr>
+                            <th style="border:0px;">Phone</th>
+                        </tr>
+                        </thead>
+                        <tbody style="font-size:11px">
+                        <tr>
+                            <td style="border:0px;" th:text="${player.playerPhone}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="text-center" style="border:0px;width:100%">
+                        <thead style="font-size:14px">
+                        <tr>
+                            <th style="border:0px;">Email ID</th>
+                        </tr>
+                        </thead>
+                        <tbody style="font-size:11px">
+                        <tr>
+                            <td style="border:0px;" th:text="${player.playerEmail}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="text-center" style="width:50px;" th:text="${player.playerShirtSize}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div style="page-break-before: always">
+    <div class="container">
+        <h2>Rules and Regulations</h2>
+        <div>
+            <h3>General Information</h3>
+            <ol>
+                <li><p><strong>Tournament Dates&nbsp;:&nbsp; </strong>The KVCL-2024 Cricket Tournament will take place on September 27th, 28th, and 29th, 2024.</p></li>
+                <li><p><strong>Eligibility&nbsp;:&nbsp;</strong>All players must belong to the Arya Vysya Community. Any deviation from this rule will result in the entire team being suspended from the tournament for three years. Additionally, this will tarnish the reputation of the regional Vasavi Sanga.</p></li>
+                <li><p><strong>Participation&nbsp;:&nbsp;</strong>The semi-finalists of the KVCL 9 Tournament will be divided into 4 groups.</p></li>
+                <li><p><strong>Team Submission&nbsp;:&nbsp;</strong>The names of all eleven players must be filled out, duly signed, and submitted to the organizers 30 minutes before the start of their respective match.</p></li>
+                <li><p><strong>Dress Code&nbsp;:&nbsp;</strong>Players must adhere to the dress code provided by the tournament organizers. Shorts and slippers are not allowed. Any deviation from this rule will result in a penalty.</p></li>
+                <li><p><strong>Cricket Ball&nbsp;:&nbsp;</strong>All matches will be played with Wilson 1 tennis ball.</p></li>
+                <li><p><strong>Cricket Bats&nbsp;:&nbsp;</strong>Teams are responsible for bringing their own cricket bats. Except Srilankan Bats and Fiber bats all wooden bats are allowed.</p></li>
+                <li><p><strong>Liability&nbsp;:&nbsp;</strong>The organizers are not responsible for any injury or accident that occurs to a player during the entire tournament.</p></li>
+                <li><p><strong>Attendance&nbsp;:&nbsp;</strong>Teams must be present for all days of the tournament, from the inauguration to the valedictory ceremony. Participation medals/certificates will be issued to all teams only on the last day of the tournament.</p></li>
+                <li><p><strong>Match Schedule&nbsp;:&nbsp;</strong>There will be no changes or shifts in the match schedule or plan at any given time. All players are requested to adhere to the schedule.</p></li>
+                <li><p><strong>Team Captain&nbsp;:&nbsp;</strong>The captain of the team cannot be changed at any point during the tournament unless he is injured and unable to play.</p></li>
+                <li><p><strong>Venue&nbsp;:&nbsp;</strong>The tournament matches will be played at National College Grounds, Shankarapura, Basavangudi, and APS College Grounds, NR Colony, Basavangudi. Spare Ground : National College Grounds, Jayanagar.</p></li>
+            </ol>
+        </div>
+        <div>
+            <h3>Tournament Rules</h3>
+            <ol>
+                <li>
+                    <h4>Disciplinary Rules&nbsp;:&nbsp;</h4>
+                    <ul>
+                        <li>
+                            <p>
+                                Umpire Decision is the final decision and if any player/players get involved in over Argument, Abusive language used, Deliberate Physical contact, Verbal aggression will result in either of the below depending on the situation:
+                            </p>
+                            <ol>
+                                <li>First Warning or 5 Runs Penalty or Eliminated out of the Tournament</li>
+                                <li>If any 3 players from a single team are removed for the above reason, the entire team will be eliminated from the tournament</li>
+                                <li>Additionally, the specific player(s) will be blacklisted from current and future KVCL tournaments. This guideline will be strictly enforced.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <p>Only one player can be enrolled/play for a team. If a player is seen playing for more than one team, then as a disciplinary action, whole team will be suspended from the tournament</p>
+                        </li>
+                    </ul>
+                </li>
+
+
+                            <li>
+                                <h4>Key Rules&nbsp;:&nbsp;</h4>
+                                <ul>
+                                    <li><p>In KVCL – 2024, 20 Teams will be participating in this League come Knockout tournament</p></li>
+                                    <li><p>All the League matches and quarter-finals will be played for 8 Overs per innings, Whereas Semi-finals & Finals will be played for 10 Overs per innings. Each participating team will mandatorily play 3 league matches in this tournament</p></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h3><strong>Groups & Points System&nbsp;:&nbsp;</strong></h3>
+                                <ul>
+                                    <li><p><strong>League Stage&nbsp;:&nbsp;</strong>20 teams will be divided into 5 groups of 4 teams each and Every
+                                        team will play 3 league matches against teams within the same Group. The
+                                        Fixtures will be shared during the Inauguration. After every league match, the winning
+                                        team is awarded 2 points and Top 2 teams from each group will enter Knockouts. If
+                                        there is a tie in the number of points at the end of League stage, Tournament Net Run
+                                        rate will be considered for getting the Top 2 teams from each group.
+                                    </p></li>
+                                    <li>
+                                        <p><strong>Knockouts&nbsp;:&nbsp;</strong>The top 2 teams from the 10 qualified teams, based on the most wins and highest Net Run Rate (NRR), will directly advance to the Semi-Finals. The remaining 8 teams will compete in the Quarter-Finals and Pre-Semi Finals for a chance to qualify for the Semi-Finals.</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>Power play Rule&nbsp;:&nbsp;</h4>
+                                <ul>
+                                    <li><p><strong>For 8 Over Matches:&nbsp;:&nbsp;</strong>During the first 2 overs, maximum of 3 fielders are allowed outside 30 yards’ circle. For the next 6 overs, a maximum of 5 fielders are allowed outside the 30 yards' circle.</p></li>
+                                    <li><p><strong>For 10 Over Matches:&nbsp;:&nbsp;</strong>During the first 3 overs, maximum of 3 fielders are allowed outside 30 yards’ circle. For the next 7 overs, a maximum of 5 fielders are allowed outside 30 yards’ circle.</p></li>
+                                    <li><p>At any instance, the captain cannot keep more than five fielders (Excluding bowler) on leg side.</p></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h4>Time Rule&nbsp;:&nbsp;</h4>
+                                <ul>
+                                    <li><p>8 Over innings should be completed within 35 minutes from the start time of the play.</p></li>
+                                    <li><p>10 Over innings should be completed within 43 minutes from the start time of the play. There will be a Penalty of 5 Runs per over if the above rule is not followed (UmpireDecision)</p></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p>Only 1 bowler can bowl a maximum of 3 overs in 8 overs & and 2 bowlers can bowl a maximum of 3 overs in 10 overs match.</p>
+                            </li>
+                            <li>
+                                <p>Free Hit is applicable for all kinds of No Balls & field replacements can be changed only if the batsman has crossed over.</p>
+                            </li>
+                            <li>
+                                <p>Only 1 bouncer (below head height) allowed in an over. Subsequent bouncer will be declared as a no ball in the same over.</p>
+                            </li>
+                            <li>
+                                <p>Authority for allowing a runner or a substitute fielder solely rests with the umpire depending on the injury suffered during the match.</p>
+                            </li>
+                            <li>
+                                <p>If the match is tied, it shall be decided upon Super over Basis.</p>
+                            </li>
+                            <li>
+                                <p>If there is a tie in the super over, the winner is typically decided by the highest number of boundaries (6’s & 4’s) scored throughout the match.</p>
+                            </li>
+                            <li>
+                                <p>If the ball is obstructed by a tree or any structure inside the ground, it is considered a ball in play.</p>
+                            </li>
+                            <li>
+                                <p>Throw/ Action bowling can be appealed by the batsman, but the umpire will decide further.</p>
+                            </li>
+                            <li>
+                                <p>There is no Mankad rule in the Tournament.</p>
+                            </li>
+                            <li>
+                                <p>All other International Cricket basic rules must be followed</p>
+                            </li>
+            </ol>
+            <p><strong>Note&nbsp;:&nbsp;</strong>In the event of any discrepancies, the organizers will have the final say.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Declaration</h2>
+        <div style="font-size:16px;">
+            <p>We, the undersigned, respectfully affirm that all participants registered for the KVCL 2024 National Level Cricket Tournament are members of the Arya Vysya community.</p>
+            <p>This declaration, made in reverence to our kula devatha Sri Vasavi Kanyaka Parameshwari, underscores our commitment to authenticity and integrity in this esteemed tournament.</p>
+            <p>Each participant’s community affiliation has been meticulously verified and authorized by the respective team captains and their associated Sanghas.</p>
+            <p>This thorough verification process ensures that every participant meets the community criteria established for this event. We are confident that these checks reflect our dedication to upholding the values of transparency and respect within our community.</p>
+            <p>The involvement of the Arya Vysya community in this tournament is a testament to our collective spirit and unity. We trust that the participants will exemplify the highest standards of sportsmanship and a spirit of trust, reinforcing the bonds that unite us.</p>
+            <h4>Jai Vasavi.</h4>
+        </div>
+        <div id="row1">
+            <h3 class="right bold">President Seal & Signature</h3>
+            <h3 class="left bold" >Captain Signature</h3>
+        </div>
+    </div>
+    <div style="margin-top:200px" class="text-center">
+        <a href="https://kvcl2024.ngrok.app">Visit KVCL2024 Website for more details</a>
+    </div>
+</div>
+<img th:src="${images[4]}" width="100%" style="padding-bottom:50px">
 </body>
 </html>

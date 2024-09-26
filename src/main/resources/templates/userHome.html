@@ -33,7 +33,7 @@
     			           <img th:src="${profile.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 200px;" />   
        			          <h4 style="color: black" th:text="${profile.playerName}"></h4>   
 			              <h5 style="color: black" th:text="${profile.teamName}"></h5>
-			              <p style="color: black;"> Edit Captain Info <a class="btn btn-warning" th:href="${'/user/edit-captain/'+{profile.playerId}}"><i class="fa fa-edit"></i></a></p>
+			              <p th:if="${editable.editTeamDetails}" style="color: black;"> Edit Captain Info <a class="btn btn-warning" th:href="${'/user/edit-captain/'+{profile.playerId}}"><i class="fa fa-edit"></i></a></p>
 			            </div>
 			             <div class="col-md-8">
 			              <div class="card-body text-center p-4">
@@ -121,6 +121,67 @@
 		</div>
 		</div>
 
+	<div class="container text-center">
+		<div class="text-center">
+			<span class="titles">Post updates using this form</span>
+		</div>
+		<p>This posts will be visible in <a href="@{/updates}">updates</a> page</p>
+		<form th:action="@{/user/add-post}" th:method="post" th:object="${post}" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{postPhoto}"/>
+			<input type="hidden" th:field="*{postImg}"/>
+			<input type="hidden" th:field="*{postedBy}"/>
+			<input type="hidden" th:field="*{timePosted}"/>
+			<input type="hidden" th:field="*{postedDate}"/>
+			<input type="hidden" th:field="*{id}"/>
+			<input type="hidden" th:field="*{embed}"/>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<input type="text" class="form-control form-control-lg"th:field="*{text}" required="required" />
+				<label class="form-label fs-4" >Enter Content</label>
+			</div>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<input type="file" class="form-control form-control-lg" th:field="*{photo}" accept="image/*"/>
+				<label class="form-label fs-4">Upload an image</label>
+			</div>
+			<button class="btn btn-success" type="submit">Post</button>
+		</form>
+	</div>
+
+	<div class="text-center">
+		<span class="titles">Below players have handshaked you!</span>
+	</div>
+	<div class="container text-center" th:if="${likedBy!=null && likedBy.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Player</th>
+			<th>Team Name</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${likedBy}">
+				<td th:text="${val.player}"></td>
+				<td th:text="${val.teamName}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="text-center">
+		<span class="titles">You have handshaked below players</span>
+	</div>
+	<div class="container text-center" th:if="${liked!=null && liked.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Player</th>
+			<th>Team Name</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${liked}">
+				<td th:text="${val.player}"></td>
+				<td th:text="${val.teamName}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
 	<div class="py-3 m-2 text-center justify-content-center">
 		<pre th:text="${approvalError}" class="text-danger" style="font-weight: bold;"></pre>
 		<div th:if="${approvedPlayers!=null and !approvedPlayers.isEmpty()}" >
@@ -137,7 +198,7 @@
 								<th>Profession</th>
 								<th>Player Skill</th>
 								<th>T shirt Size</th>
-								<th>Reject</th>
+<!--								<th>Reject</th>-->
 							</tr>
 						</thead>
 						</tbody>
@@ -150,8 +211,7 @@
 								 <td th:text=${item.profession}></td>
 								 <td th:text=${item.playerSkill}></td>
 							 	<td th:text=${item.playerShirtSize}></td>
-							 	
-	 						 	<td th:if="${profile!=null and #strings.equals(item.playerName, profile.playerName)==false}"><a class="btn btn-danger" th:href="@{'/user/reject-player/' + ${item.playerId}}">Reject</a></td>								 	
+	 						 	<td th:if="${profile!=null and #strings.equals(item.playerName, profile.playerName)==false} and ${editable.editTeamDetails} "><a class="btn btn-danger" th:href="@{'/user/reject-player/' + ${item.playerId}}">Reject</a></td>
 							 </tr>
 						</tbody>
 					</table>	
@@ -176,7 +236,7 @@
 									<th>Profession</th>
 									<th>Player Skill</th>
 									<th>T shirt Size</th>
-									<th>Approve</th>
+									<th th:if="${editable.editTeamDetails}">Approve</th>
 								</tr>
 							</thead>
 							</tbody>
@@ -189,7 +249,7 @@
 									 <td th:text=${item.profession}></td>
 									 <td th:text=${item.playerSkill}></td>
 								 	<td th:text=${item.playerShirtSize}></td>
-		 						 	<td><a class="btn btn-primary" th:href="@{'/user/approve-player/' + ${item.playerId}}">Approve</a></td>								 	
+		 						 	<td th:if="${editable.editTeamDetails}"><a class="btn btn-primary" th:href="@{'/user/approve-player/' + ${item.playerId}}">Approve</a></td>
 								 </tr>
 							</tbody>
 						</table>	
@@ -198,12 +258,63 @@
 		<br>
 
 	<div th:if="${team!=null}">
+
+		<div class="container-lg text-center">
+			<div class="text-center">
+				<span class="titles-sm">Download Declaration Form</span>
+			</div>
+			<div class="container-lg" style="font-size:22px">
+				<h3>Instructions&nbsp;:&nbsp;</h3>
+				<ol>
+					<li><p>Print a color hard copy of the declaration form.</p></li>
+					<li><p>The captain needs to answer a few questions related to accommodation on the form.</p></li>
+					<li><p>Share the printed form to your Vasavi Sanga President.</p></li>
+					<li><p>Please read out the invitation and request your president to review the player details.</p></li>
+					<li><p>Please also read the Rules and Regulations and share them with your team.</p></li>
+					<li><p>Both the captain and the president of your Vasavi Sangha must sign the bottom of every page of the form, and the Vasavi Sangha President must also affix the official seal. Additionally, the president needs to sign and place the seal on each player’s photo.</p></li>
+					<li><p>Scan the form and upload it back to our website in your user dashboard (Feature will be added soon..)</p></li>
+					<li><p>Bring the physical Hard copy of the form to tournament inauguration.</p></li>
+				</ol>
+			</div>
+			<div class="text-center">
+				<div class="button"	>
+					<a style="padding:5px 5px" th:href="@{/user/download?lang=ka}">Kannada</a>
+				</div>
+				<div class="button">
+					<a style="padding:5px 5px" th:href="@{/user/download?lang=en}">English</a>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="text-center">
+				<span class="titles">Upload Declaration Form</span>
+			</div>
+			<form method="post" th:action="@{/user/upload-pdf}" enctype="multipart/form-data">
+				<div data-mdb-input-init class="form-outline form-white mb-4">
+					<input type="file" id="file" name="file" class="form-control form-control-lg" accept="application/pdf" required="required"/>
+				</div>
+				<div class="text-center">
+					<div class="button">
+						<button style="padding:5px 5px" type="submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="text-center" ${file.url!=null}>
+			<p style="font-size:22px"><strong>Note &nbsp;:&nbsp;</strong> You have successfully uploaded the duly filled Declaration form, Download below:</p>
+			<div class="button">
+				<a style="padding:5px 5px;font-size:22px" th:href="${file.url}">View Submitted Form</a>
+			</div>
+		</div>
+
 		<div class="container-lg text-center" style="margin-bottom: 10px">
+			<span class="titles" th:text="${team.sponsorName}"></span>
 			<span class="titles" th:text="${team.name}"></span>
 			<br>
 			<img th:src="@{images/icons/collab.png}" style="width:80px;height:80px">
 			<h3 th:text="${count}"></h3>
 		</div>
+
 		<div class="container-lg text-center" style="margin-bottom: 120px">
 			<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px;" />
 			<p>Click on the photos for more info!</p>
@@ -211,15 +322,17 @@
 				<div class="pro-card">
 					<div class="pro-side">
 						<img th:src="${teamCaptain.photoImg}"  style="width: 260px; height: 400px;border-radius:10px;border:15px solid #0e2238;border-bottom:55px solid #0e2238;border-top:60px solid #0e2238">
-						<img th:if="${teamCaptain.playerSkill == 'Batsmen' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:-75px">
+						<img th:if="${teamCaptain.playerSkill == 'Batsmen' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:absolute; bottom:-52px;left:0px">
 						<img th:src="@{images/icons/captain.png}" style="width:60px;height:60px;position:absolute;float:top;bottom:290px;left:97px" >
-						<img th:src="@{images/icons/collab.png}" style="width:35px;height:35px;position:relative;float:top;bottom:68px;left:-37px" >
-						<h6 th:text="${teamCaptain.likes}" style="position:relative;bottom:94px;left:-6px;font-size:16px;color:white"></h6>
 
-						<img th:if="${teamCaptain.playerSkill == 'Bowler' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 50px; height: 50px; position:relative; float:top; bottom:153px; left:93px">
+						<img th:src="@{images/icons/collab.png}" style="width:35px;height:35px;position:absolute;bottom:-26px;left:106px" >
+						<h6 th:text="${teamCaptain.likes}" style="position:absolute;bottom:-55px;left:118px;font-size:16px;color:white"></h6>
 
-						<h3 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:160px" th:text="${teamCaptain.playerName}"></h3>
-						<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:175px" th:text="${teamCaptain.profession}"></h5>
+
+						<img th:if="${teamCaptain.playerSkill == 'Bowler' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 50px; height: 50px; position:absolute; float:top; bottom:-45px; left:200px">
+
+						<h3 class="text-center" style="font-family:'Times New Roman';serif; position:relative;  bottom:10px" th:text="${teamCaptain.playerName}"></h3>
+						<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative;  bottom:20px" th:text="${teamCaptain.profession}"></h5>
 
 					</div>
 					<div class="pro-side pro-back text-center">
@@ -487,6 +600,29 @@
 			<h4>Thanks for completing the phase 1 of the registration process. we will review the details and get back for phase 2 of the registration process 🙏</h4>	
 		</div>	 --> 
 
+	<br>
+	<br>
+	<hr>
+	<div class="container-lg text-center">
+	<form th:action="@{/user/reset-password}" method="post" class="container" >
+
+		<h5 class="fw-bold mb-2 text-uppercase">Password Reset of your Team Players</h5>
+
+		<div data-mdb-input-init class="form-outline form-white mb-4">
+		<select name="number" id="number"  class="form-control form-control-lg" required="required">
+			<option th:each="p : ${playersList}" th:value="${p}" th:text="${p}"></option>
+		</select>
+		<label class="form-label fs-4">Please select the registered phone number of the player</label>
+		</div>
+
+		<div data-mdb-input-init class="form-outline form-white mb-4">
+			<input type="text" class="form-control form-control-lg" name="password" required="required"/>
+			<label class="form-label fs-4">Enter Password</label>
+		</div>
+		<button class="btn btn-primary" type="submit">Reset Password</button>
+	</form>
+	</div>
+	<br>
 	<br>
 </div>
 

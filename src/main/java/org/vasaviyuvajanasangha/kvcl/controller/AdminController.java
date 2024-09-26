@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Announcement;
+import org.vasaviyuvajanasangha.kvcl.model.Post;
 import org.vasaviyuvajanasangha.kvcl.repository.LikesRepo;
 import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.LikesService;
@@ -39,6 +40,9 @@ public class AdminController {
 	@Autowired
 	private LikesService likesService;
 
+	@Autowired
+	private PdfController pdfController;
+
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@GetMapping("/admin-home")
@@ -54,6 +58,9 @@ public class AdminController {
 		var teams = teamServiceImpl.findAllTeams();
 		model.put("registered_teams",teamServiceImpl.findAllTeams());
 		model.put("vasavi_sangha_details", teams.stream().filter(a->a.getVsDetails()!=null).toList());
+		model.put("post",new Post());
+		var files = pdfController.getListFiles();
+		model.put("files",files.getBody());
 		return "adminHome";
 	}
 

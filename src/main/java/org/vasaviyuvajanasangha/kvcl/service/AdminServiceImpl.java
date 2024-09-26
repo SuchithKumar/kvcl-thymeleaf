@@ -35,7 +35,7 @@ public class AdminServiceImpl {
 	}
 
 	public void grantAdminAccess(String id) {
-		AppUser user = usersRepo.findById(Long.valueOf(id)).get();
+		AppUser user = usersRepo.findByUsername(id).get();
 		user.setRoles("ADMIN");
 		usersRepo.save(user);
 		

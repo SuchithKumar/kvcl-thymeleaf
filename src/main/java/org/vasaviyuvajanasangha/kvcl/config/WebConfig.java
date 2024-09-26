@@ -47,18 +47,16 @@ public class WebConfig {
 				.requestMatchers("/images/**","/img/**", "/css/**", "/js/**", "/webjars/**", "/favicon.ico", "/login","static/**","/error")
 				.permitAll()
 				.requestMatchers("/squads").hasAnyRole("ADMIN","GODADMIN","USER")
+				.requestMatchers("/files/**").hasAnyRole("ADMIN","GODADMIN","USER")
 				.requestMatchers("/user-home").permitAll()
-				.requestMatchers("/register-user", "/", "/welcome","/about-us","/test").permitAll()
+				.requestMatchers("/register-user", "/", "/welcome","/about-us","/test","/our-sponsors").permitAll()
 				.requestMatchers("/god-admin-home").hasRole("GODADMIN")
 				.requestMatchers("/admin-home").hasRole("ADMIN").requestMatchers("/user-home")
 				.hasAnyRole("GODADMIN","ADMIN", "USER").anyRequest().authenticated())
 				.formLogin(form -> form.loginPage("/login").successHandler(new SuccessHandler()).permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(new LogoutSuccessHandler())
 						.clearAuthentication(true));
-
+		http.headers().frameOptions().sameOrigin();
 		return http.build();
 	}
-
-
-
 }

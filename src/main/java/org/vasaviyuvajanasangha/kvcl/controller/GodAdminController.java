@@ -43,19 +43,21 @@ public class GodAdminController {
 	@GetMapping("/god-admin-home")
 	public String getAllUsers(ModelMap model) {
 		model.put("announcement", announcementsService.getLastAnnouncement());
-		model.put("registered_users",adminService.findAllRegisteredUsers().stream().filter(a-> a.getRoles().contains("USER")).toList());
-		model.put("registered_admins",adminService.findAllRegisteredUsers().stream().filter(a-> a.getRoles().equals("ADMIN")).toList());
-		model.put("super_admins",adminService.findAllRegisteredUsers().stream().filter(a-> a.getRoles().equals("GODADMIN")).toList());
+		var allUsers = adminService.findAllRegisteredUsers();
+//		model.put("registered_users",allUsers.stream().filter(a-> a.getRoles().contains("USER")).toList());
+		model.put("registered_admins",allUsers.stream().filter(a-> a.getRoles().equals("ADMIN")).toList());
+		model.put("super_admins",allUsers.stream().filter(a-> a.getRoles().equals("GODADMIN")).toList());
 
-		var teams = teamServiceImpl.findAllTeams();
-		model.put("registered_teams",teamServiceImpl.findAllTeams());
-		model.put("vasavi_sangha_details", teams.stream().filter(a->a.getVsDetails()!=null).toList());
+//		var teams = teamServiceImpl.findAllTeams();
+//		model.put("registered_teams",teamServiceImpl.findAllTeams());
+//		model.put("vasavi_sangha_details", teams.stream().filter(a->a.getVsDetails()!=null).toList());
+		allUsers=null;
 		return "godAdminHome";
 	}
 		
-	@GetMapping("/grant-admin-access/{id}")
-	public String grantAdminAccess(ModelMap model, @PathVariable String id ) {
-		adminService.grantAdminAccess(id);		
+	@GetMapping("/grant-admin-access")
+	public String grantAdminAccess(ModelMap model, @RequestParam String userId ) {
+		adminService.grantAdminAccess(userId);
 		return "redirect:/godadmin/god-admin-home";
 	}
 	
@@ -103,15 +105,16 @@ public class GodAdminController {
 		 user.setPassword(password);
 		 appUserServiceImpl.saveAppUser(user);
 		 return "redirect:/godadmin/god-admin-home";
-		
 	}
 	
 	@PostMapping("/save-editable")
 	public String saveEditable(@RequestParam("editTeamDetails") Boolean editTeamDetails,
 								@RequestParam("editVasaviMathaDetails") Boolean editVasaviMathaDetails, 
-								@RequestParam("editPaymentDetails") Boolean editPaymentDetails) {
+								@RequestParam("editPaymentDetails") Boolean editPaymentDetails,
+							   @RequestParam("enableFixtures") Boolean enableFixtures,
+							   @RequestParam("enableTies") Boolean enableTies) {
 		 
-		 editableService.save(new Editable(editTeamDetails, editVasaviMathaDetails, editPaymentDetails, true, TeamController.getCurrentUser()));
+		 editableService.save(new Editable(editTeamDetails, editVasaviMathaDetails, editPaymentDetails, true, TeamController.getCurrentUser(),enableFixtures,enableTies));
 		 return "redirect:/godadmin/god-admin-home";
 		
 	}

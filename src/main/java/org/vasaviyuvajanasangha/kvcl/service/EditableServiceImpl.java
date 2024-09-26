@@ -17,7 +17,7 @@ public class EditableServiceImpl {
 	public Editable getLatestUpdate() {
 		Optional<Editable> editable = repo.findTopByOrderByUpdateDateDesc();
 		if(editable.isEmpty()) {
-			repo.save(new Editable(true,true,true,true,"7019393408"));
+			repo.save(new Editable(true,true,true,true,"7019393408",true,true));
 			return repo.findTopByOrderByUpdateDateDesc().get();
 		}
 					

@@ -2,17 +2,9 @@ package org.vasaviyuvajanasangha.kvcl.model;
 
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -65,7 +57,13 @@ public class Team {
 	
 	@Lob
 	private byte[] paymentInfoDB;
-	
+
+	private String sponsor;
+
+	private String sponsorName;
+
+	@Embedded
+	private AccommodationDetails accommodationDetails;
 	
 	@OneToOne(mappedBy = "team",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private VasaviSanghaDetails vsDetails;

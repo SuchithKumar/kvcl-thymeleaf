@@ -1,7 +1,7 @@
 <!doctype html>
-<html 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}">
 </head>
@@ -31,7 +31,7 @@
     			           <img th:src="${profile.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px; height: 250px"  />  
    			              <h4 style="color: black" th:text="${'Player Name : ' + {profile.playerName}}"></h4>  
 			              <h5 style="color: black" th:text="${'Team Name : ' + {profile.teamName}}"></h5>
-			              <p style="color: black;"> Edit Player Info <a class="btn btn-warning" th:href="${'/user/edit-player/'+{profile.playerId}}"><i class="fa fa-edit"></i></a></p>
+			              <p th:if="${editable.editTeamDetails}" style="color: black;"> Edit Player Info <a class="btn btn-warning" th:href="${'/user/edit-player/'+{profile.playerId}}"><i class="fa fa-edit"></i></a></p>
 			            </div>
 			            <div class="col-md-8">
 			              <div class="card-body text-center p-4">
@@ -125,120 +125,132 @@
 	<div class="text-center text-danger" th:if="${profile!=null and profile.teamApproval==false}">
 		<h4>Team details will only be visible after the captain approves you into the Team</h4>
 	</div>
-<!-- 	<div class="text-center justify-content-center">
-		<div th:if="${profile!=null and profile.teamApproval==true and approvedPlayers!=null and !approvedPlayers.isEmpty()}" >
-				<h3 class="text-center" th:text="${ {profile.teamName} + ' players list'}"></h3>				
-				<hr>	
-					<table class="container table table-responsive table-hover">
-						<thead>
-							<tr>
-								<th>Sl No</th>
-								<th>Photo</th>					
-								<th>Player Name</th>
-								<th>Team Name</th>					
-								<th>Father Name</th>
-								<th>Father Contact</th>
-								<th>Mother Name</th>
-								<th>Mother Contact</th>	
-								<th>Address</th>
-								<th>Age</th>
-								<th>Blood Group</th>
-								<th>Gothram</th>
-								<th>Contact</th>
-								<th>Email</th>
-								<th>Profession</th>
-								<th>T Shirt Size</th>
-								<th>Player Skill</th> 
-								<th>Batting Style</th> 
-								<th>Bowling Style</th> 
-							</tr>
-						</thead>
-						</tbody>
-							 <tr th:each="item,stats : ${approvedPlayers}" >
-		 					 	<td th:text=${stats.count}></td>
-							 	<td><img th:src="${item.photoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px;" /></td>
-							 	<td th:text="${item.playerName}"></td>
-						 	 	<td th:text="${item.teamName}"></td>
-							 	<td th:text="${item.fatherName}"></td>
-							 	<td th:text="${item.fatherContact}"></td>
-							 	<td th:text="${item.motherName}"></td>
-							 	<td th:text="${item.motherContact}"></td>
-							 	<td th:text="${item.address}"></td>
-							 	<td th:text="${item.age}"></td>
-							 	<td th:text="${item.bloodGroup}"></td>
-							 	<td th:text="${item.playerGothram}"></td>
-							 	<td th:text="${item.playerPhone}"></td>
-							 	<td th:text="${item.playerEmail}"></td>
-							 	<td th:text="${item.profession}"></td>
-							 	<td th:text="${item.playerShirtSize}"></td>
-							 	<td th:text="${item.playerSkill}"></td>
-							 	<td th:text="${item.battingStyle}"></td>
-							 	<td th:text="${item.bowlingStyle}"></td>	
-							 </tr>
-						</tbody>
-					</table>	
+
+	<div class="container text-center">
+		<div class="text-center">
+			<span class="titles">Post what you feel</span>
 		</div>
-	</div> -->
+		<p>This posts will be visible in <a href="@{/updates}">updates</a> page</p>
+		<form th:action="@{/user/add-post}" th:method="post" th:object="${post}" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{postPhoto}"/>
+			<input type="hidden" th:field="*{postImg}"/>
+			<input type="hidden" th:field="*{postedBy}"/>
+			<input type="hidden" th:field="*{timePosted}"/>
+			<input type="hidden" th:field="*{postedDate}"/>
+			<input type="hidden" th:field="*{id}"/>
+			<input type="hidden" th:field="*{embed}"/>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<input type="text" class="form-control form-control-lg"th:field="*{text}" required="required" />
+				<label class="form-label fs-4" >Enter Content</label>
+			</div>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<input type="file" class="form-control form-control-lg" th:field="*{photo}" accept="image/*"/>
+				<label class="form-label fs-4">Upload an image</label>
+			</div>
+			<button class="btn btn-success" type="submit">Post</button>
+		</form>
+	</div>
 
-<!--	<div th:if="${allteams!=null}">-->
-<!--		<div th:each="allTeam : ${allteams}">-->
+	<div class="text-center">
+		<span class="titles">Below players have handshaked you!</span>
+	</div>
+	<div class="container text-center" th:if="${likedBy!=null && likedBy.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+				<th>Player</th>
+				<th>Team Name</th>
+			</thead>
+			<tbody>
+				<tr th:each="val : ${likedBy}">
+					<td th:text="${val.player}"></td>
+					<td th:text="${val.teamName}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
-<!--				<div class="container-lg text-center" style="margin-bottom: 10px">-->
-<!--					<span class="titles" th:text="${allTeam.name}"></span>-->
-<!--				</div>-->
-<!--				<div class="container-lg text-center" style="margin-bottom: 20px">-->
-<!--				<img th:src="${allTeam.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 350px;" />-->
-<!--				</div>-->
+	<div class="text-center">
+		<span class="titles">You have handshaked below players</span>
+	</div>
+	<div class="container text-center" th:if="${liked!=null && liked.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Player</th>
+			<th>Team Name</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${liked}">
+				<td th:text="${val.player}"></td>
+				<td th:text="${val.teamName}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 
-<!--				<div class="container-lg">-->
-<!--					<div class="row">-->
-<!--						<div th:each="player,stats : ${allTeam.players}" class="col-md-3" style="margin-left: 35px;margin-bottom: 10px;margin-right: 35px">-->
-<!--							<div class="pro-container" >-->
-<!--								<div class="pro-card">-->
-<!--									<div class="pro-side">-->
-<!--										<img th:src="${player.photoImg}"  style="width: 260px; height: 300px">-->
-<!--										<h2 class="text-center" style="font-family: 'Times New Roman', serif;" th:text="${player.playerName}"></h2>-->
-<!--									</div>-->
-<!--									<div class="pro-side pro-back text-center">-->
-<!--										<h2>Player Skill</h2>-->
-<!--										<h3 th:text="${player.playerSkill}"></h3>-->
-<!--										<h2>Batting Style</h2>-->
-<!--										<h3  th:text="${player.battingStyle}"></h3>-->
-<!--										<h2>Bowling Style</h2>-->
-<!--										<h3 th:text="${player.bowlingStyle}"></h3>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
+	<div class="container-lg" th:if="${profile!=null and profile.teamApproval==true}">
+		<div class="text-center">
+			<span class="titles">Download Declaration Form</span>
+		</div>
+		<div class="container-lg" style="font-size:22px">
+			<h3>Instructions&nbsp;:&nbsp;</h3>
+			<ol>
+				<li><p>Print a color hard copy of the declaration form.</p></li>
+				<li><p>The captain needs to answer a few questions related to accommodation on the form.</p></li>
+				<li><p>Share the printed form to your Vasavi Sanga President.</p></li>
+				<li><p>Please read out the invitation and request your president to review the player details.</p></li>
+				<li><p>Please also read the Rules and Regulations and share them with your team.</p></li>
+				<li><p>Both the captain and the president of your Vasavi Sangha must sign the bottom of every page of the form, and the Vasavi Sangha President must also affix the official seal. Additionally, the president needs to sign and place the seal on each player’s photo.</p></li>
+				<li><p>Scan the form and upload it back to our website in your user dashboard (Feature will be added soon..)</p></li>
+				<li><p>Bring the physical Hard copy of the form to tournament inauguration.</p></li>
+			</ol>
+		</div>
+		<div class="text-center">
+			<div class="button"	>
+				<a style="padding:5px 5px" th:href="@{/user/download?lang=ka}">Kannada</a>
+			</div>
+			<div class="button">
+				<a style="padding:5px 5px" th:href="@{/user/download?lang=en}">English</a>
+			</div>
+		</div>
+		<div class="text-center" th:if="${file.url!=null}">
+			<p style="font-size:22px"><strong>Note &nbsp;:&nbsp;</strong> Your captain has uploaded the duly filled Declaration form, Download below:</p>
+			<div class="button">
+				<a style="padding:5px 5px;font-size:22px" th:href="${file.url}">View Submitted Form</a>
+			</div>
+		</div>
+	</div>
 
 
 	<div th:if="${profile!=null and profile.teamApproval==true}">
+		<div class="container-lg text-center">
+
+		</div>
 		<div class="container-lg text-center" style="margin-bottom: 10px">
+			<span class="titles" th:text="${team.sponsorName}"></span>
 			<span class="titles" th:text="${team.name}"></span>
 			<br>
 			<img th:src="@{images/icons/collab.png}" style="width:80px;height:80px">
 			<h3 th:text="${count}"></h3>
 		</div>
 		<div class="container-lg text-center" style="margin-bottom: 120px">
+			<img th:src="${sponsor}" alt="Avatar"  style="width: 300px;height: 300px">
 			<img th:src="${team.logoImg}" alt="Avatar" class="img-fluid my-5" style="width: 250px;" />
 			<p>Click on the photos for more info!</p>
 			<div class="pro-container-captain" >
 				<div class="pro-card">
 					<div class="pro-side">
 						<img th:src="${teamCaptain.photoImg}"  style="width: 260px; height: 400px;border-radius:10px;border:15px solid #0e2238;border-bottom:55px solid #0e2238;border-top:60px solid #0e2238">
-						<img th:if="${teamCaptain.playerSkill == 'Batsmen' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:relative; float:top; bottom:60px; left:-75px">
+						<img th:if="${teamCaptain.playerSkill == 'Batsmen' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/batsmen-2.png}"  style="width: 60px; height: 60px; position:absolute; bottom:-52px;left:0px">
 						<img th:src="@{images/icons/captain.png}" style="width:60px;height:60px;position:absolute;float:top;bottom:290px;left:97px" >
-						<img th:src="@{images/icons/collab.png}" style="width:35px;height:35px;position:relative;float:top;bottom:68px;left:-37px" >
-						<h6 th:text="${teamCaptain.likes}" style="position:relative;bottom:94px;left:-6px;font-size:16px;color:white"></h6>
 
-						<img th:if="${teamCaptain.playerSkill == 'Bowler' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 50px; height: 50px; position:relative; float:top; bottom:153px; left:93px">
+						<img th:src="@{images/icons/collab.png}" style="width:35px;height:35px;position:absolute;bottom:-26px;left:106px" >
+						<h6 th:text="${teamCaptain.likes}" style="position:absolute;bottom:-55px;left:118px;font-size:16px;color:white"></h6>
 
-						<h3 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:160px" th:text="${teamCaptain.playerName}"></h3>
-						<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative; float:top; bottom:175px" th:text="${teamCaptain.profession}"></h5>
+
+						<img th:if="${teamCaptain.playerSkill == 'Bowler' or teamCaptain.playerSkill == 'Allrounder'}" th:src="@{images/icons/bowler.png}"  style="width: 50px; height: 50px; position:absolute; float:top; bottom:-45px; left:200px">
+
+						<h3 class="text-center" style="font-family:'Times New Roman';serif; position:relative;  bottom:10px" th:text="${teamCaptain.playerName}"></h3>
+						<h5 class="text-center" style="font-family:'Times New Roman';serif; position:relative;  bottom:20px" th:text="${teamCaptain.profession}"></h5>
 
 					</div>
 					<div class="pro-side pro-back text-center">

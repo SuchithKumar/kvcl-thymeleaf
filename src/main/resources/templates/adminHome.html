@@ -20,6 +20,43 @@
 	<br>
 	<br>
 	<hr>
+		<h4>Post updates using this form</h4>
+		<form th:action="@{/user/add-post}" th:method="post" th:object="${post}" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{postPhoto}"/>
+			<input type="hidden" th:field="*{postImg}"/>
+			<input type="hidden" th:field="*{postedBy}"/>
+			<input type="hidden" th:field="*{timePosted}"/>
+			<input type="hidden" th:field="*{postedDate}"/>
+			<input type="hidden" th:field="*{id}"/>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<label class="form-label fs-4" >Enter Content</label>
+				<input type="text" class="form-control form-control-lg"th:field="*{text}" required="required" />
+			</div>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<label class="form-label fs-4" >Embed Youtube video</label>
+				<input type="text" class="form-control form-control-lg"th:field="*{embed}" />
+			</div>
+			<div data-mdb-input-init class="form-outline form-white mb-4">
+				<input type="file" class="form-control form-control-lg" th:field="*{photo}" accept="image/*"/>
+				<label class="form-label fs-4">Upload the image</label>
+			</div>
+			<button class="btn btn-success" type="submit">Post</button>
+		</form>
+
+	<br>
+	<br>
+	<hr>
+	<div class="container-lg">
+		<p style="font-size:25px">Download Declaration forms submitted by Teams</p>
+		<div th:each="file,stats : ${files}">
+			<div class="button">
+				<a style="padding:5px 5px;font-size:22px" th:href="${file.url}" th:text="${file.name}"></a>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<hr>
 	<h5>Team wise approved count</h5>	
 	<div th:if="${approvalTable!=null}">
 		<hr>	

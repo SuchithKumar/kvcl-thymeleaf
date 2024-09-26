@@ -11,23 +11,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.vasaviyuvajanasangha.kvcl.model.Editable;
 import org.vasaviyuvajanasangha.kvcl.model.FileEntity;
+import org.vasaviyuvajanasangha.kvcl.model.Post;
 import org.vasaviyuvajanasangha.kvcl.model.Team;
-import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.EditableServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.*;
 
 @Controller
 @SessionAttributes({ "name", "username", "announcement" })
 public class TeamController {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
+
+	@Autowired
+	private LikesService likesService;
 
 	@Autowired
 	private TeamServiceImpl teamServiceImpl;
@@ -44,11 +43,28 @@ public class TeamController {
 	@Autowired
 	private EditableServiceImpl editableServiceImpl;
 
+	@Autowired
+	private ImageService imageService;
+
+	@Autowired
+	private PdfController pdfController;
+
+	@Autowired
+	private PostService postService;
+
 	@GetMapping(path = { "/user-home" })
 	public String userHome(ModelMap model) {
-		model.put("announcement", anServiceImpl.getLastAnnouncement());
-
 		var user = appUserServiceImpl.getUserFromUserName(getCurrentUser());
+		var curPlayer = playerServiceImpl.findPlayerByPhone(getCurrentUser());
+		if(user.isPresent() && !curPlayer.isPresent()){
+			logger.info("logged in user-> {}",user.get().getName());
+		}else{
+			logger.info("logged in user-> {} ({})",user.get().getName(),curPlayer.get().getTeamName());
+		}
+
+		model.put("announcement", anServiceImpl.getLastAnnouncement());
+		model.put("editable",editableServiceImpl.getLatestUpdate());
+
 
 		var teamPre = teamServiceImpl.findTeamByRegisterUser(getCurrentUser());
 		
@@ -58,13 +74,21 @@ public class TeamController {
 			return "redirect:/login";
 		}
 
+		if(user.get().getIsViewer()){
+			model.put("user",user.get());
+			return "viewerHome";
+		}
+
 		if (user.get().getIsCaptain()) {
 			if (teamPre.isEmpty()) {
 				model.put("team", null);
+				model.put("likedBy", null);
+				model.put("liked",null);
 				model.put("vsDetails", null);
 				model.put("paymentDetails", null);
 				
 				model.put("editable", editable);
+				model.put("post",null);
 				return "userHome";
 
 			} else {
@@ -95,25 +119,52 @@ public class TeamController {
 				
 				var player = playerServiceImpl.findPlayerByPhone(getCurrentUser());
 				if(player.isPresent()) {
+					var likes = likesService.fetchWhoLikedMe(player.get().getPlayerId());
+					model.put("likedBy",likes);
+					var liked = likesService.fetchWhomIHaveLikedMe(player.get().getPlayerId());
+					model.put("liked",liked);
 					model.put("profile", player.get());
 				}else {
 					model.put("profile", null);
 				}
 
 				if(captain.isPresent()) {
+					var likes = likesService.fetchWhoLikedMe(player.get().getPlayerId());
+					model.put("likedBy",likes);
+					var liked = likesService.fetchWhomIHaveLikedMe(player.get().getPlayerId());
+					model.put("liked",liked);
 					model.put("teamCaptain", captain.get());
-					var approvedPlayers = team.getPlayers().stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true) && a!=captain.get()).toList();
-					var unApprovedPlayers = team.getPlayers().stream().filter(a->a.getTeamApproval()!=null && a.getTeamApproval().equals(false)).toList();
+					var players = team.getPlayers();
+					var approvedPlayers = players.stream().filter(a-> a.getTeamApproval()!=null && a.getTeamApproval().equals(true) && a!=captain.get()).toList();
+					var unApprovedPlayers = players.stream().filter(a->a.getTeamApproval()!=null && a.getTeamApproval().equals(false)).toList();
 					model.put("approvedPlayers", approvedPlayers);
 					model.put("unApprovedPlayers", unApprovedPlayers);
+					model.put("playersList",players.stream().map(a->a.getPlayerPhone()));
+				}
+				model.put("sponsor",imageService.getImgSponsor(team.getSponsor()));
+
+				var files = pdfController.getListFiles();
+				var file = files.getBody().stream().filter(a->a.getName().contains(team.getName())).findAny();
+
+				if(file.isPresent()) {
+					model.put("file", file.get());
+				}
+				else{
+					model.put("file",null);
 				}
 
 				model.put("editable", editable);
+				model.put("post",new Post());
 				return "userHome";
 			}
 		} else {
 			var player = playerServiceImpl.findPlayerByPhone(getCurrentUser());
+
 			if(player.isPresent()) {
+				var likes = likesService.fetchWhoLikedMe(player.get().getPlayerId());
+				model.put("likedBy",likes);
+				var liked = likesService.fetchWhomIHaveLikedMe(player.get().getPlayerId());
+				model.put("liked",liked);
 				var team = player.get().getTeam();
 				var captain = team.getPlayers().stream().filter(a-> team.getRegisteredUser().equalsIgnoreCase(a.getPlayerPhone())).findAny();
 				int count = team.getPlayers().stream().map(a->a.getLikes()).reduce(0,(a,b)->a+b);
@@ -128,7 +179,21 @@ public class TeamController {
 					model.put("approvedPlayers", approvedPlayers);
 				}
 
+				model.put("sponsor",imageService.getImgSponsor(team.getSponsor()));
+
+				var files = pdfController.getListFiles();
+				var file = files.getBody().stream().filter(a->a.getName().contains(team.getName())).findAny();
+
+				if(file.isPresent()) {
+					model.put("file", file.get());
+				}
+				else{
+					model.put("file",null);
+				}
+
 			}else {
+				model.put("likedBy",null);
+				model.put("liked",null);
 				model.put("team", null);
 				model.put("profile", null);
 			}
@@ -136,6 +201,7 @@ public class TeamController {
 			List<Team> allTeams =  teamServiceImpl.findAllTeams();
 			model.put("allteams", allTeams);
 			model.put("editable", editable);
+			model.put("post",new Post());
 			return "playerHome";
 		}
 
@@ -221,6 +287,29 @@ public class TeamController {
 		}
 		return "redirect:/user-home";
 
+	}
+
+	@PostMapping("/user/reset-password")
+	public String resetPassword(@RequestParam String number, @RequestParam String password){
+		var user = appUserServiceImpl.getUserFromUserName(number).get();
+		user.setPassword(password);
+		appUserServiceImpl.saveAppUser(user);
+		return "redirect:/user-home";
+	}
+
+	@PostMapping("/user/add-post")
+	public String savePost(RedirectAttributes model, Post post, BindingResult results) {
+		logger.debug("post object from form : {}", post);
+
+		if (results.hasErrors()) {
+			model.addFlashAttribute("errors", results.getAllErrors());
+		}
+
+		postService.addPost(post);
+
+		List<Post> posts = postService.retrievePosts();
+		model.addFlashAttribute("posts", posts);
+		return "redirect:/updates";
 	}
 
 	public static String getCurrentUser() {

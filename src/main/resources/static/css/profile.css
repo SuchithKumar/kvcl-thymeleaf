@@ -267,6 +267,19 @@ position: relative;
     text-shadow: 1px 1px #FFA12B, 4px 4px #000000;
 }
 
+.titles-sm{
+position: relative;
+    /* top: 50%; */
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    letter-spacing: 0.1em;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: #FFA26B;
+    text-shadow: 0.5px 0.5px #FFA12B, 2px 2px #000000;
+}
+
 .fancy-wipe {
 	margin: 0;
 	font-weight: 900;
@@ -318,4 +331,24 @@ position: relative;
 	100% {
 		mask-position: 0px 0px;
 	}
+}
+
+.ribbon4 {
+  font-weight: bold;
+  color: #fff;
+}
+.ribbon4 {
+  --s: 0.9em; /* the ribbon size */
+  --d: .8em;  /* the depth */
+  --c: .8em;  /* the cutout part */
+
+  padding: 0 calc(var(--s) + .5em) var(--d);
+  line-height: 1.8;
+  background:
+    conic-gradient(at left  var(--s) bottom var(--d),
+     #0000 25%,#0008 0 37.5%,#0004 0) 0   /50% 100% no-repeat,
+    conic-gradient(at right var(--s) bottom var(--d),
+     #0004 62.5%,#0008 0 75%,#0000 0) 100%/50% 100% no-repeat;
+  clip-path: polygon(0 var(--d), var(--s) var(--d),var(--s) 0,calc(100% - var(--s)) 0,calc(100% - var(--s)) var(--d),100% var(--d),calc(100% - var(--c)) calc(50% + var(--d)/2),100% 100%,calc(100% - var(--s) - var(--d)) 100%,calc(100% - var(--s) - var(--d)) calc(100% - var(--d)),calc(var(--s) + var(--d)) calc(100% - var(--d)),calc(var(--s) + var(--d)) 100%,0 100%,var(--c) calc(50% + var(--d)/2));
+  background-color: #E9CF8B; /* the main color */
 }
