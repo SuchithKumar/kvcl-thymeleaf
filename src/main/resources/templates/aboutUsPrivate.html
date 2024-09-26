@@ -1,0 +1,17 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:insert="~{fragments/layoutFragments :: headFragAboutUs}"></head>
+
+<body class="d-flex flex-column vh-100">
+
+<div th:replace="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+
+<div th:replace="~{fragments/aboutUsFragment :: aboutUsFrag}"></div>
+
+<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
+
+</body>
+</html>

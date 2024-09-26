@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+
+</head>
+<body>
+
+<div th:fragment="aboutUsFrag">
+    <div class="container-lg text-dark">
+        <div>
+            <div class="text-center">
+                <span class="titles" >Karnataka State Vasavi Sports League</span>
+            </div>
+            <div class="text-center">
+                <span class="titles-sm" style="font-size:30px" >State Level Sports Meet</span>
+            </div>
+            <div class="text-center" style="padding-top:20px">
+                <img th:src="@{images/kvsl-logo.jpeg}" style="width:240px;height:240px;border-radius:5%">
+            </div>
+            <div class="text-center">
+                <span class="titles" >Background</span>
+            </div>
+            <div>
+                <p style="font-size:27px;margin-left:30px;margin-right:30px">KVSL is national level sports meet initiated by Vasavi Yuvajana Sangha Malleshwaram with great intention to make. Good platform for sports man in community</p>
+                <p style="font-size:27px;margin-left:30px;margin-right:30px">Team successfully organising this state level and national level events with lot of efforts and support from many sponsors and wellwishers</p>
+                <p style="font-size:27px;margin-left:30px;margin-right:30px">The only intention of the event is Sports for Unity.This event was very well received by all sports man in the state and brought many laurels to the yuvajanasangha Malleshwaram</p>
+                <p style="font-size:27px;margin-left:30px;margin-right:30px">We are looking forward to organise Mega National level sports meet</p>
+                <div class="container-lg row text-center">
+                    <div class="col-md-4">
+                        <p style="font-size:27px;margin-bottom:0px">Rajesh R S</p>
+                        <p style="font-size:24px;margin-bottom:0px">Conveyor KVSL</p>
+                        <p style="font-size:24px;margin-bottom:0px">VYS Malleshwaram</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="font-size:27px;margin-bottom:0px">Nagasharan K V</p>
+                        <p style="font-size:24px;margin-bottom:0px">General secretary</p>
+                        <p style="font-size:24px;margin-bottom:0px">VYS Malleshwaram</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="font-size:27px;margin-bottom:0px">Narendra GP</p>
+                        <p style="font-size:24px;margin-bottom:0px">President</p>
+                        <p style="font-size:24px;margin-bottom:0px">VYS Malleshwaram</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="text-center" style="">
+                <span class="titles" style="color: #81150D;font-size: 50px">SREE CHINNAMMADEVI</span>
+            </div>
+            <div class="text-center" style="color: #81150D;">
+                <span class="titles" style="color: #81150D;font-size: 40px">PHOTO FRAME WORKS</span>
+            </div>
+            <div class="text-center">
+                <span class="titles" >KVCL 2024</span>
+            </div>
+            <div>
+                <p style="font-size:27px;margin-left:30px;margin-right:30px">Welcome to the <strong>10th edition</strong> of the National level <strong>Karnataka Vasavi Cricket League (KVCL)</strong>, a celebration of sportsmanship, community spirit, and the love for cricket! With the motto of <i>‘Sports for unity’</i> <strong>KVCL</strong> has grown into one of the most awaited cricket tournaments among Arya Vysyas and the cricketing community in Karnataka, bringing together talented players, passionate fans, and the wider community for an unforgettable experience.</p>
+                <p style="font-size:27px;margin-left:30px;margin-right:30px"><strong>KVCL</strong> was started with the vision of fostering unity and healthy competition within the Arya Vysya community. From humble beginnings, our league has evolved into a prestigious tournament that showcases the best cricketing talent while upholding the values of unity, integrity, and sportsmanship. Each edition has been a stepping stone towards excellence, with players and teams striving to elevate their game and make their mark on the field.</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <span class="titles" >Organized By</span>
+        </div>
+        <div class="container-lg row">
+            <div class="col-md-4 text-center">
+                <img th:src="@{/images/president-kgnagar.jpeg}" width="200px" height="200px" style="border-radius:15%" />
+                <h5>Sri K. Sreenivas Shetty.</h5><h6>BA, LLB.</h6>
+                <h6>President</h6>
+                <h6>Sri Vasavi Seva Mandali</h6>
+            </div>
+            <div class="col-md-4 text-center">
+
+                <img th:src="@{/images/mahila-mandali-president.png}" width="200px" height="200px" style="border-radius:15%"/>
+                <h5>Smt Vani Ramesh</h5>
+                <h6>President</h6>
+                <h6>Sri Vasavi Mahila Mandali</h6>
+            </div>
+            <div class="col-md-4 text-center">
+                <img th:src="@{/images/yuvajana-president-kgnagar.jpeg}" width="200px" height="200px" style="border-radius:15%"/>
+                <h5>Sri Santosh M.S.</h5><h6> M.Tech</h6>
+                <h6>President</h6>
+                <h6>Sri Vasavi Yuvajana Sangha</h6>
+            </div>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">The Karnataka Vasavi Cricket League is proudly organised by the <strong>Vasavi Yuvajana Sangha, KG Nagar</strong>, with the unwavering support of <strong>Vasavi Seva Mandali</strong> and <strong>Vasavi Mahila Mandali</strong>.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	<strong>The Vasavi Yuvajana Sangha, KG Nagar,</strong> is at the heart of a strong, united Arya Vysya community that takes pride in its heritage and values.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	The Sangha is renowned for celebrating significant events like <strong>Vasavi Jayanti</strong> and <strong>Vasavi Agni Pravesha</strong> with divinity and reverence, ensuring that these traditions are passed down through generations.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	Their commitment to charity and religious activities has been instrumental in uplifting the community, fostering a sense of belonging, and nurturing spiritual growth.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	By organising events that are both culturally enriching and spiritually fulfilling, the Sangha has become a cornerstone of the <strong>Arya Vysya community, promoting unity, service, and devotion.</strong></p>
+        </div>
+        <div class="container-lg">
+            <div class="text-center">
+                <span class="titles">Our Vision</span>
+            </div>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">At the heart of <strong>KVCL</strong> is our mission to promote the <strong>spirit of cricket</strong> while fostering a sense of belonging and pride within the <strong>Vasavi community</strong>.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">This year, our focus is on building a stronger, more united community, reflecting the theme <strong>“United We Stand, Divided We Fall.”</strong></p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px"> We believe that <strong>Cricket</strong> is not just a game but a powerful tool to bring people together, transcending regional and cultural boundaries within our community.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	 To further this mission, we are introducing a <strong>special award</strong> called the <strong>Spirit of Unity</strong>.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	 This award is unique to this year's <strong>KVCL</strong> tournament and will be given to the Team who best exemplifies the values of connection, communication, and camaraderie.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	 The <strong>Spirit of Unity</strong> award honours the Team who goes above and beyond to connect with their <strong>teammates</strong> and <strong>opponents</strong>, fostering <strong>friendships</strong> and <strong>understanding</strong> both on and off the field.</p>
+            <p style="font-size:27px;margin-left:30px;margin-right:30px">	 This recognition emphasizes the importance of <strong>unity</strong> and <strong>teamwork</strong>, reinforcing our commitment to creating a cohesive and harmonious community. Through these initiatives, we aim to cultivate a sense of togetherness that extends beyond the cricket field, nurturing relationships that will <strong>strengthen</strong> the <strong>Vasavi community</strong> as a whole.</p>
+        </div>
+
+        <div class="text-center">
+            <span class="titles" >Awards and Rewards</span>
+        </div>
+        <div class="container" style="font-size:22px">
+            <table class="table table-hover text-center">
+                <tbody>
+                <tr>
+                    <td>Winners</td>
+                    <td>Trophy + Medals + ₹30000</td>
+                </tr>
+                <tr>
+                    <td>Runners</td>
+                    <td>Trophy + Medals + ₹15000</td>
+                </tr>
+                <tr>
+                    <td>Best Bowler</td>
+                    <td>Memento + ₹ 5000</td>
+                </tr>
+                <tr>
+                    <td>Best Batter</td>
+                    <td>Memento + ₹ 5000</td>
+                </tr>
+                <tr>
+                    <td>Best Fielder</td>
+                    <td>Memento + ₹ 5000</td>
+                </tr>
+                <tr>
+                    <td>Most Valued Player of the Tournament</td>
+                    <td>Memento + ₹ 5000</td>
+                </tr>
+                <tr>
+                    <td>Spirit of Unity</td>
+                    <td>Memento + ₹ 7500</td>
+                </tr>
+                <tr>
+                    <td>Man of the Match for each match</td>
+                    <td>Mementos / Medals</td>
+                </tr>
+                <tr>
+                    <td>Participation</td>
+                    <td>Medals / Certificates</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center">
+            <span class="titles" >Website Design Team</span>
+        </div>
+        <div class="container-lg row">
+            <div class="col-md-4 text-center">
+                <img th:src="@{/images/suchith.png}" width="200px" height="200px" style="border-radius:15%" />
+                <h5>Suchith Kumar M</h5><h6>B.E/B.Tech</h6>
+                <h6>Web Developer</h6>
+                <h6>suchith2712@gmail.com</h6>
+            </div>
+            <div class="col-md-4 text-center">
+
+                <img th:src="@{/images/yuvajana-president-kgnagar.jpeg}" width="200px" height="200px" style="border-radius:15%"/>
+                <h5>Santosh M S</h5><h6>M.Tech</h6>
+                <h6>Project Manager</h6>
+                <h6>santoshmscool@gmail.com</h6>
+            </div>
+            <div class="col-md-4 text-center">
+                <img th:src="@{/images/sagar.png}" width="200px" height="200px" style="border-radius:15%"/>
+                <h5>Sagar Bechum</h5><h6>B.E/B.Tech</h6>
+                <h6>Technical Advisor</h6>
+                <h6>sagarbechum@gmail.com</h6>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <span class="titles">Venue details</span>
+        </div>
+        <div class="container=lg">
+            <h2><strong>National College Ground, Basavanagudi</strong><a target="_blank" href="https://maps.app.goo.gl/EDG4SEAH8PHgWSYNA"><i><img th:src="@{/images/icons/location.png}" width="40px" height="40px"></i></a></h2>
+            <h2><strong>Nation College Ground, Jayanagara</strong><a target="_blank" href="https://maps.app.goo.gl/WgdCpRitmwFFJPQ3A"><i><img th:src="@{/images/icons/location.png}" width="40px" height="40px"></i></a></h2>
+            <h2><strong>APS College Ground</strong><a target="_blank" href="https://maps.app.goo.gl/bZnfqUZnkx5w5f7p6"><i><img th:src="@{/images/icons/location.png}" width="40px" height="40px"></i></a></h2>
+        </div>
+
+        <div class="text-center">
+            <span class="titles">Accommodation Details</span>
+        </div>
+        <div class="text-center">
+            <h3><b>Point of Contact : Pavan (+91-9986620091), Murali Krishna (+91-9886134445)</b></h3>
+        </div>
+        <h3><b>Note:</b></h3>
+        <div class="container-lg">
+            <ul>
+                <li><h4><b>For teams opted for accommodation on 26th evening starts from 8 PM onwards</b></h4></li>
+                <li><h4><b>For teams opted for accommodation on 27th can check in at any time during the day.</b></h4></li>
+                <li><h4><b>On 28th, each team is allowed to use only 1 rooms to keep the luggage and must vacate the rest.</b></h4></li>
+                <li><h4><b>Players staying at Ganesh Residency on the 28th must check out and store their luggage at BNS Residency.</b></h4></li>
+                <li><h4><b>We will check and reassign the rooms on 28th evening</b></h4></li>
+            </ul>
+        </div>
+        <div class="text-center">
+        <h2><strong>BNS Lodge</strong><a target="_blank" href="https://maps.app.goo.gl/k5efbvtHe7NGYAbt7"><i><img th:src="@{/images/icons/location.png}" width="40px" height="40px"></i></a></h2>
+        <h3>Paid parking near BNS<a target="_blank" href="https://maps.app.goo.gl/MbaSdNACuXcz97667"><i><img th:src="@{/images/icons/location.png}" width="40px" height="40px"></i></a></h3>
+
+        </div>
+        <div class="container-lg text-center">
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <th>Team Name</th>
+                    <th>No of Rooms Allocated</th>
+                    <th>Check In Instructions</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kovai Cobras</td>
+                        <td>5</td>
+                        <td>26th Night 8PM Onwards</td>
+                    </tr>
+                    <tr>
+                        <td>Kolar Strikers</td>
+                        <td>2</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                    <tr>
+                        <td>Arkeshwara Titans</td>
+                        <td>5</td>
+                        <td>26th Night 8PM Onwards</td>
+                    </tr>
+                    <tr>
+                        <td>Morning Cricketers Tumkur</td>
+                        <td>5</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                    <tr>
+                        <td>Mysore Royals</td>
+                        <td>5</td>
+                        <td>26th Night 8PM Onwards</td>
+                    </tr>
+                    <tr>
+                        <td>MVYS Super Kings</td>
+                        <td>1</td>
+                        <td>26th Night 8PM Onwards</td>
+                    </tr>
+                    <tr>
+                        <td>Maruthi Cricketers</td>
+                        <td>2</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                    <tr>
+                        <td>Royal Tigers Coimbatore</td>
+                        <td>5</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2><strong>Shree Ganesh Regency</strong><a target="_blank" href="https://maps.app.goo.gl/QmE6V9JnuwEUANxp6"><i><img th:src="@{/images/icons/location.png}" width="40px" height="40px"></i></a></h2>
+
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <th>Team Name</th>
+                    <th>No of Rooms Allocated</th>
+                    <th>Check In Instructions</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dindigal Rising Stars</td>
+                        <td>5</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                    <tr>
+                        <td>Jolly Cricketers</td>
+                        <td>5</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                    <tr>
+                        <td>Super Challengers</td>
+                        <td>3</td>
+                        <td>27th check in at anytime</td>
+                    </tr>
+                    <tr>
+                        <td>Sripurma Junction</td>
+                        <td>5</td>
+                        <td>26th Night 8PM onwards</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container-lg">
+            <div class="text-center">
+                <span class="titles">Tournament Rules</span>
+            </div>
+            <div style="font-size:22px">
+                <div>
+                    <h3><strong>General Information</strong></h3>
+                    <ol>
+                        <li><p><strong>Tournament Dates&nbsp;:&nbsp; </strong>The KVCL-2024 Cricket Tournament will take place on September 27th, 28th, and 29th, 2024.</p></li>
+                        <li><p><strong>Eligibility&nbsp;:&nbsp;</strong>All players must belong to the Arya Vysya Community. Any deviation from this rule will result in the entire team being suspended from the tournament for three years. Additionally, this will tarnish the reputation of the regional Vasavi Sanga.</p></li>
+                        <li><p><strong>Participation&nbsp;:&nbsp;</strong>The semi-finalists of the KVCL 9 Tournament will be divided into 4 groups.</p></li>
+                        <li><p><strong>Team Submission&nbsp;:&nbsp;</strong>The names of all eleven players must be filled out, duly signed, and submitted to the organizers 30 minutes before the start of their respective match.</p></li>
+                        <li><p><strong>Dress Code&nbsp;:&nbsp;</strong>Players must adhere to the dress code provided by the tournament organizers. Shorts and slippers are not allowed. Any deviation from this rule will result in a penalty.</p></li>
+                        <li><p><strong>Cricket Ball&nbsp;:&nbsp;</strong>All matches will be played with Wilson 1 tennis ball.</p></li>
+                        <li><p><strong>Cricket Bats&nbsp;:&nbsp;</strong>Teams are responsible for bringing their own cricket bats. Except Srilankan Bats and Fiber bats all wooden bats are allowed.</p></li>
+                        <li><p><strong>Liability&nbsp;:&nbsp;</strong>The organizers are not responsible for any injury or accident that occurs to a player during the entire tournament.</p></li>
+                        <li><p><strong>Attendance&nbsp;:&nbsp;</strong>Teams must be present for all days of the tournament, from the inauguration to the valedictory ceremony. Participation medals/certificates will be issued to all teams only on the last day of the tournament.</p></li>
+                        <li><p><strong>Match Schedule&nbsp;:&nbsp;</strong>There will be no changes or shifts in the match schedule or plan at any given time. All players are requested to adhere to the schedule.</p></li>
+                        <li><p><strong>Team Captain&nbsp;:&nbsp;</strong>The captain of the team cannot be changed at any point during the tournament unless he is injured and unable to play.</p></li>
+                        <li><p><strong>Venue&nbsp;:&nbsp;</strong>The tournament matches will be played at National College Grounds, Shankarapura, Basavangudi, and APS College Grounds, NR Colony, Basavangudi. Spare Ground : National College Grounds, Jayanagar.</p></li>
+                    </ol>
+                </div>
+                <ol>
+                    <li>
+                        <h3><strong>Disciplinary Rules&nbsp;:&nbsp;</strong></h3>
+                        <ul>
+                            <li>
+                                <p>
+                                    Umpire Decision is the final decision and if any player/players get involved in over Argument, Abusive language used, Deliberate Physical contact, Verbal aggression will result in either of the below depending on the situation:
+                                </p>
+                                <ol>
+                                    <li>First Warning or 5 Runs Penalty or Eliminated out of the Tournament</li>
+                                    <li>If any 3 players from a single team are removed for the above reason, the entire team will be eliminated from the tournament</li>
+                                    <li>Additionally, the specific player(s) will be blacklisted from current and future KVCL tournaments. This guideline will be strictly enforced.</li>
+                                </ol>
+                            </li>
+                            <li>
+                                <p>Only one player can be enrolled/play for a team. If a player is seen playing for more than one team, then as a disciplinary action, whole team will be suspended from the tournament</p>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <h3><strong>Key Rules&nbsp;:&nbsp;</strong></h3>
+                        <ul>
+                            <li><p>In KVCL – 2024, 20 Teams will be participating in this League come Knockout tournament</p></li>
+                            <li><p>All the League matches and quarter-finals will be played for 8 Overs per innings, Whereas Semi-finals & Finals will be played for 10 Overs per innings. Each participating team will mandatorily play 3 league matches in this tournament</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Groups & Points System&nbsp;:&nbsp;</strong></h3>
+                        <ul>
+                            <li><p><strong>League Stage&nbsp;:&nbsp;</strong>20 teams will be divided into 5 groups of 4 teams each and Every
+                                team will play 3 league matches against teams within the same Group. The
+                                Fixtures will be shared during the Inauguration. After every league match, the winning
+                                team is awarded 2 points and Top 2 teams from each group will enter Knockouts. If
+                                there is a tie in the number of points at the end of League stage, Tournament Net Run
+                                rate will be considered for getting the Top 2 teams from each group.
+                            </p></li>
+
+<!--                            <li>-->
+<!--                                <p><strong>Knockouts&nbsp;:&nbsp;</strong>The top 2 teams from the 10 qualified teams, based on the most wins and highest Net Run Rate (NRR), will directly advance to the Semi-Finals. The remaining 8 teams will compete in the Quarter-Finals and Pre-Semi Finals for a chance to qualify for the Semi-Finals.</p>-->
+<!--                            </li>-->
+                            <li>
+                                <p><strong>Knockout Stage Structure:</strong></p>
+                                <ol><p><strong>Initial Qualification:</strong></p>
+                                    <li><p><strong>Top 2 Teams:</strong>
+                                        The top 2 teams from the 10 qualified teams will advance directly to the Pre-Semi-Finals.
+                                            These teams are determined based on the most wins and the highest Net Run Rate (NRR).</p></li>
+
+                                    <li><p><strong>Remaining 8 Teams:</strong>
+                                        The remaining 8 teams will compete in the Quarter-Finals.</p></li>
+                                </ol>
+                            </li>
+
+                            <li>
+                                <p><strong>Quarter-Finals:</strong></p>
+                                <ol>
+                                    <li><p><strong>Top 2 Teams from Quarter-Finals:</strong>
+                                         The top 2 teams from the 4 qualified teams in the Quarter-Finals will advance directly to the Semi-Finals.
+                                    </p></li>
+
+                                    <li><p><strong>3rd & 4th Teams from Quarter-Finals:</strong>
+                                        The 3rd and 4th teams will play in the Pre-Semi-Finals against initial qualified 2 teams from league stage</p></li>
+                                </ol>
+                            </li>
+
+                            <li>
+                                <p><strong>Pre-Semi-Finals:</strong></p>
+                                <ol>
+                                    <li><p><strong>Winners of Pre-Semi-Finals:</strong>
+                                        The winners of the Pre-Semi-Finals will advance to the Semi-Finals.
+                                    </p></li>
+                                </ol>
+                            </li>
+
+                            <li>
+                                <p><strong>Semi-Finals:</strong></p>
+                                <ol>
+                                    <li><p><strong>The Semi-Finals will consist of:</strong>
+                                        The top 2 teams from the Quarter-Finals and The winners of the Pre-Semi-Finals
+                                    </p></li>
+                                </ol>
+                            </li>
+
+                            <li>
+                                <p><strong>Summary:</strong>
+                                    <ol>
+                                        <li><p>Top 2 Teams (based on wins and NRR) → Directly to Pre-Semi-Finals</p></li>
+                                        <li><p>Remaining 8 Teams → Compete in Quarter-Finals.</p></li>
+                                        <li><p>Top 2 Teams from Quarter-Finals → Directly to Semi-Finals.</p></li>
+                                        <li><p>3rd & 4th Teams from Quarter-Finals → Play in Pre-Semi-Finals.</p></li>
+                                        <li><p>Winners of Pre-Semi-Finals → Advance to Semi-Finals.</p></li>
+                                        <li><p>Semi-Finals → Consist of the top 2 teams from Quarter-Finals and winners of Pre-Semi-Finals.</p></li>
+                                        <p><strong>This structure ensures that the teams with the best performance get a direct path to the later stages, while still giving other teams a chance to compete and advance through the knockout rounds.</strong></p>
+                                    </ol>
+                                </p>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Power play Rule&nbsp;:&nbsp;</strong></h3>
+                        <ul>
+                            <li><p><strong>For 8 Over Matches:&nbsp;:&nbsp;</strong>During the first 2 overs, maximum of 3 fielders are allowed outside 30 yards’ circle. For the next 6 overs, a maximum of 5 fielders are allowed outside the 30 yards' circle.</p></li>
+                            <li><p><strong>For 10 Over Matches:&nbsp;:&nbsp;</strong>During the first 3 overs, maximum of 3 fielders are allowed outside 30 yards’ circle. For the next 7 overs, a maximum of 5 fielders are allowed outside 30 yards’ circle.</p></li>
+                            <li><p>At any instance, the captain cannot keep more than five fielders (Excluding bowler) on leg side.</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Time Rule&nbsp;:&nbsp;</strong></h3>
+                        <ul>
+                            <li><p>8 Over innings should be completed within 35 minutes from the start time of the play.</p></li>
+                            <li><p>10 Over innings should be completed within 43 minutes from the start time of the play. If the above rule is not followed, only 3 fielders will be allowed outside the circle for remaining overs</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Rain Affected match rule&nbsp;:&nbsp;</strong></h3>
+                        <ul>
+                            <li><p>If any match gets cancelled(Umpires call)due to rain, the result of the match will be decided based on super over</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Only 1 bowler can bowl a maximum of 3 overs in 8 overs & and 2 bowlers can bowl a maximum of 3 overs in 10 overs match.</p>
+                    </li>
+                    <li>
+                        <p>Free Hit is applicable for all kinds of No Balls & field replacements can be changed only if the batsman has crossed over.</p>
+                    </li>
+                    <li>
+                        <p>Only 1 bouncer (below head height) allowed in an over. Subsequent bouncer will be declared as a no ball in the same over.</p>
+                    </li>
+                    <li>
+                        <p>Authority for allowing a runner or a substitute fielder solely rests with the umpire depending on the injury suffered during the match.</p>
+                    </li>
+                    <li>
+                        <p>If the match is tied, it shall be decided upon Super over Basis.</p>
+                    </li>
+                    <li>
+                        <p>If there is a tie in the super over, the winner is typically decided by the highest number of boundaries (6’s & 4’s) scored throughout the match.</p>
+                    </li>
+                    <li>
+                        <p>If the ball is obstructed by a tree or any structure inside the ground, it is considered a ball in play.</p>
+                    </li>
+                    <li>
+                        <p>Throw/ Action bowling can be appealed by the batsman, but the umpire will decide further.</p>
+                    </li>
+                    <li>
+                        <p>There is no Mankad rule in the Tournament.</p>
+                    </li>
+                    <li>
+                        <p>All other International Cricket basic rules must be followed</p>
+                    </li>
+                </ol>
+                <p><strong>Note&nbsp;:&nbsp;</strong>In the event of any discrepancies, the organizers will have the final say.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

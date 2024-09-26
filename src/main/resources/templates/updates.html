@@ -1,0 +1,45 @@
+<!doctype html>
+<html
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}">
+</head>
+
+<body class="d-flex flex-column vh-100">
+
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
+
+
+<div class="vh-100 overflow-auto">
+	<div class="container-lg text-center">
+		<div th:if="${posts==null || posts.size==0}">
+			<h3>This page is dedicated for posting updates</h3>
+		</div>
+		<ul class="card-list m-5" th:each="p,stats : ${posts}" >
+			<li class="card" style="background-color:#E9CF8B;color:#81150D;padding-top:10px;padding-bottom:10px;border-radius:3%">
+				<div class="card-image" th:if="${p.postImg!=null}">
+					<img th:src="${p.postImg}" class="img-fluid my-10" width="80%" height="80%"/>
+				</div>
+				<div class="card-description">
+					<h2><strong th:text="${p.text}"></strong></h2>
+					<h3 th:text="${'Posted By: ' + {p.postedBy}}"></h3>
+					<h4 th:text="${'Posted at: ' + {p.postedDate}}"></h4>
+				</div>
+				<div th:if="${p.embed!=''}">
+					<iframe width="560" height="315" th:src="${p.embed}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div class="text-center">
+					<a style="width:150px" class="btn btn-warning" sec:authorize="hasAnyRole('ADMIN','GODADMIN')" th:href="@{'/updates/delete/'+${p.id}}">Delete</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
+
+</body>
+</html>

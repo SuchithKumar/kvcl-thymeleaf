@@ -1,0 +1,34 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:insert="~{fragments/layoutFragments :: headFrag}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex flex-column vh-100">
+	<div class="wrapper">
+			<div class="main light text-dark text-center">
+				<nav th:replace="~{fragments/layoutFragmentsPrivate  :: navFrag}"></nav>
+				<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
+				
+								<img class="img-fluid" width="100%"
+							th:src="@{images/tournament-announcement.png}" />
+				<img class="img-fluid" width="100%"
+							th:src="@{images/scpfw-kvcl-2024.png}" />
+				
+				<div th:replace="~{fragments/layoutFragments :: teamLogoMarqueeFrag}"></div>
+
+			</div>
+		<div th:replace="~{fragments/sponsorsFragment :: eventSponsorsFrag}"></div>
+		<div th:replace="~{fragments/sponsorsFragment :: titleSponsorsFrag}"></div>
+		<div th:replace="~{fragments/sponsorsFragment :: printingPartnersFrag}"></div>
+		<div th:replace="~{fragments/sponsorsFragment :: coSponsorsFrag}"></div>
+		<div th:replace="~{fragments/sponsorsFragment :: teamSponsorsFrag}"></div>
+		<div th:replace="~{fragments/sponsorsFragment :: miscSponsorsFrag}"></div>
+
+		</div>
+	<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
+</body>
+</html>

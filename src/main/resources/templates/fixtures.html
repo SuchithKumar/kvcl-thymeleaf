@@ -1,0 +1,41 @@
+<!doctype html>
+<html
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}">
+</head>
+
+<body class="d-flex flex-column vh-100">
+
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
+
+
+<div class="vh-100 overflow-auto">
+	<div class="container-lg text-center" th:if="${editable.enableFixtures==false}">
+		<h3>Fixtures to be Announced today! Stay tuned :)</h3>
+	</div>
+	<div class="container-lg text-center" th:if="${editable.enableFixtures==true}">
+		<span class="titles">Fixtures for Sree Chinnammadevi Photo Frameworks KVCL 2024</span>
+	</div>
+	<div class="container-lg text-center" th:if="${editable.enableFixtures==true}">
+		<img th:src="@{images/kvcl-2024-fixtures.png}">
+	</div>
+	<br>
+	<br>
+	<div class="container-lg text-center" th:if="${editable.enableTies==false}">
+		<h3>Ties to be Announced Soon! Stay tuned :)</h3>
+	</div>
+	<div class="container-lg text-center" th:if="${editable.enableTies==true}">
+		<span class="titles">Ties for KVCL 2024</span>
+	</div>
+	<div class="container-lg text-center" th:if="${editable.enableTies==true}">
+		<img th:src="@{images/kvcl-2024-ties.png}">
+	</div>
+</div>
+
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
+</body>
+</html>

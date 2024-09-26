@@ -1,0 +1,31 @@
+<!doctype html>
+<html
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="~{fragments/layoutFragmentsPrivate :: headFragOld}">
+</head>
+
+<body class="d-flex flex-column vh-100">
+
+<div th:insert="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+
+<div th:replace="~{fragments/layoutFragments :: marqueeFrag}"></div>
+
+
+<div class="vh-100 overflow-auto">
+	<div class="container-lg text-center" >
+		<span class="titles" th:text="${'Welcome ' + {user.name}}"></span>
+	</div>
+	<div class="container-lg text-center">
+		<h3>Thanks for completing the registration you can now explore
+			<u><a class="btn btn-primary" th:href="@{/our-sponsors}">Our Sponsors</a></u>,
+			<u><a class="btn btn-primary" th:href="@{/squads}">squads</a></u>,
+			<u><a class="btn btn-primary" th:href="@{/tournament-details}">tournament details</a></u>
+			and much more...</h3>
+	</div>
+</div>
+
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
+</body>
+</html>
