@@ -25,10 +25,17 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PlayerServiceImpl playerService;
 
+    @Autowired
+    private AppUserServiceImpl appUserService;
+
     @Override
     public Post addPost(Post post) {
-        var user = playerService.findPlayerByPhone(TeamController.getCurrentUser()).get();
-        String updatedBy = user.getPlayerName()+" ("+user.getTeamName()+")";
+        var user = appUserService.getUserFromUserName(TeamController.getCurrentUser()).get();
+        String updatedBy = user.getName();
+        var player = playerService.findPlayerByPhone(user.getUsername());
+        if(player.isPresent()){
+            updatedBy += "("+player.get().getTeamName()+")";
+        }
         LocalDateTime time = LocalDateTime.now();
         try {
             if(!post.getPhoto().isEmpty())
