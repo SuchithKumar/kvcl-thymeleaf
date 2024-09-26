@@ -18,10 +18,7 @@ import org.vasaviyuvajanasangha.kvcl.model.*;
 import org.vasaviyuvajanasangha.kvcl.pdf.DemoDocument;
 import org.vasaviyuvajanasangha.kvcl.pdf.upload.service.FilesStorageService;
 import org.vasaviyuvajanasangha.kvcl.repository.LikesRepo;
-import org.vasaviyuvajanasangha.kvcl.service.AppUserServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.ImageService;
-import org.vasaviyuvajanasangha.kvcl.service.PlayerServiceImpl;
-import org.vasaviyuvajanasangha.kvcl.service.TeamServiceImpl;
+import org.vasaviyuvajanasangha.kvcl.service.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -56,6 +53,9 @@ public class PlayerController {
 
 	@Autowired
 	private FilesStorageService storageService;
+
+	@Autowired
+	private YoutubeService youtubeService;
 
 	@GetMapping("/user/add-player")
 	public String addUserToTeam(ModelMap model) {
@@ -243,7 +243,8 @@ public class PlayerController {
 	public ResponseEntity downloadRegistrationForm(@RequestParam(required = false) Optional<String> lang){
 		String playerName = TeamController.getCurrentUser();
 		var player = playerServiceImpl.findPlayerByPhone(playerName);
-		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
+//		Team team = teamServiceImpl.findTeamByName(player.get().getTeamName()).get();
+		Team team = teamServiceImpl.findTeamByName("Aviyuktas").get();
 		String tournament_announcement =  imageService.getImg("tournament-announcement.png");
 		String kannadaThanks = imageService.getImg("kvcl-kannada-thanks.png");
 		String kannadaAnnouncement = imageService.getImg("kvcl-kannada-announcement2.png");
@@ -333,7 +334,7 @@ public class PlayerController {
 		long count = 0;
 		for(Team team : allTeams){
 			count = team.getPlayers().stream().map(a->a.getLikes()).reduce(0,(a,b)->a+b);
-			logger.info("setting team : {}",team.getName());
+//			logger.info("setting team : {}",team.getName());
 			var captain = playerServiceImpl.findPlayerByPhone(team.getRegisteredUser());
 			if(captain.isPresent()) {
 				var approvedPlayers = team.getPlayers().stream().filter(a -> a != captain.get() && a.getTeamApproval() == true).collect(Collectors.toList());
@@ -394,6 +395,8 @@ public class PlayerController {
 			if(!alreadyCollabed.isPresent()){
 				incrementLike(playerId);
 				likesRepo.save(new Likes(playerId,LocalDateTime.now(),currentPlayer,false));
+				var likedP = playerServiceImpl.findPlayerById(playerId);
+				logger.info("{}({}) handshaked {}({})",currentPlayer.getPlayerName(),currentPlayer.getTeamName(),likedP.getPlayerName(),likedP.getTeamName());
 				model.addFlashAttribute("msg","success");
 			}else{
 				var dbCollab = alreadyCollabed.get();
@@ -407,7 +410,8 @@ public class PlayerController {
 			if(!alreadyCollabed.isPresent()){
 				incrementLike(playerId);
 				likesRepo.save(new Likes(playerId,LocalDateTime.now(),currentPlayer,true));
-
+				var likedP = playerServiceImpl.findPlayerById(playerId);
+				logger.info("{}({}) handshaked {}({})",currentPlayer.getPlayerName(),currentPlayer.getTeamName(),likedP.getPlayerName(),likedP.getTeamName());
 				var dbCollab = likedPlayerAlreadyCollabed.get();
 				dbCollab.setAccepted(true);
 				likesRepo.save(dbCollab);
@@ -431,6 +435,22 @@ public class PlayerController {
 		return "redirect:/squads/show-squad?selectedTeamName="+selectedTeamName+"&msg=success";
 	}
 
+	@GetMapping("/user/update-youtube")
+	public String getYoutubeLinks(ModelMap map){
+		if(youtubeService.getLinks().isPresent()){
+			map.put("link",youtubeService.getLinks().get());
+		}
+		else{
+			map.put("link",new YoutubeLinks());
+		}
+		return "youtubeLinks";
+	}
+
+	@PostMapping("/user/update-youtube")
+	public String updateYoutubeLinks(ModelMap map,YoutubeLinks link){
+		youtubeService.saveLinks(link);
+		return "redirect:/fixtures";
+	}
 
 	@PostMapping("/user/upload-pdf")
 	public String uploadPdf(@RequestParam("file") MultipartFile file){

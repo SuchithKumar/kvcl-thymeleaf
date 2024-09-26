@@ -49,7 +49,7 @@ public class WebConfig {
 				.requestMatchers("/squads").hasAnyRole("ADMIN","GODADMIN","USER")
 				.requestMatchers("/files/**").hasAnyRole("ADMIN","GODADMIN","USER")
 				.requestMatchers("/user-home").permitAll()
-				.requestMatchers("/register-user", "/", "/welcome","/about-us","/test","/our-sponsors").permitAll()
+				.requestMatchers("/register-user", "/", "/welcome","/about-us","/test","/our-sponsors","/help").permitAll()
 				.requestMatchers("/god-admin-home").hasRole("GODADMIN")
 				.requestMatchers("/admin-home").hasRole("ADMIN").requestMatchers("/user-home")
 				.hasAnyRole("GODADMIN","ADMIN", "USER").anyRequest().authenticated())

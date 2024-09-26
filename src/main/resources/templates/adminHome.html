@@ -15,6 +15,12 @@
 	<h3>Admin Page</h3>	
 	<hr>
 	<br>
+	<div class="container">
+		<h4>Click on below button to update youtube links</h4>
+		<a class="btn btn-primary" th:href="@{/user/update-youtube}">Update Youtube links</a>
+	</div>
+	<br>
+	<br>
 		<h4>Click on below button to Make an Announcement!!</h4>
 		<a class="btn btn-primary" href="/admin/new-announcement">Make new Announcement</a>
 	<br>
@@ -260,6 +266,81 @@
 			</table>	
 	</div>
 	<br>
+	<br>
+	<div class="text-center">
+		<span class="titles">Team Wise Handshakes Given</span>
+	</div>
+	<div class="container text-center" th:if="${teamWiseHandshakesGiven!=null && teamWiseHandshakesGiven.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Team</th>
+			<th>Count</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${teamWiseHandshakesGiven}">
+				<td th:text="${val.team}"></td>
+				<td th:text="${val.count}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<br>
+
+	<div class="text-center">
+		<span class="titles">Team Wise Handshakes Received</span>
+	</div>
+	<div class="container text-center" th:if="${teamWiseHandshakesTaken!=null && teamWiseHandshakesTaken.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Team</th>
+			<th>Count</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${teamWiseHandshakesTaken}">
+				<td th:text="${val.team}"></td>
+				<td th:text="${val.count}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<br>
+
+	<div class="text-center">
+		<span class="titles">Player Wise Handshakes Given</span>
+	</div>
+	<div class="container text-center" th:if="${playerWiseHandshakesGiven!=null && playerWiseHandshakesGiven.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Player</th>
+			<th>Count</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${playerWiseHandshakesGiven}">
+				<td th:text="${val.player}"></td>
+				<td th:text="${val.count}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<br>
+
+	<div class="text-center">
+		<span class="titles">Player Wise Handshakes Received</span>
+	</div>
+	<div class="container text-center" th:if="${playerWiseHandshakesTaken!=null && playerWiseHandshakesTaken.isEmpty==false}">
+		<table class="table table-sm table-responsive" style="height:200px;overflow-y:auto;">
+			<thead>
+			<th>Player</th>
+			<th>Count</th>
+			</thead>
+			<tbody>
+			<tr th:each="val : ${playerWiseHandshakesTaken}">
+				<td th:text="${val.player}"></td>
+				<td th:text="${val.count}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 	<br>
 </div>
 

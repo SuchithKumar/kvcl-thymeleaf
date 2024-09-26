@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:insert="~{fragments/layoutFragments :: headFrag}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex flex-column vh-100">
+<div class="wrapper">
+	<div class="main light text-dark">
+		<nav th:replace="~{fragments/layoutFragments  :: navFrag}"></nav>
+		<img class="img-fluid" width="100%"
+			 th:src="@{images/tournament-announcement.png}" />
+		<img class="img-fluid" width="100%"
+			 th:src="@{images/scpfw-kvcl-2024.png}" />
+
+
+		<p class="text-dark text-center" style="font-size: 35px;font-weight: bolder;">
+			<span class="titles">Please follow the video below to learn more about the website</span>
+		</p>
+		<div class="text-center">
+			<video width="400px" height="600px"  controls >
+				<source	th:src="@{/images/kvcl-website-help.mp4}"  type="video/mp4">
+			</video>
+		</div>
+		<br>
+		<p class="text-dark text-center" style="font-size: 35px;font-weight: bolder;">
+			<span class="titles">To vote for the Spirit of Unity Award on the website, follow these steps:</span>
+		</p>
+		<div class="container" style="font-size:25px">
+			<ol>
+				<li>Log in as a player.</li>
+				<li>Navigate to the "Squads" page.</li>
+				<li>Select any team by clicking "Show Squad."</li>
+				<li>Once the list of players appears, click on a player's photo. The photo will flip, revealing the back.</li>
+				<li>On the back of the photo, you'll see a handshake icon. Click on it to cast your vote.</li>
+				<li>After voting, the player's and team's handshake count will increase.</li>
+				<li>Individual players vote summary will be available in user dashboard</li>
+			</ol>
+			<p>watch the video below for more info</p>
+			<div class="text-center">
+				<video width="400px" height="600px"  controls >
+					<source	th:src="@{/images/kvcl-website-handshakes.mp4}"  type="video/mp4">
+				</video>
+			</div>
+		</div>
+		<br>
+
+		<div class="text-center">
+			<span class="titles" >Scoring App</span>
+		</div>
+		<div class="container text-center">
+			<img th:src="@{/images/kvcl2024-cricheros.jpeg}" width="300px" height="300px">
+			<h2>you can follow the Tournament <a href="https://cricheroes.in/tournament/1134595/SCPFW-KVCL---2024">SCPFW KVCL - 2024</a> on <a href="https://crichero.es/apps">CricHeroes App.</a></h2>
+			<h3><a href="https://play.google.com/store/apps/details?id=com.cricheroes.cricheroes.alpha&pcampaignid=web_share">Download</a> the app now</h3>
+		</div>
+		<br>
+	</div>
+
+</div>
+<div th:replace="~{fragments/layoutFragments :: footFrag}"></div>
+</body>
+</html>

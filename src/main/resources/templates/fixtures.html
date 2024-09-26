@@ -34,7 +34,101 @@
 	<div class="container-lg text-center" th:if="${editable.enableTies==true}">
 		<img th:src="@{images/kvcl-2024-ties.png}">
 	</div>
+	<br>
+	<div class="text-center">
+		<span class="titles" >Scoring App</span>
+	</div>
+	<div class="container-lg text-center">
+		<img th:src="@{/images/kvcl2024-cricheros.jpeg}" width="600px" height="450px">
+		<h2>You can follow the Tournament <a href="https://cricheroes.in/tournament/1134595/SCPFW-KVCL---2024"class="btn btn-primary">SCPFW KVCL - 2024</a> on <a class="btn btn-primary" href="https://crichero.es/apps">CricHeroes App.</a></h2>
+		<h3><a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.cricheroes.cricheroes.alpha&pcampaignid=web_share">Download</a> the app now</h3>
+	</div>
+	<br>
+
+	<div class="container-lg">
+		<div class="text-center">
+			<span class="titles" >Youtube Live</span>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 text-center">
+				<h3>Day 1</h3>
+				<h5>National Grounds, Basavanagudi</h5>
+				<div th:if="${youtube.day1NCB!=null && youtube.day1NCB!=''}">
+					<iframe width="300" height="250" th:src="${youtube.day1NCB}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div th:if="${youtube.day1NCB==''}">
+					<img width="300" height="250" th:src="@{/images/youtube-image.png}">
+					<h3>coming soon</h3>
+				</div>
+			</div>
+			<div class="col-md-4 text-center">
+				<h3>Day 1</h3>
+				<h5>National Grounds, Jayanagar</h5>
+				<div th:if="${youtube.day1NCJ!=null && youtube.day1NCJ!=''}">
+					<iframe width="300" height="250" th:src="${youtube.day1NCJ}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div th:if="${youtube.day1NCJ==''}">
+					<img width="300" height="250" th:src="@{/images/youtube-image.png}">
+					<h3>coming soon</h3>
+				</div>
+			</div>
+			<div class="col-md-4 text-center">
+				<h3>Day 1</h3>
+				<h5>APS College Grounds</h5>
+				<div th:if="${youtube.day1APS!=null && youtube.day1APS!=''}">
+					<iframe width="300" height="250" th:src="${youtube.day1APS}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div th:if="${youtube.day1APS==''}">
+					<img width="300" height="250" th:src="@{/images/youtube-image.png}">
+					<h3>coming soon</h3>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-6 text-center">
+				<h3>Day 2</h3>
+				<h5>National Grounds, Basavanagudi</h5>
+				<div th:if="${youtube.day2NCB!=null && youtube.day2NCB!=''}">
+					<iframe width="300" height="250" th:src="${youtube.day2NCB}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div th:if="${youtube.day2NCB==''}">
+					<img width="300" height="250" th:src="@{/images/youtube-image.png}">
+					<h3>coming soon</h3>
+				</div>
+			</div>
+			<div class="col-md-6 text-center">
+				<h3>Day 2</h3>
+				<h5>APS College Grounds</h5>
+				<div th:if="${youtube.day2APS!=null && youtube.day2APS!=''}">
+					<iframe width="300" height="250" th:src="${youtube.day2APS}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div th:if="${youtube.day2APS==''}">
+					<img width="300" height="250" th:src="@{/images/youtube-image.png}">
+					<h3>coming soon</h3>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h3>Day 3</h3>
+				<h5>APS College Grounds</h5>
+				<div th:if="${youtube.day3APS!=null && youtube.day3APS!=''}">
+					<iframe width="300" height="250" th:src="${youtube.day3APS}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+				<div th:if="${youtube.day3APS==''}">
+					<img width="300" height="250" th:src="@{/images/youtube-image.png}">
+					<h3>coming soon</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
 </div>
+<br>
 
 <div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
 </body>

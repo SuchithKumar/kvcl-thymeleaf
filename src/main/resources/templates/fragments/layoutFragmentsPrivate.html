@@ -352,6 +352,8 @@ html, body {
 				<li class="nav-item" sec:authorize="hasAnyRole('ADMIN','GODADMIN','USER')" ><a class="nav-link" href="/squads">Squads</a></li>
 				<li class="nav-item"><a class="nav-link" href="/fixtures">Fixtures</a></li>
 				<li class="nav-item"><a class="nav-link" href="/updates">Updates</a></li>
+				<li class="nav-item"><a class="nav-link" href="/help-private">Help</a></li>
+
 				<li class="nav-item" sec:authorize="hasAnyRole('ADMIN','GODADMIN')" ><a class="nav-link" href="/admin/admin-home">Admin Dashboard</a></li>
 				<li class="nav-item" sec:authorize="hasRole('GODADMIN')" ><a class="nav-link" href="/godadmin/god-admin-home">Super Admin Dashboard</a></li>
 			</ul>

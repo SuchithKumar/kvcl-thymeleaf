@@ -61,6 +61,12 @@ public class AdminController {
 		model.put("post",new Post());
 		var files = pdfController.getListFiles();
 		model.put("files",files.getBody());
+
+		model.put("teamWiseHandshakesGiven",likesService.fetchTeamWiseHandshakeGiven());
+		model.put("teamWiseHandshakesTaken",likesService.fetchTeamWiseHandshakeTaken());
+		model.put("playerWiseHandshakesGiven",likesService.fetchPlayerWiseHandshakeGiven());
+		model.put("playerWiseHandshakesTaken",likesService.fetchPlayerWiseHandshakeTaken());
+
 		return "adminHome";
 	}
 

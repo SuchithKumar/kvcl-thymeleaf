@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:insert="~{fragments/layoutFragmentsPrivate :: headFrag}">
+	
+</head>
+
+<body>
+
+<div th:replace="~{fragments/layoutFragmentsPrivate  :: navFrag}" ></div>
+
+
+    <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+			
+			<form th:action="@{/user/update-youtube}" th:method="post" th:object="${link}" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}"/>
+
+                <h2 class="fw-bold mb-2 text-uppercase">Add / update youtube links</h2>
+	              <br>
+	              <div data-mdb-input-init class="form-outline form-white mb-4">
+	                <input type="text" th:field="*{day1NCB}" class="form-control form-control-lg" />
+	                <label class="form-label fs-4">Day 1, National College Basavanagudi</label>
+	              </div>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input type="text" th:field="*{day1NCJ}" class="form-control form-control-lg" />
+                    <label class="form-label fs-4">Day 1, National College Jayanagar</label>
+                </div>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input type="text" th:field="*{day1APS}" class="form-control form-control-lg" />
+                    <label class="form-label fs-4">Day 1, APS College Grounds</label>
+                </div>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input type="text" th:field="*{day2NCB}" class="form-control form-control-lg" />
+                    <label class="form-label fs-4">Day 2, National College Basavanagudi</label>
+                </div>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input type="text" th:field="*{day2APS}" class="form-control form-control-lg" />
+                    <label class="form-label fs-4">Day 2, APS College Grounds</label>
+                </div>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input type="text" th:field="*{day3APS}" class="form-control form-control-lg" />
+                    <label class="form-label fs-4">Day 3, APS College Grounds</label>
+                </div>
+	            <!--   <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
+	
+	              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">update links</button>
+			</form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+<div th:replace="~{fragments/layoutFragmentsPrivate :: footFrag}"></div>
+</div>
+</body>
+</html>

@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.vasaviyuvajanasangha.kvcl.model.YoutubeLinks;
 import org.vasaviyuvajanasangha.kvcl.service.AnnouncementServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.EditableServiceImpl;
 import org.vasaviyuvajanasangha.kvcl.service.PostService;
+import org.vasaviyuvajanasangha.kvcl.service.YoutubeService;
 
 @Controller
 @SessionAttributes("announcement")
@@ -23,7 +25,9 @@ public class LoginWelcomeController {
 
 	@Autowired
 	private PostService postService;
-	
+
+	@Autowired
+	private YoutubeService youtubeService;
 	
 	@GetMapping(path = {"/login"})
 	public String login(ModelMap model) {
@@ -54,6 +58,20 @@ public class LoginWelcomeController {
 		return "ourSponsors";
 	}
 
+	@GetMapping(path = {"/help"})
+	public String help(ModelMap map) {
+		map.put("announcement", anServiceImpl.getLastAnnouncement());
+		map.put("editable", editableService.getLatestUpdate());
+		return "help";
+	}
+
+	@GetMapping(path = {"/help-private"})
+	public String helpPrivate(ModelMap map) {
+		map.put("announcement", anServiceImpl.getLastAnnouncement());
+		map.put("editable", editableService.getLatestUpdate());
+		return "helpPrivate";
+	}
+
 	@GetMapping(path = {"/our-sponsors-private"})
 	public String ourSponsorsPrivate(ModelMap map) {
 		map.put("announcement", anServiceImpl.getLastAnnouncement());
@@ -68,11 +86,23 @@ public class LoginWelcomeController {
 	
 	@GetMapping(path = {"/about-us"})
 	public String aboutUs(ModelMap map) {
+		var links = youtubeService.getLinks();
+		if(links.isPresent()){
+			map.put("youtube",links.get());
+		}else{
+			map.put("youtube",new YoutubeLinks());
+		}
 		return "aboutUs.html";
 	}
 
 	@GetMapping(path = {"/about-us-private"})
 	public String aboutUsPrivate(ModelMap map) {
+		var links = youtubeService.getLinks();
+		if(links.isPresent()){
+			map.put("youtube",links.get());
+		}else{
+			map.put("youtube",new YoutubeLinks());
+		}
 		return "aboutUsPrivate.html";
 	}
 	
@@ -90,6 +120,12 @@ public class LoginWelcomeController {
 
 	@GetMapping(path = {"/fixtures"})
 	public String fixtures(ModelMap map) {
+		var links = youtubeService.getLinks();
+		if(links.isPresent()){
+			map.put("youtube",links.get());
+		}else{
+			map.put("youtube",new YoutubeLinks());
+		}
 		map.put("announcement", anServiceImpl.getLastAnnouncement());
 		map.put("editable", editableService.getLatestUpdate());
 		return "fixtures";

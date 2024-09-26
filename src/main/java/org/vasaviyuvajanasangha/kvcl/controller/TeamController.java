@@ -58,7 +58,7 @@ public class TeamController {
 		var curPlayer = playerServiceImpl.findPlayerByPhone(getCurrentUser());
 		if(user.isPresent() && !curPlayer.isPresent()){
 			logger.info("logged in user-> {}",user.get().getName());
-		}else{
+		}else if(user.isPresent() && curPlayer.isPresent()){
 			logger.info("logged in user-> {} ({})",user.get().getName(),curPlayer.get().getTeamName());
 		}
 
